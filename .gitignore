@@ -1,0 +1,9 @@
+#ignore .metadata
+.svn
+temp_*/
+bin_*/
+.metadata
+*.pro.user
+*~
+Makefile
+
