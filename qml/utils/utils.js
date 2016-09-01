@@ -42,3 +42,74 @@ function getValueFromBrackets(str){
     var end = str.indexOf(']');
     return str.slice(begin, end);
 }
+
+function deepFindEditableItems(root, itemMat){
+    if(root.isEditable){
+        var row;
+        var found = false;
+        var tmpPos0, rootPos, tmpPosj;
+        for(var i = 0, len = itemMat.length; i < len; ++i){
+            row = itemMat[i];
+            tmpPos0 = row[0].screenPos();
+            rootPos = root.screenPos();
+            if(Math.abs(tmpPos0.y - rootPos.y) <= 10){
+                for(var j = 0, rowLen = row.length; j < rowLen; ++j){
+                    tmpPosj = row[j].screenPos();
+                    if(rootPos.x < tmpPosj.x){
+                        row.splice(j, 0, root);
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found){
+                    row.push(root);
+                    found = true;
+                }
+            }else if(rootPos.y < tmpPos0.y){
+                itemMat.splice(i, 0, [root]);
+                found = true;
+            }
+        }
+        if(!found){
+            itemMat.push([root]);
+        }
+        found = false;
+    }
+    var clds = root.children;
+    for(var c = 0, clen = clds.length; c < clen; ++c){
+        deepFindEditableItems(clds[c], itemMat);
+    }
+}
+
+function generatePageKeyNav(root){
+    var ret = [];
+    deepFindEditableItems(root, ret);
+    var row = [];
+    var tryL;
+    for(var i = 0, rowLen = ret.length; i < rowLen; ++i){
+        row = ret[i];
+        for(var j = 0, colLen = row.length; j < colLen; ++j){
+            row[j].navL = row[(j - 1 + row.length) % row.length];
+            row[j].navR = row[(j + 1) % row.length];
+            tryL = (i - 1 + ret.length) % ret.length;
+            while(tryL != i){
+                if(ret[tryL].length > j){
+                    row[j].navU = ret[tryL][j];
+                    break;
+                }
+                tryL = (tryL - 1 + ret.length) % ret.length;
+            };
+            tryL = (i + 1) % ret.length;
+            while(tryL != i){
+                if(ret[tryL].length > j){
+                    row[j].navD = ret[tryL][j];
+                    break;
+                }
+                tryL = (tryL + 1) % ret.length;
+            };
+//            row[j].navU = ret[(i - 1 + ret.length) % ret.length]
+        }
+    }
+
+    return ret;
+}
