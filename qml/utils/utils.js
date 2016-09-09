@@ -110,6 +110,7 @@ function generatePageKeyNav(root){
 //            row[j].navU = ret[(i - 1 + ret.length) % ret.length]
         }
     }
-
+    if(ret.length > 0)
+        ret[0][0].focus = true;
     return ret;
 }
