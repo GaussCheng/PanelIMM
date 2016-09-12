@@ -14,6 +14,7 @@ Rectangle {
     property string bgColor: "white"
     property alias textColor: text.color
     property alias font: text.font
+    property alias pressed: mouseArea.pressed
     signal buttonClicked()
     signal clickedText(string text)
     signal triggered()
@@ -95,6 +96,7 @@ Rectangle {
     }
 
     MouseArea{
+        id:mouseArea
         anchors.fill: parent
         preventStealing: true
         onPressed: {

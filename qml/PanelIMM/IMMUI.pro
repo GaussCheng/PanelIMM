@@ -7,6 +7,11 @@ immcustomitems/*
 
 }
 
+OTHER_FILES += \
+    immcustomitems/ICIMMDetailMenuItem.qml \
+    immcustomitems/ICIMMMenuPageSwicher.qml \
+    immcustomitems/ICIMMFunctionMenuItem.qml
+
 
 
 

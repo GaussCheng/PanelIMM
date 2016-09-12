@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import "style.js" as Style
 import "../ICCustomElement"
+import "immcustomitems"
 
 Rectangle {
     id:instance
@@ -16,16 +17,101 @@ Rectangle {
         anchors.topMargin: Style.touchControlSection.immModeBG.topMargin
         width: sourceSize.width * Style.wRatio
         height: sourceSize.height * Style.hRatio
+        ICButtonGroup{
+            isAutoSize: false
+            anchors.fill: parent
+            layoutMode: 2
+            ICIMMFunctionMenuItem{
+                id:ejector
+                text: qsTr("Ejector")
+
+                y:4 * Style.hRatio
+            }
+
+            ICIMMFunctionMenuItem{
+                id:clampDevice
+                text: qsTr("Clamp\nDevice")
+                y:ejector.y
+                x:mold.x
+            }
+
+            ICIMMFunctionMenuItem{
+                id:extentTemp
+                text: qsTr("Extent\nTemp")
+                y:ejector.y
+                anchors.left: clampDevice.right
+                anchors.leftMargin: 9 * Style.wRatio
+            }
+
+            ICIMMFunctionMenuItem{
+                id:zip
+                text: qsTr("zip")
+                y:ejector.y
+                anchors.left: extentTemp.right
+                anchors.leftMargin: 9 * Style.wRatio
+            }
+
+            ICIMMFunctionMenuItem{
+                id:workReady
+                text: qsTr("Work\nReady")
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            ICIMMFunctionMenuItem{
+                id:mold
+                text: qsTr("mold")
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: workReady.right
+                anchors.leftMargin: 8 * Style.wRatio
+            }
+
+            ICIMMFunctionMenuItem{
+                id:core
+                text: qsTr("Core")
+                y:workReady.y
+                x:extentTemp.x
+            }
+
+            ICIMMFunctionMenuItem{
+                id:opDevice
+                text: qsTr("OP\nDevice")
+                y:workReady.y
+                x:zip.x
+            }
+
+            ICIMMFunctionMenuItem{
+                id:temperature
+                text: qsTr("Temp")
+                y:workReady.y
+                anchors.left: opDevice.right
+                anchors.leftMargin: 24 * Style.wRatio
+            }
+
+            ICIMMFunctionMenuItem{
+                id:inject
+                text: qsTr("Inject")
+                y:workReady.y
+                anchors.left: temperature.right
+                anchors.leftMargin: 12 * Style.wRatio
+            }
+
+            ICIMMFunctionMenuItem{
+                id:nozzle
+                text: qsTr("Nozzle")
+                anchors.top: opDevice.bottom
+                anchors.topMargin: 12 * Style.hRatio
+                x:opDevice.x
+            }
+        }
     }
 
     Grid{
         id: touchKeyboard
         rows: 4
         columns: 4
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.bottomMargin: Style.touchControlSection.touchKeyboard.bottomMargin
-        anchors.rightMargin: Style.touchControlSection.touchKeyboard.rightMargin
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: Style.touchControlSection.touchKeyboard.leftMargin
+        anchors.topMargin: Style.touchControlSection.touchKeyboard.topMargin
         spacing: Style.touchControlSection.touchKeyboard.spacing
         ICButton{
             id:helpBtn
@@ -42,6 +128,8 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_7, "7");
+
         }
         ICButton{
             id:btn8
@@ -50,6 +138,7 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_8, "8");
         }
         ICButton{
             id:btn9
@@ -58,6 +147,7 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_9, "9");
         }
         ICButton{
             id:clkBtn
@@ -66,6 +156,8 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_Backspace, "");
+
         }
         ICButton{
             id:btn4
@@ -74,6 +166,8 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_4, "4");
+
         }
         ICButton{
             id:btn5
@@ -82,6 +176,8 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_5, "5");
+
         }
         ICButton{
             id:btn6
@@ -90,6 +186,7 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_6, "6");
         }
         ICButton{
             id:fnBtn
@@ -106,6 +203,7 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_1, "1");
         }
         ICButton{
             id:btn2
@@ -114,6 +212,7 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_2, "2");
         }
         ICButton{
             id:btn3
@@ -122,6 +221,8 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_3, "3");
+
         }
         ICButton{
             id:printBtn
@@ -138,6 +239,8 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_0, "0");
+
         }
         ICButton{
             id:btnDot
@@ -146,6 +249,7 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_Period, ".");
         }
         ICButton{
             id:btnEnt
@@ -154,6 +258,7 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            onButtonClicked: panelController.posKeyEvent(Qt.Key_Return, "");
         }
     }
 
@@ -230,6 +335,6 @@ Rectangle {
     }
 
     Component.onCompleted: {
-//        console.log(btn0.width);
+        //        console.log(btn0.width);
     }
 }

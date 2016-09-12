@@ -26,10 +26,26 @@ var wRatio = mainWindow.rect.width / realW;
 var hRatio = mainWindow.rect.height/ realH;
 var scaleRatio = usedH / realH;
 
+var monitorSection = {
+    "rect":new Rect(0, 0, mainWindow.rect.width, 217 * hRatio),
+    "bg":"#8D8D8D",
+    "header":{"rect":new Rect(0, 0, mainWindow.rect.width >> 1, 54 * hRatio),
+        "bg":"#858385",
+    },
+}
+
+var detailMenuSection = {
+    "rect":new Rect(0, 0, mainWindow.rect.width, 38 * hRatio),
+    "bg":"#AAA7A7",
+    "menuItem":{"radius":38 * hRatio >> 2, "color":"#3FC3E4", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"white"},
+
+}
+
 var touchControlSection = {
     "bg":"#AAA7A7",
     "rect":new Rect(0, 579, mainWindow.rect.width, 445 * hRatio),
     "immModeBG":{"rightMargin": 4 * wRatio, "topMargin": 2 * hRatio},
-    "touchKeyboard":{"btnSize":47 * scaleRatio, "btnBG":"#CCA0D2", "spacing": 6 * wRatio, "bottomMargin":6 * wRatio, "rightMargin": 6 * wRatio},
+    "touchKeyboard":{"btnSize":47 * scaleRatio, "btnBG":"#CCA0D2", "spacing": 2 * wRatio, "topMargin":4 * wRatio, "leftMargin": 4 * wRatio},
+    "pageMenuKeyboard":{"btnWidth":60 * wRatio, "btnHeight": 50 * hRatio, "btnBG":"#B5D268", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"white"},
     "optionalKeyboard":{"btnSize": 50 * scaleRatio, "labelHeight": 22 * hRatio, "btnSpacing": 2 * wRatio, "groupSpacing": 30 * wRatio, "leftMargin":6 * wRatio},
 };

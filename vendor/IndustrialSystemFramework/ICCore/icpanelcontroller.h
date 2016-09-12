@@ -9,6 +9,8 @@
 #include <QProgressBar>
 #include <QLabel>
 #include <QMouseEvent>
+#include <QKeyEvent>
+#include <QApplication>
 
 #include "iclog.h"
 #include "qtquick1applicationviewer.h"
@@ -126,6 +128,12 @@ public:
     Q_INVOKABLE QString usbDirs() const;
     Q_INVOKABLE QString localUIDirs() const;
     Q_INVOKABLE void setToRunningUIPath(const QString& dirname);
+
+    Q_INVOKABLE void posKeyEvent(int key, const QString& text)
+    {
+        QKeyEvent * e = new QKeyEvent( QEvent::KeyPress, key, Qt::NoModifier, text);
+        qApp->postEvent(qApp->focusWidget(), e);
+    }
 
     void InitMainView();
 
