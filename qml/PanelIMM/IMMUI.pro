@@ -3,14 +3,10 @@ lupdate_only{
 SOURCES = *.qml \
           *.js \
 ../ICCustomElement/* \
-immcustomitems/*
-
+immcustomitems/* \
+settingpages/* \
+monitorpages/*
 }
-
-OTHER_FILES += \
-    immcustomitems/ICIMMDetailMenuItem.qml \
-    immcustomitems/ICIMMMenuPageSwicher.qml \
-    immcustomitems/ICIMMFunctionMenuItem.qml
 
 
 

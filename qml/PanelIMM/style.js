@@ -31,6 +31,10 @@ var monitorSection = {
     "bg":"#8D8D8D",
     "header":{"rect":new Rect(0, 0, mainWindow.rect.width >> 1, 54 * hRatio),
         "bg":"#858385",
+        "normalMonitorSection":{"normalMonitorTitleWidth":110 * wRatio,
+        "normalMonitorTitleBG":"#00AE66",
+        "normalMonitorTitleBorderColor":"#AAA7A7",
+        "normalMonitorTitleFontPixelSize":24 * scaleRatio}
     },
 }
 
@@ -46,6 +50,6 @@ var touchControlSection = {
     "rect":new Rect(0, 579, mainWindow.rect.width, 445 * hRatio),
     "immModeBG":{"rightMargin": 4 * wRatio, "topMargin": 2 * hRatio},
     "touchKeyboard":{"btnSize":47 * scaleRatio, "btnBG":"#CCA0D2", "spacing": 2 * wRatio, "topMargin":4 * wRatio, "leftMargin": 4 * wRatio},
-    "pageMenuKeyboard":{"btnWidth":60 * wRatio, "btnHeight": 50 * hRatio, "btnBG":"#B5D268", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"white"},
+    "pageMenuKeyboard":{"btnWidth":60 * wRatio, "btnHeight": 50 * hRatio, "btnBG":"#B5D268", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"#AAA7A7"},
     "optionalKeyboard":{"btnSize": 50 * scaleRatio, "labelHeight": 22 * hRatio, "btnSpacing": 2 * wRatio, "groupSpacing": 30 * wRatio, "leftMargin":6 * wRatio},
 };

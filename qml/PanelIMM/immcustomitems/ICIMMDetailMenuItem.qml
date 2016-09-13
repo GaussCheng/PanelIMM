@@ -4,6 +4,7 @@ import "../style.js" as Style
 ICButton {
     id:instance
     property bool isChecked: false
+    property string bindingPageComponent: ""
     radius: Style.detailMenuSection.menuItem.radius
     border.width: 0
     onButtonClicked: {

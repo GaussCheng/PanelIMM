@@ -3,6 +3,7 @@ import "../ICCustomElement"
 import "immcustomitems"
 import "../utils/utils.js" as Utils
 import "style.js" as Style
+import "main.js" as PData
 
 Rectangle {
     id:mainWindow
@@ -31,11 +32,27 @@ Rectangle {
             }
             Column{
                 id:normalMonitorSection
+                function showNormalMonitorPage(menuItem){
+                    normalMonitorTitle.text = menuItem.text
+                    PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
+                }
+
                 Rectangle{
                     id:normalMonitorSectionHeader
                     width: Style.monitorSection.header.rect.width
                     height: Style.monitorSection.header.rect.height
                     color: Style.monitorSection.header.bg
+                    ICLabel{
+                        id:normalMonitorTitle
+                        width: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleWidth
+                        height: parent.height
+                        color: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleBG
+                        border.width: 1
+                        border.color: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleBorderColor
+                        font.bold: true
+                        font.pixelSize: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleFontPixelSize
+
+                    }
                 }
                 ICStackContainer{
                     id:normalMonitorPagesContainer
@@ -52,6 +69,11 @@ Rectangle {
         width: detailMenuSection.width
         anchors.top: monitorSection.bottom
         anchors.bottom: detailMenuSection.top
+        ICStackContainer{
+            id:detailPagesContainer
+            width: parent.width
+            height: parent.height
+        }
     }
 
 
@@ -108,6 +130,12 @@ Rectangle {
     ICTouchControlSection{
         id:touchControlSection
         anchors.bottom: parent.bottom
+        onFuncMenuItemTriggered: {
+            normalMonitorSection.showNormalMonitorPage(menuItem);
+        }
+    }
+    Component.onCompleted: {
+        PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer);
     }
 }
 

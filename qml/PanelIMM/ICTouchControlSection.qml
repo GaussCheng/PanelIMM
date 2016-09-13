@@ -8,6 +8,7 @@ Rectangle {
     width: Style.touchControlSection.rect.width
     height: Style.touchControlSection.rect.height
     color: Style.touchControlSection.bg
+    signal funcMenuItemTriggered(variant menuItem)
     Image {
         id: immModeBG
         source: "images/immModeBg.png"
@@ -21,6 +22,10 @@ Rectangle {
             isAutoSize: false
             anchors.fill: parent
             layoutMode: 2
+            onCheckedItemChanged: {
+                funcMenuItemTriggered(checkedItem);
+            }
+
             ICIMMFunctionMenuItem{
                 id:ejector
                 text: qsTr("Ejector")
@@ -55,10 +60,12 @@ Rectangle {
                 id:workReady
                 text: qsTr("Work\nReady")
                 anchors.verticalCenter: parent.verticalCenter
+                bindingPageComponent: "ICWorkReadyFuncPage.qml"
+                monitorComponent: "ICWorkReadyMonitorPage.qml"
             }
             ICIMMFunctionMenuItem{
                 id:mold
-                text: qsTr("mold")
+                text: qsTr("Mold")
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: workReady.right
                 anchors.leftMargin: 8 * Style.wRatio
