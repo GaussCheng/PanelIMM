@@ -48,8 +48,9 @@ var detailMenuSection = {
 var touchControlSection = {
     "bg":"#AAA7A7",
     "rect":new Rect(0, 579, mainWindow.rect.width, 445 * hRatio),
-    "immModeBG":{"rightMargin": 4 * wRatio, "topMargin": 2 * hRatio},
+    "immModeBG":{"rightMargin": 2 * wRatio, "topMargin": 2 * hRatio},
     "touchKeyboard":{"btnSize":47 * scaleRatio, "btnBG":"#CCA0D2", "spacing": 2 * wRatio, "topMargin":4 * wRatio, "leftMargin": 4 * wRatio},
+    "touchNavKeyboard":{"btnSize":43 * scaleRatio},
     "pageMenuKeyboard":{"btnWidth":60 * wRatio, "btnHeight": 50 * hRatio, "btnBG":"#B5D268", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"#AAA7A7"},
     "optionalKeyboard":{"btnSize": 50 * scaleRatio, "labelHeight": 22 * hRatio, "btnSpacing": 2 * wRatio, "groupSpacing": 30 * wRatio, "leftMargin":6 * wRatio},
 };

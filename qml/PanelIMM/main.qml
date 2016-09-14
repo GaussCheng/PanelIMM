@@ -35,6 +35,7 @@ Rectangle {
                 function showNormalMonitorPage(menuItem){
                     normalMonitorTitle.text = menuItem.text
                     PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
+                    PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
                 }
 
                 Rectangle{
@@ -136,6 +137,7 @@ Rectangle {
     }
     Component.onCompleted: {
         PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer);
+        PData.convenientMonitorManager.init(convenientMonitorPagesContainer);
     }
 }
 

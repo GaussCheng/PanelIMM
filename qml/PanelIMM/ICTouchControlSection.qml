@@ -59,14 +59,16 @@ Rectangle {
             ICIMMFunctionMenuItem{
                 id:workReady
                 text: qsTr("Work\nReady")
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.top: ejector.bottom
+                anchors.topMargin: 12 * Style.hRatio
+                //                anchors.verticalCenter: parent.verticalCenter
                 bindingPageComponent: "ICWorkReadyFuncPage.qml"
                 monitorComponent: "ICWorkReadyMonitorPage.qml"
             }
             ICIMMFunctionMenuItem{
                 id:mold
                 text: qsTr("Mold")
-                anchors.verticalCenter: parent.verticalCenter
+                y: workReady.y
                 anchors.left: workReady.right
                 anchors.leftMargin: 8 * Style.wRatio
             }
@@ -266,6 +268,69 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_Return, "");
+        }
+    }
+
+    Item{
+        id:touchNavKeyboard
+        width: navLeft.width + navRight.width + navRight.anchors.leftMargin
+        height: navUp.height + navDown.height + (navLeft.anchors.topMargin << 1) + navLeft.height
+        anchors.verticalCenter: touchKeyboard.verticalCenter
+        anchors.left: touchKeyboard.right
+        anchors.leftMargin: 8 * Style.wRatio
+
+        Image {
+            id: navUp
+            source: "images/nav-Up.png"
+            width: sourceSize.width * Style.wRatio
+            height: sourceSize.height * Style.hRatio
+            anchors.horizontalCenter: parent.horizontalCenter
+            smooth: true
+        }
+
+        Image{
+            id:navLeft
+            source: "images/nav-Left.png"
+            width: sourceSize.width * Style.wRatio
+            height: sourceSize.height * Style.hRatio
+            smooth: true
+            anchors.top: navUp.bottom
+            anchors.topMargin: 20 * Style.hRatio
+
+        }
+        Image{
+            id:navRight
+            source: "images/nav-Right.png"
+            width: sourceSize.width * Style.wRatio
+            height: sourceSize.height * Style.hRatio
+            smooth: true
+            y:navLeft.y
+            anchors.left: navLeft.right
+            anchors.leftMargin: 24 * Style.wRatio
+        }
+
+        Image {
+            id: navDown
+            source: "images/nav-Down.png"
+            width: sourceSize.width * Style.wRatio
+            height: sourceSize.height * Style.hRatio
+            anchors.horizontalCenter: parent.horizontalCenter
+            smooth: true
+            anchors.top: navLeft.bottom
+            anchors.topMargin: navLeft.anchors.topMargin
+        }
+
+        MouseArea{
+            anchors.fill: parent
+            function pointsInItem(item, mX, mY){
+                var dx = mX - item.x;
+                var dy = mY - item.y;
+                return (dx >= 0 && dx <= item.width) && (dy >=0 && dy <= item.height);
+            }
+
+            onClicked: {
+
+            }
         }
     }
 

@@ -1,8 +1,21 @@
 .pragma library
 
+function showPageHelper(container, pageMap, component, prefix){
+    if(!pageMap.hasOwnProperty(component)){
+        var comp = Qt.createComponent(prefix + component);
+        if(comp.status == 3 /*Component.Error*/){
+            console.log(comp.errorString());
+            return;
+        }
+        var co = comp.createObject(container);
+        pageMap[component] = container.addPage(co);
+    }
+    container.setCurrentIndex(pageMap[component]);
+}
 
 function FuncPageManager(){
     this.normalMonitorSectionCreatedPages = {};
+    this.createdDetailPages = {};
     this.normalMonitorPagesContainer = null;
     this.detailPagesContainer = null;
     this.init = function(normalMonitorPagesContainer, detailPagesContainer){
@@ -10,18 +23,30 @@ function FuncPageManager(){
         this.detailPagesContainer = detailPagesContainer;
     };
     this.showNormalMonitorPage = function(component){
-        if(!this.normalMonitorSectionCreatedPages.hasOwnProperty(component)){
-            var comp = Qt.createComponent("monitorpages/" + component);
-            if(comp.status == 3 /*Component.Error*/){
-                console.log(comp.errorString());
-                return;
-            }
-
-            var co = comp.createObject(this.normalMonitorPagesContainer);
-            this.normalMonitorSectionCreatedPages[component] = this.normalMonitorPagesContainer.addPage(co);
-        }
-        this.normalMonitorPagesContainer.setCurrentIndex(this.normalMonitorSectionCreatedPages[component]);
+        showPageHelper(this.normalMonitorPagesContainer,
+                       this.normalMonitorSectionCreatedPages,
+                       component, "monitorpages/");
+    };
+    this.showDetailPage = function(component){
+        showPageHelper(this.detailPagesContainer, this.createdDetailPages,
+                       component, "settingpages/");
     }
 }
 
+function ConvenientMonitorManager(){
+    this.pageMap = {};
+    this.pageContainer = null;
+    this.init = function(container){
+      this.pageContainer = container;
+    };
+    this.showMonitor = function(component){
+        showPageHelper(this.pageContainer,
+                       this.pageMap,
+                       component, "monitorpages/");
+    }
+}
+
+
+
 var funcPageManager = new FuncPageManager();
+var convenientMonitorManager = new ConvenientMonitorManager();

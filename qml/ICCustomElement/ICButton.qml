@@ -48,6 +48,7 @@ Rectangle {
     Image {
         id: icon
         fillMode: Image.Stretch
+
         onProgressChanged: {
             if(progress == 1.0){
                 if(source === "")
