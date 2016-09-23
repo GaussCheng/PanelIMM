@@ -52,6 +52,7 @@ ICSplashScreen::ICSplashScreen(const QPixmap &pixmap, const QString &swVersion, 
             SIGNAL(messageChanged(QString)),
             this,
             SLOT(OnMessageChanged(QString)));
+
 }
 
 void ICSplashScreen::OnMessageChanged(const QString &message)
@@ -80,6 +81,9 @@ ICPanelController::ICPanelController(QSplashScreen *splash, ICLog* logger, QObje
             splash,
             SLOT(showMessage(QString)));
     emit LoadMessage("Start");
+//    connect(qApp,
+//            SIGNAL(focusChanged(QWidget*,QWidget*)),
+//            SIGNAL(focusChanged(QWidget*,QWidget*)));
 }
 
 ICPanelController::~ICPanelController()

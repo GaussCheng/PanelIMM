@@ -10,6 +10,7 @@ ICEditableItemBase{
     property double min : 0
     property double max: 4000000000
     property int decimal: 0
+    tip: min + "-->" + max
 
     width: 100
     height: 24

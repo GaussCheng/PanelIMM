@@ -3,6 +3,7 @@ import QtQuick 1.1
 Rectangle {
     property string form: ""
     property int second: 0
+    property alias font: time.font
     signal hourGone()
     signal minuteGone()
     Timer {

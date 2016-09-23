@@ -34,14 +34,15 @@ var monitorSection = {
         "normalMonitorSection":{"normalMonitorTitleWidth":110 * wRatio,
         "normalMonitorTitleBG":"#00AE66",
         "normalMonitorTitleBorderColor":"#AAA7A7",
-        "normalMonitorTitleFontPixelSize":24 * scaleRatio}
+        "normalMonitorTitleFontPixelSize":24 * scaleRatio},
+        "convenientMonitorSection":{"time":{"font":{"pixelSize":16 * scaleRatio}}}
     },
 }
 
 var detailMenuSection = {
     "rect":new Rect(0, 0, mainWindow.rect.width, 38 * hRatio),
     "bg":"#AAA7A7",
-    "menuItem":{"radius":38 * hRatio >> 2, "color":"#3FC3E4", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"white"},
+    "menuItem":{"radius":38 * hRatio >> 2, "color":"#3FC3E4", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"white", "font":{"pixelSize":14 * scaleRatio}},
 
 }
 

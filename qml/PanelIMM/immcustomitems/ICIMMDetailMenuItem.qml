@@ -7,6 +7,7 @@ ICButton {
     property string bindingPageComponent: ""
     radius: Style.detailMenuSection.menuItem.radius
     border.width: 0
+    text: ""
     onButtonClicked: {
         isChecked = !isChecked;
     }

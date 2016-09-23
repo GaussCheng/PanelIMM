@@ -11,6 +11,7 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QApplication>
+#include <QDebug>
 
 #include "iclog.h"
 #include "qtquick1applicationviewer.h"
@@ -151,6 +152,7 @@ signals:
     void screenSave();
     void screenRestore();
     void LoadMessage(const QString&);
+//    void focusChanged(QWidget *old, QWidget* now);
 
 public slots:
 

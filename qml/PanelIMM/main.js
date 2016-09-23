@@ -9,8 +9,10 @@ function showPageHelper(container, pageMap, component, prefix){
         }
         var co = comp.createObject(container);
         pageMap[component] = container.addPage(co);
+
     }
     container.setCurrentIndex(pageMap[component]);
+    return container.currentPage();
 }
 
 function FuncPageManager(){
@@ -28,8 +30,10 @@ function FuncPageManager(){
                        component, "monitorpages/");
     };
     this.showDetailPage = function(component){
-        showPageHelper(this.detailPagesContainer, this.createdDetailPages,
+        var page = showPageHelper(this.detailPagesContainer, this.createdDetailPages,
                        component, "settingpages/");
+
+        return page;
     }
 }
 

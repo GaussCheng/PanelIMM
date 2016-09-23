@@ -92,7 +92,7 @@ Rectangle {
                 text: qsTr("Temp")
                 y:workReady.y
                 anchors.left: opDevice.right
-                anchors.leftMargin: 24 * Style.wRatio
+                anchors.leftMargin: 20 * Style.wRatio
             }
 
             ICIMMFunctionMenuItem{
@@ -329,7 +329,14 @@ Rectangle {
             }
 
             onClicked: {
-
+                if(pointsInItem(navUp, mouseX, mouseY))
+                    panelController.posKeyEvent(Qt.Key_Up,"");
+                else if(pointsInItem(navDown, mouseX, mouseY))
+                    panelController.posKeyEvent(Qt.Key_Down, "");
+                else if(pointsInItem(navLeft, mouseX, mouseY))
+                    panelController.posKeyEvent(Qt.Key_Left, "");
+                else if(pointsInItem(navRight, mouseX, mouseY))
+                    panelController.posKeyEvent(Qt.Key_Right, "");
             }
         }
     }
