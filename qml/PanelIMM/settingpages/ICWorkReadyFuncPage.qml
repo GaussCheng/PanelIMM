@@ -16,6 +16,10 @@ ICStackContainer {
     }
 
     ICSettingPageBase{
+        onEditorFocusChanged: {
+            console.log("focus Changed")
+        }
+
         Row{
             ICLineEdit{
 

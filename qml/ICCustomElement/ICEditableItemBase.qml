@@ -20,6 +20,11 @@ Rectangle {
 
     signal focused(variant me)
 
+    onFocusChanged: {
+        if(focus)
+            focused(instance);
+    }
+
     Keys.onUpPressed: navHelper(navU)
     Keys.onDownPressed: navHelper(navD)
     Keys.onLeftPressed: navHelper(navL)

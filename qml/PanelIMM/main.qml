@@ -182,6 +182,7 @@ Rectangle {
 
         ICButtonGroup{
             spacing: 1
+            mustChecked: true
             onButtonClickedID: {
                 var p  = detailPagesContainer.currentPage();
                 if(p.hasOwnProperty("onF" + (index + 1) + "Triggered"))
@@ -259,7 +260,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
-        PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer);
+        PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer, mainWindow);
         PData.convenientMonitorManager.init(convenientMonitorPagesContainer);
     }
 }
