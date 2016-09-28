@@ -10,7 +10,7 @@ function showPageHelper(container, pageMap, component, prefix, newFun){
         var co = comp.createObject(container);
         pageMap[component] = container.addPage(co);
         if(newFun){
-            newFun();
+            newFun(co);
         }
     }
     container.setCurrentIndex(pageMap[component]);
@@ -22,11 +22,13 @@ function FuncPageManager(){
     this.createdDetailPages = {};
     this.normalMonitorPagesContainer = null;
     this.detailPagesContainer = null;
-    this.mainWindow = null
+    this.mainWindow = null;
+    var gMW;
     this.init = function(normalMonitorPagesContainer, detailPagesContainer, mainWindow){
         this.normalMonitorPagesContainer = normalMonitorPagesContainer;
         this.detailPagesContainer = detailPagesContainer;
         this.mainWindow = mainWindow;
+        gMW = mainWindow;
     };
     this.showNormalMonitorPage = function(component){
         showPageHelper(this.normalMonitorPagesContainer,
@@ -35,8 +37,10 @@ function FuncPageManager(){
     };
     this.showDetailPage = function(component){
         var page = showPageHelper(this.detailPagesContainer, this.createdDetailPages,
-                       component, "settingpages/", function(){
-
+                       component, "settingpages/", function(p){
+                           p.editorFocusChanged.connect(function(now){
+                               gMW.changeTip(now.tip);
+                           });
                        });
 
         return page;

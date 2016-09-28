@@ -10,6 +10,10 @@ Rectangle {
     width: Style.mainWindow.rect.width
     height: Style.mainWindow.rect.height
 
+    function changeTip(tip){
+        range.text = tip;
+    }
+
     Rectangle{
         id:monitorSection
         width: Style.monitorSection.rect.width
@@ -82,6 +86,7 @@ Rectangle {
                         anchors.left: normalMonitorTitle.right
                         rows: 2
                         columns: 2
+                        width: parent.width - normalMonitorTitle.width
                         ICLabel{
                             text: qsTr("Mold")
                             height: moldName.height
@@ -94,15 +99,18 @@ Rectangle {
                             color: Style.monitorSection.header.bg
                         }
                         ICLabel{
+                            id:rangeTitle
                             text: qsTr("Range")
                             height: moldName.height
                             color: Style.monitorSection.header.bg
+
                         }
                         ICLabel{
                             id:range
                             text: "1 - 20"
                             height: moldName.height
                             color: Style.monitorSection.header.bg
+                            width: parent.width -  rangeTitle.width
                         }
                     }
                 }

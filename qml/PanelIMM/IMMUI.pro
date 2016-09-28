@@ -8,6 +8,9 @@ settingpages/* \
 monitorpages/*
 }
 
+OTHER_FILES += \
+    immcustomitems/ICIMMFunctionPageBase.qml
+
 
 
 

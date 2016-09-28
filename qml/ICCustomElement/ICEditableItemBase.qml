@@ -11,7 +11,7 @@ Rectangle {
     function navHelper(which){
         if(which != null){
             which.focus = true;
-            focused(instance);
+            focused(which);
         }
     }
     function screenPos(){

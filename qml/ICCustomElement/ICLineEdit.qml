@@ -10,7 +10,7 @@ ICEditableItemBase{
     property double min : 0
     property double max: 4000000000
     property int decimal: 0
-    tip: min + "-->" + max
+    tip: min.toFixed(decimal) + "-->" + max.toFixed(decimal)
 
     width: 100
     height: 24
@@ -73,7 +73,12 @@ ICEditableItemBase{
 
     }
     onEditFinished: {
-        lineEdit.text = parseFloat(lineEdit.text).toFixed(decimal);
+        if(isNumberOnly){
+            var v = parseFloat(lineEdit.text);
+            if(v < min) v = min;
+            if(v > max) v = max;
+            lineEdit.text = parseFloat(v).toFixed(decimal);
+        }
     }
 
     MouseArea{
@@ -105,7 +110,7 @@ ICEditableItemBase{
             var re = new RegExp(lineEdit.regExp);
             if(!re.test(t)) return;
             var vt = parseFloat(t);
-            if(vt < min || vt > max) return;
+            if(vt > max) return;
         }
         lineEdit.text = t;
         lineEdit.selectAll = false;

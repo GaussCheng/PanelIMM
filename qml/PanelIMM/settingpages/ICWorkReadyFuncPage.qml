@@ -1,8 +1,8 @@
 import QtQuick 1.1
 import "../../ICCustomElement"
 import "../immcustomitems"
-ICStackContainer {
-
+ICIMMFunctionPageBase {
+    id:instance
     property variant detailsMenuItems: {
         "f6":qsTr("Temp"),
                 "f7":qsTr("Tune Mold"),
@@ -16,20 +16,32 @@ ICStackContainer {
     }
 
     ICSettingPageBase{
+        id:workReadyPage1
         onEditorFocusChanged: {
-            console.log("focus Changed")
+            instance.editorFocusChanged(now);
         }
 
         Row{
             ICLineEdit{
+                min: 10
+                max: 100
+                decimal: 0
 
             }
             ICLineEdit{
-
+                min: 10
+                max: 1000
+                decimal: 1
             }
             ICLineEdit{
-
+                min: 10
+                max: 10000000
+                decimal: 2
             }
         }
+    }
+    Component.onCompleted: {
+        addPage(workReadyPage1)
+        setCurrentIndex(0)
     }
 }
