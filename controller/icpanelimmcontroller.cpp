@@ -4,7 +4,10 @@
 #include <QMessageBox>
 #include <QDebug>
 
+
+#include "icdalhelper.h"
 #include "icappsettings.h"
+#include "icrobotmold.h"
 
 ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger, QObject *parent) :
     ICPanelController(splash, logger, parent)
@@ -82,4 +85,17 @@ bool ICPanelIMMController::LoadTranslator_(const QString &name)
 //        panelRoboTranslator_.load(":/PanelRobot_en_US.qm");
     InitMainView();
     return true;
+}
+
+QString ICPanelIMMController::records() const
+{
+    QString content;
+    ICRecordInfos infos = ICMoldBase::RecordInfos();
+    for(int i = 0; i != infos.size(); ++i )
+    {
+        content += infos.at(i).toJSON() + ",";
+    }
+    content.chop(1);
+    QString ret = QString("[%1]").arg(content);
+    return ret;
 }

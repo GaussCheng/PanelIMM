@@ -55,3 +55,7 @@ var touchControlSection = {
     "pageMenuKeyboard":{"btnWidth":60 * wRatio, "btnHeight": 50 * hRatio, "btnBG":"#B5D268", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"#AAA7A7"},
     "optionalKeyboard":{"btnSize": 50 * scaleRatio, "labelHeight": 22 * hRatio, "btnSpacing": 2 * wRatio, "groupSpacing": 30 * wRatio, "leftMargin":6 * wRatio},
 };
+
+var recordManagementPage = {
+    "bg" : "white"
+}

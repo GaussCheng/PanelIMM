@@ -6,9 +6,9 @@ Item {
     property alias configAddr: edit.bindConfig
     property alias unit: edit.unit
     property alias configValue: edit.text
-    property alias alignMode: edit.alignMode
+    property alias alignMode: edit.horizontalAlignment
     property alias configNameWidth: configName.width
-    property alias inputWidth: edit.inputWidth
+    property alias inputWidth: edit.width
     property alias isNumberOnly: edit.isNumberOnly
     property alias min: edit.min
     property alias max: edit.max

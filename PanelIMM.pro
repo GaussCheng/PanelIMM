@@ -47,6 +47,7 @@ include(vendor/IndustrialSystemFramework/ICUtility/ICUtility.pri)
 include(vendor/IndustrialSystemFramework/QJson/QJson.pri)
 include(controller/controller.pri)
 include(common/common.pri)
+include(datamanerger/datamanerger.pri)
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp
 

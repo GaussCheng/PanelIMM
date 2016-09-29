@@ -1,4 +1,5 @@
 import QtQuick 1.1
+import "."
 import "../ICCustomElement"
 import "immcustomitems"
 import "../utils/utils.js" as Utils
@@ -97,6 +98,12 @@ Rectangle {
                             text: "mold name"
                             height: normalMonitorTitle.height >> 1
                             color: Style.monitorSection.header.bg
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: {
+
+                                }
+                            }
                         }
                         ICLabel{
                             id:rangeTitle
@@ -265,6 +272,10 @@ Rectangle {
 
 
         }
+    }
+    RecordManagementPage{
+        width: parent.width
+        height: parent.height >> 1
     }
 
     Component.onCompleted: {

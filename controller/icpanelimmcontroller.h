@@ -9,6 +9,8 @@ public:
     explicit ICPanelIMMController(QSplashScreen* splash, ICLog* logger = NULL, QObject *parent = 0);
     void Init();
 
+    Q_INVOKABLE QString records() const;
+
 signals:
 
 public slots:
