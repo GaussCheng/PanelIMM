@@ -6,6 +6,7 @@ import "../utils/stringhelper.js" as ICString
 import "../ICCustomElement"
 import "ICOperationLog.js" as ICOperationLog
 import "style.js" as Style
+import "configs/ConfigDefines.js" as ConfigDefines
 
 
 Rectangle {
@@ -303,8 +304,7 @@ Rectangle {
                 onButtonClicked: {
                     if(operationContainer.inputerr(newName.text))
                         return;
-                    var ret = JSON.parse(panelController.newRecord(newName.text,
-                                                                        Teach.generateInitProgram(), Teach.generateInitSubPrograms()));
+                    var ret = JSON.parse(panelController.newRecord(newName.text, JSON.stringify(ConfigDefines.fncDefaultValues)));
                     if(!ret.errno){
                         recordsModel.insert(0, recordsView.createRecordItem(ret.recordName, ret.createDatetime));
                         recordsView.positionViewAtBeginning();

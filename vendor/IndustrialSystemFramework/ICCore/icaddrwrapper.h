@@ -70,6 +70,27 @@ public:
 #ifdef Q_OS_WIN
         return addrStringToAddrMap_->value(str, NULL);
 #else
+        if(!addrStringToAddrMap_.contains(str))
+        {
+            QStringList items = str.split("_");
+            if(items.size() != 6) return NULL;
+            int type = kICAddrTypeNoUse;
+            if(items.at(0) == "c")
+                type = kICAddrTypeCrafts;
+            else if(items.at(0) == "m")
+                type = kICAddrTypeMold;
+            else if(items.at(0) == "s")
+                type = kICAddrTypeSystem;
+            int perm = kICAddrPermissionNone;
+            if(items.at(1) == "ro")
+                perm = kICAddrPermissionReadOnly;
+            else if(items.at(1) == "rw")
+                perm = kICAddrPermissionRW;
+            ICAddrWrapper* wrapper = new ICAddrWrapper(type, perm, items.at(2).toInt(),
+                                                       items.at(3).toInt(),items.at(5).toInt(),
+                                                       items.at(4).toInt());
+            addrStringToAddrMap_.insert(str, wrapper);
+        }
         return addrStringToAddrMap_.value(str, NULL);
 #endif
     }
@@ -110,8 +131,8 @@ private:
     static QList<const ICAddrWrapper*> *systemAddrs_;
     static QList<const ICAddrWrapper*> *statusAddrs_;
 #else
-    const static QStringList typeStringList_;
-    const static QStringList permissionStringList_;
+    static QStringList typeStringList_;
+    static QStringList permissionStringList_;
     static QMap<QString, const ICAddrWrapper*> addrStringToAddrMap_;
     static QList<const ICAddrWrapper*> moldAddrs_;
     static QList<const ICAddrWrapper*> systemAddrs_;

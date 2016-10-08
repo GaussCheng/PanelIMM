@@ -2,12 +2,14 @@
 
 #include <QSqlDatabase>
 #include <QMessageBox>
-#include <QDebug>
+#include <qmath.h>
 
 
 #include "icdalhelper.h"
 #include "icappsettings.h"
 #include "icimmmold.h"
+#include "parser.h"
+#include <QDebug>
 
 ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger, QObject *parent) :
     ICPanelController(splash, logger, parent)
@@ -94,15 +96,24 @@ bool ICPanelIMMController::LoadTranslator_(const QString &name)
     return true;
 }
 
-QString ICPanelIMMController::records() const
+QString ICPanelIMMController::newRecord(const QString &name, const QString &defaultFncValue)
 {
-    QString content;
-    ICRecordInfos infos = mold_->RecordInfos();
-    for(int i = 0; i != infos.size(); ++i )
+    ICMoldInfo mi;
+    mi.name = name;
+    QJson::Parser p;
+    bool ok;
+    QVariantMap dv = p.parse(defaultFncValue.toLatin1(), &ok).toMap();
+    if(ok)
     {
-        content += infos.at(i).toJSON() + ",";
+        ICParametersCache pc;
+        QVariantMap::ConstIterator i = dv.constBegin();
+        while(i != dv.constEnd())
+        {
+            ICAddrWrapperCPTR cptr = ICAddrWrapper::AddrStringToAddr(i.key());
+            pc.UpdateConfigValue(cptr, static_cast<quint32>(i.value().toDouble() * qPow(10, cptr->Decimal())));
+            ++i;
+        }
+        mi.values = pc.ToPairList();
     }
-    content.chop(1);
-    QString ret = QString("[%1]").arg(content);
-    return ret;
+    return mold_->NewRecord(mi).toJSON();
 }

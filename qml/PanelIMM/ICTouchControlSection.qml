@@ -406,6 +406,18 @@ Rectangle {
             id:alarmHistory
             text: qsTr("Alarm\nHistory")
         }
+        ICButton{
+            id:clearAlarm
+            text: qsTr("Alarm\nClear")
+            width: alarmHistory.width
+            height: alarmHistory.height
+        }
+        ICButton{
+            id:showAlarm
+            text: qsTr("Show\nAlarm")
+            width: alarmHistory.width
+            height: alarmHistory.height
+        }
     }
 
     ICButtonGroup{
@@ -530,7 +542,8 @@ Rectangle {
         //        console.log(btn0.width);
         var c = manageKeyboard.children;
         for(var i = 0, len = c.length; i < len; ++i){
-            funcMenuItemGroup.addButton(c[i]);
+            if(c[i].hasOwnProperty("isChecked"))
+                funcMenuItemGroup.addButton(c[i]);
         }
     }
 }

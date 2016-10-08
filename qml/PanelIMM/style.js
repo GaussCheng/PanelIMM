@@ -56,6 +56,7 @@ var touchControlSection = {
     "optionalKeyboard":{"btnSize": 50 * scaleRatio, "labelHeight": 22 * hRatio, "btnSpacing": 2 * wRatio, "groupSpacing": 30 * wRatio, "rightMargin":6 * wRatio},
     "manageKeyboard":{"spacing":4 * scaleRatio},
     "modeSwicherContainer":{"btnWidth":73 * wRatio, "btnHeight":36 * hRatio},
+
 };
 
 var recordManagementPage = {

@@ -171,3 +171,16 @@ void ICPanelController::setToRunningUIPath(const QString &dirname)
         }
     }
 }
+
+QString ICPanelController::records() const
+{
+    QString content;
+    ICRecordInfos infos = mold_->RecordInfos();
+    for(int i = 0; i != infos.size(); ++i )
+    {
+        content += infos.at(i).toJSON() + ",";
+    }
+    content.chop(1);
+    QString ret = QString("[%1]").arg(content);
+    return ret;
+}

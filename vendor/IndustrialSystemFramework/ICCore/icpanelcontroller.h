@@ -142,6 +142,8 @@ public:
         return mold_->CurrentMoldInfo().name;
     }
 
+    Q_INVOKABLE QString records() const;
+
     Q_INVOKABLE bool loadRecord(const QString& name)
     {
         bool ret =  mold_->LoadMold(ICMoldInfo(name));

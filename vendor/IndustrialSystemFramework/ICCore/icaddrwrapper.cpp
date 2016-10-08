@@ -6,8 +6,8 @@ QList<const ICAddrWrapper*>* ICAddrWrapper::moldAddrs_;
 QList<const ICAddrWrapper*>* ICAddrWrapper::systemAddrs_;
 QList<const ICAddrWrapper*>* ICAddrWrapper::statusAddrs_;
 #else
-const QStringList ICAddrWrapper::typeStringList_(QStringList()<<"n"<<"c"<<"m"<<"s"<<"b");
-const QStringList ICAddrWrapper::permissionStringList_(QStringList()<<"n"<<"ro"<<"wo"<<"rw");
+QStringList ICAddrWrapper::typeStringList_(QStringList()<<"n"<<"c"<<"m"<<"s"<<"b");
+QStringList ICAddrWrapper::permissionStringList_(QStringList()<<"n"<<"ro"<<"wo"<<"rw");
 QMap<QString, const ICAddrWrapper*> ICAddrWrapper::addrStringToAddrMap_;
 QList<const ICAddrWrapper*> ICAddrWrapper::moldAddrs_;
 QList<const ICAddrWrapper*> ICAddrWrapper::systemAddrs_;

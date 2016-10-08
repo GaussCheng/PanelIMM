@@ -17,3 +17,17 @@ bool ICIMMMold::LoadMold(const ICMoldInfo &info)
     }
     return true;
 }
+RecordDataObject ICIMMMold::NewRecord(const ICMoldInfo& info)
+{
+    if(info.name.isEmpty()) return RecordDataObject(kRecordErr_Name_Is_Empty);
+    if(ICDALHelper::IsExistsRecordTable(info.name))
+    {
+        RecordDataObject ret(kRecordErr_Name_Is_Exists);
+        ret.setRecordName(info.name);
+        return ret;
+    }
+    QList<QPair<int, quint32> > fncs = info.values;
+    QString dt = ICDALHelper::NewMold(info.name, QStringList(), fncs,  QVector<QVariantList>(),  QVector<QVariantList>());
+    return RecordDataObject(info.name, dt);
+}
+

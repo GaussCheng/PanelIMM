@@ -5,7 +5,8 @@ SOURCES = *.qml \
 ../ICCustomElement/* \
 immcustomitems/* \
 settingpages/* \
-monitorpages/*
+monitorpages/* \
+configs/*
 }
 
 
