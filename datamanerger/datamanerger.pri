@@ -1,10 +1,10 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    datamanerger/icrobotmold.h \
-    datamanerger/icmachineconfig.h
+    datamanerger/icmachineconfig.h \
+    datamanerger/icimmmold.h
 
 SOURCES += \
-    datamanerger/icrobotmold.cpp \
-    datamanerger/icmachineconfig.cpp
+    datamanerger/icmachineconfig.cpp \
+    datamanerger/icimmmold.cpp
 

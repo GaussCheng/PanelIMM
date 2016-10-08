@@ -9,6 +9,7 @@ Rectangle {
     height: Style.touchControlSection.rect.height
     color: Style.touchControlSection.bg
     signal funcMenuItemTriggered(variant menuItem)
+    signal recordMenuItemTriggered(variant menuItem)
     Image {
         id: immModeBG
         source: "images/immModeBg.png"
@@ -23,8 +24,12 @@ Rectangle {
             isAutoSize: false
             anchors.fill: parent
             layoutMode: 2
+            mustChecked: true
             onCheckedItemChanged: {
-                funcMenuItemTriggered(checkedItem);
+                if(checkedItem == recordBtn)
+                    recordMenuItemTriggered(checkedItem);
+                else
+                    funcMenuItemTriggered(checkedItem);
             }
 
             ICIMMFunctionMenuItem{

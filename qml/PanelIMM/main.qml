@@ -3,6 +3,7 @@ import "."
 import "../ICCustomElement"
 import "immcustomitems"
 import "../utils/utils.js" as Utils
+import "../utils/Storage.js" as Storage
 import "style.js" as Style
 import "main.js" as PData
 
@@ -95,9 +96,14 @@ Rectangle {
                         }
                         ICLabel{
                             id:moldName
-                            text: "mold name"
+                            text: panelController.currentRecordName()
+                            width: range.width
                             height: normalMonitorTitle.height >> 1
                             color: Style.monitorSection.header.bg
+                            function onMoldChanged(){
+                                moldName.text = panelController.currentRecordName();
+                            }
+
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked: {
@@ -264,28 +270,41 @@ Rectangle {
     ICTouchControlSection{
         id:touchControlSection
         anchors.bottom: parent.bottom
+        onRecordMenuItemTriggered: {
+            normalMonitorSection.showNormalMonitorPage(menuItem);
+            recordManagement.show();
+        }
+
         onFuncMenuItemTriggered: {
             normalMonitorSection.showNormalMonitorPage(menuItem);
             PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
             var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
             detailMenuSection.refreshMenuItem(page.detailsMenuItems);
-
+            recordManagement.hide();
 
         }
     }
     RecordManagementPage{
         id:recordManagement
         width: parent.width
-        height: parent.height >> 1
+        height: detailMenuSection.y - y + detailMenuSection.height
+        y:Style.monitorSection.header.rect.height
         visible: false
         function show(){
-            toShowRecordAnimation.start();
+            visible = true;
         }
+        function hide(){
+            visible = false;
+        }
+    }
+    ICOperationLogPage{
+        visible: false
     }
 
     Component.onCompleted: {
         PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer, mainWindow);
         PData.convenientMonitorManager.init(convenientMonitorPagesContainer);
+        panelController.moldChanged.connect(moldName.onMoldChanged);
     }
 }
 

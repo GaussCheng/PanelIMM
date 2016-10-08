@@ -9,6 +9,7 @@ import "style.js" as Style
 
 
 Rectangle {
+    id:instance
     color: "white"
 
     MouseArea{
@@ -78,7 +79,7 @@ Rectangle {
                     return recordsView.currentIndex == -1? "":recordsModel.get(recordsView.currentIndex).name
                 }
                 anchors.verticalCenter: parent.verticalCenter
-                width: 272
+                width: instance.width * 0.3
 
             }
             Text{

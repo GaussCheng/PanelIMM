@@ -7,11 +7,12 @@
 
 #include "icdalhelper.h"
 #include "icappsettings.h"
-#include "icrobotmold.h"
+#include "icimmmold.h"
 
 ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger, QObject *parent) :
     ICPanelController(splash, logger, parent)
 {
+    mold_.reset(new ICIMMMold());
 }
 
 void ICPanelIMMController::Init()
@@ -19,7 +20,7 @@ void ICPanelIMMController::Init()
     ICAppSettings();
     InitDatabase_();
     emit LoadMessage("Database inited.");
-//    InitMold_();
+    InitMold_();
 //    emit LoadMessage("Record inited.");
 //    InitMachineConfig_();
 //    emit LoadMessage("Machine configs inited.");
@@ -59,6 +60,12 @@ void ICPanelIMMController::InitDatabase_()
     }
 }
 
+void ICPanelIMMController::InitMold_()
+{
+    ICAppSettings as;
+    mold_->LoadMold(as.CurrentMoldConfig());
+}
+
 bool ICPanelIMMController::LoadTranslator_(const QString &name)
 {
     QDir qml(ICAppSettings::QMLPath);
@@ -90,7 +97,7 @@ bool ICPanelIMMController::LoadTranslator_(const QString &name)
 QString ICPanelIMMController::records() const
 {
     QString content;
-    ICRecordInfos infos = ICMoldBase::RecordInfos();
+    ICRecordInfos infos = mold_->RecordInfos();
     for(int i = 0; i != infos.size(); ++i )
     {
         content += infos.at(i).toJSON() + ",";

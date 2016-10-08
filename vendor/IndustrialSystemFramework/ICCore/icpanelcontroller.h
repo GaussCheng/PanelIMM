@@ -15,6 +15,7 @@
 
 #include "iclog.h"
 #include "qtquick1applicationviewer.h"
+#include "icmoldbase.h"
 
 class ICSplashScreen : public QSplashScreen
 {
@@ -136,6 +137,19 @@ public:
         qApp->postEvent(qApp->focusWidget(), e);
     }
 
+    Q_INVOKABLE QString currentRecordName() const
+    {
+        return mold_->CurrentMoldInfo().name;
+    }
+
+    Q_INVOKABLE bool loadRecord(const QString& name)
+    {
+        bool ret =  mold_->LoadMold(ICMoldInfo(name));
+        if(ret)
+            emit moldChanged();
+        return ret;
+    }
+
     void InitMainView();
 
     QWidget* MainView()
@@ -152,10 +166,13 @@ signals:
     void screenSave();
     void screenRestore();
     void LoadMessage(const QString&);
+    void moldChanged();
 //    void focusChanged(QWidget *old, QWidget* now);
 
 public slots:
 
+protected:
+    QScopedPointer<ICMoldBase> mold_;
 private:
     ICLog* logger_;
     QSettings customSettings_;
