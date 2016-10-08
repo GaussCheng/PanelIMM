@@ -1,21 +1,13 @@
 import QtQuick 1.1
 import "../../ICCustomElement"
 import "../style.js" as Style
-ICButton {
+ICCheckableButton {
     id:instance
-    property bool isChecked: false
     property string bindingPageComponent: ""
     radius: Style.detailMenuSection.menuItem.radius
     border.width: 0
     text: ""
-    onButtonClicked: {
-        isChecked = !isChecked;
-    }
     bgColor: Style.detailMenuSection.menuItem.color
-
-    function setChecked(checked){
-        isChecked = checked;
-    }
 
     states: [
         State {

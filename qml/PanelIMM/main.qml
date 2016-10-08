@@ -274,8 +274,13 @@ Rectangle {
         }
     }
     RecordManagementPage{
+        id:recordManagement
         width: parent.width
         height: parent.height >> 1
+        visible: false
+        function show(){
+            toShowRecordAnimation.start();
+        }
     }
 
     Component.onCompleted: {

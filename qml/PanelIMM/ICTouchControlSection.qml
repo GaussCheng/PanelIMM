@@ -19,6 +19,7 @@ Rectangle {
         width: sourceSize.width * Style.wRatio
         height: sourceSize.height * Style.hRatio
         ICButtonGroup{
+            id:funcMenuItemGroup
             isAutoSize: false
             anchors.fill: parent
             layoutMode: 2
@@ -341,12 +342,119 @@ Rectangle {
         }
     }
 
+    Grid{
+        id:manageKeyboard
+        rows: 3
+        columns: 5
+        spacing: Style.touchControlSection.manageKeyboard.spacing
+        anchors.bottom: parent.bottom
+        ICIMMFunctionMenuItem{
+            id:generalSpecifications
+            text: qsTr("Main\nSpec")
+        }
+        ICIMMFunctionMenuItem{
+            id:generalSettings
+            text: qsTr("Gen\nConf")
+
+        }
+        ICIMMFunctionMenuItem{
+            id:recordBtn
+            text: qsTr("Record")
+        }
+        ICIMMFunctionMenuItem{
+            id:prepareIMM
+            text: qsTr("Prepare")
+        }
+        ICIMMFunctionMenuItem{
+            id:maintenance
+            text: qsTr("maint-\nenance")
+        }
+        ICIMMFunctionMenuItem{
+            id:actionMonitor
+            text: qsTr("Act\nMon")
+        }
+        ICIMMFunctionMenuItem{
+            id:produceMonitor
+            text: qsTr("Pro\nMon")
+        }
+        ICIMMFunctionMenuItem{
+            id:qualityControl
+            text: qsTr("Qual\nCtrl")
+        }
+        ICIMMFunctionMenuItem{
+            id:curveMonitor
+            text: qsTr("Curves\nMon")
+        }
+        ICIMMFunctionMenuItem{
+            id:oscilloscope
+            text: qsTr("Oscil-\nloscope")
+        }
+        ICIMMFunctionMenuItem{
+            id:ioMonitor
+            text: qsTr("IO\nMon")
+        }
+        ICIMMFunctionMenuItem{
+            id:servoAlarm
+            text: qsTr("Servo\nAlarm")
+        }
+        ICIMMFunctionMenuItem{
+            id:alarmHistory
+            text: qsTr("Alarm\nHistory")
+        }
+    }
+
+    ICButtonGroup{
+        id:modeSwicherContainer
+        anchors.left: immModeBG.left
+        anchors.top: immModeBG.bottom
+        mustChecked: true
+        checkedIndex: 0
+        spacing: 0
+        ICCheckableButton{
+            id:modeCloseBtn
+            text: qsTr("Close")
+            width: Style.touchControlSection.modeSwicherContainer.btnWidth
+            height: Style.touchControlSection.modeSwicherContainer.btnHeight
+
+        }
+        ICCheckableButton{
+            id:modePrepareBtn
+            text: qsTr("Prepare")
+            width: Style.touchControlSection.modeSwicherContainer.btnWidth
+            height: Style.touchControlSection.modeSwicherContainer.btnHeight
+        }
+        ICCheckableButton{
+            id:modeManualBtn
+            text: qsTr("Manual")
+            width: Style.touchControlSection.modeSwicherContainer.btnWidth
+            height: Style.touchControlSection.modeSwicherContainer.btnHeight
+        }
+        ICCheckableButton{
+            id:modeSemiAutoBtn
+            text: qsTr("Semi A")
+            width: Style.touchControlSection.modeSwicherContainer.btnWidth
+            height: Style.touchControlSection.modeSwicherContainer.btnHeight
+        }
+        ICCheckableButton{
+            id:modeAuto
+            text: qsTr("Auto")
+            width: Style.touchControlSection.modeSwicherContainer.btnWidth
+            height: Style.touchControlSection.modeSwicherContainer.btnHeight
+        }
+        ICCheckableButton{
+            id:modeAutoRun
+            text: qsTr("Auto R")
+            width: Style.touchControlSection.modeSwicherContainer.btnWidth
+            height: Style.touchControlSection.modeSwicherContainer.btnHeight
+        }
+    }
+
     Row{
         id: optionalKeyboard
         anchors.bottom: parent.bottom
         anchors.bottomMargin: touchKeyboard.anchors.bottomMargin
-        anchors.left: parent.left
-        anchors.leftMargin: Style.touchControlSection.optionalKeyboard.leftMargin
+        anchors.right: parent.right
+        anchors.rightMargin: Style.touchControlSection.optionalKeyboard.rightMargin
         spacing: Style.touchControlSection.optionalKeyboard.groupSpacing
         Column{
             spacing: Style.touchControlSection.optionalKeyboard.btnSpacing
@@ -415,5 +523,9 @@ Rectangle {
 
     Component.onCompleted: {
         //        console.log(btn0.width);
+        var c = manageKeyboard.children;
+        for(var i = 0, len = c.length; i < len; ++i){
+            funcMenuItemGroup.addButton(c[i]);
+        }
     }
 }

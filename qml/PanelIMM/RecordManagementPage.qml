@@ -131,7 +131,7 @@ Rectangle {
                 onIsCheckedChanged: {
                     if(isChecked){
                         backupPackageModel.clear();
-                        var backups = JSON.parse(panelRobotController.scanUSBBackupPackages("HCBackupRobot"));
+                        var backups = JSON.parse(panelController.scanUSBBackupPackages("HCBackupRobot"));
                         for(var i = 0; i < backups.length; ++i){
                             backupPackageModel.append(recordsView.createRecordItem(backups[i], undefined));
                         }
@@ -281,12 +281,12 @@ Rectangle {
                 text: qsTr("Load")
                 height: 40
                 onButtonClicked: {
-                    if(selectName.text == panelRobotController.currentRecordName())
+                    if(selectName.text == panelController.currentRecordName())
                     {
                         tipDialog.warning(qsTr("In current mold"));
                         return;
                     }
-                    if(!panelRobotController.loadRecord(selectName.text))
+                    if(!panelController.loadRecord(selectName.text))
                     {
                         tipDialog.warning(qsTr("Mold has error!"));
                         return;
@@ -302,7 +302,7 @@ Rectangle {
                 onButtonClicked: {
                     if(operationContainer.inputerr(newName.text))
                         return;
-                    var ret = JSON.parse(panelRobotController.newRecord(newName.text,
+                    var ret = JSON.parse(panelController.newRecord(newName.text,
                                                                         Teach.generateInitProgram(), Teach.generateInitSubPrograms()));
                     if(!ret.errno){
                         recordsModel.insert(0, recordsView.createRecordItem(ret.recordName, ret.createDatetime));
@@ -317,7 +317,7 @@ Rectangle {
                 onButtonClicked: {
                     if(operationContainer.inputerr(newName.text))
                         return;
-                    var ret = JSON.parse(panelRobotController.copyRecord(newName.text,
+                    var ret = JSON.parse(panelController.copyRecord(newName.text,
                                                                          recordsModel.get(recordsView.currentIndex).name));
                     if(!ret.errno){
                         recordsModel.insert(0, recordsView.createRecordItem(ret.recordName, ret.createDatetime));
@@ -332,11 +332,11 @@ Rectangle {
                 height: loadRecord.height
                 onButtonClicked: {
                     if(recordsView.currentIndex < 0) return;
-                    if(panelRobotController.currentRecordName() == selectName.text){
+                    if(panelController.currentRecordName() == selectName.text){
                         tipDialog.warning((qsTr("This mold is using!")), qsTr("OK"));
                         return;
                     }
-                    if(panelRobotController.deleteRecord(selectName.text)){
+                    if(panelController.deleteRecord(selectName.text)){
                         recordsModel.remove(recordsView.currentIndex);
                     }
                 }
@@ -357,7 +357,7 @@ Rectangle {
                         }
                     }
                     var now = new Date();
-                    var ret = panelRobotController.exportRobotMold(JSON.stringify(exportMolds),
+                    var ret = panelController.exportRobotMold(JSON.stringify(exportMolds),
                                                                    "HCBackupRobot_" + Utils.formatDate(now, "yyyyMMddhhmmss"));
                     console.log(ret);
                     if(ret === 0)
@@ -378,7 +378,7 @@ Rectangle {
                         record = recordsModel.get(i);
                         if(record.isSelected){
 //                            exportMolds.push(record.name);
-                            console.log(panelRobotController.readRecord(record.name));
+                            console.log(panelController.readRecord(record.name));
 
                         }
                     }
@@ -402,7 +402,7 @@ Rectangle {
                             importMolds.push(record.name);
                         }
                     }
-                    var ret = JSON.parse(panelRobotController.importRobotMold(JSON.stringify(importMolds),
+                    var ret = JSON.parse(panelController.importRobotMold(JSON.stringify(importMolds),
                                                                               recordsView.openBackupPackage));
 
                     var errLog = "";
@@ -428,7 +428,7 @@ Rectangle {
                 onButtonClicked: {
                     usbModel.clear();
                     recordsView.openBackupPackage = backupPackageModel.get(recordsView.currentIndex).name;
-                    var molds = JSON.parse(panelRobotController.viewBackupPackageDetails(recordsView.openBackupPackage));
+                    var molds = JSON.parse(panelController.viewBackupPackageDetails(recordsView.openBackupPackage));
                     for(var i = 0; i < molds.length; ++i){
                         usbModel.append(recordsView.createRecordItem(molds[i], undefined));
                     }
