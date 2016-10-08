@@ -151,6 +151,15 @@ public:
             emit moldChanged();
         return ret;
     }
+    Q_INVOKABLE bool deleteRecord(const QString& name)
+    {
+        return mold_->DeleteRecord(name);
+    }
+
+    Q_INVOKABLE QString copyRecord(const QString& name, const QString& source)
+    {
+        return mold_->CopyRecord(name, source).toJSON();
+    }
 
     void InitMainView();
 

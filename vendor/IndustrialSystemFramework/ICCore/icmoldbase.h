@@ -22,8 +22,22 @@ public:
     };
     ICMoldBase();
     virtual RecordDataObject NewRecord(const ICMoldInfo& info){}
-    virtual RecordDataObject CopyRecord(const ICMoldInfo& old, const ICMoldInfo& now){}
-    virtual bool DeleteRecord(const ICMoldInfo& info){}
+    virtual RecordDataObject CopyRecord(const ICMoldInfo& now, const ICMoldInfo& old)
+    {
+        if(now.name.isEmpty()) return RecordDataObject(kRecordErr_Name_Is_Empty);
+        if(ICDALHelper::IsExistsRecordTable(now.name))
+        {
+            return RecordDataObject(kRecordErr_Name_Is_Exists);
+        }
+        QString dt = ICDALHelper::CopyMold(now.name, old.name);
+        return RecordDataObject(now.name, dt);
+    }
+
+    virtual bool DeleteRecord(const ICMoldInfo& info)
+    {
+        return ICDALHelper::DeleteMold(info.name);
+    }
+
     ICMoldInfo CurrentMoldInfo() const { return current_;}
     virtual ICRecordInfos RecordInfos() const
     {
