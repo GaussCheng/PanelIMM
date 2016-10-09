@@ -92,6 +92,7 @@ Rectangle {
                 id:newName
                 width: selectName.width
                 isNumberOnly: false
+                softkeyboardEn: true
             }
 
         }
@@ -160,10 +161,11 @@ Rectangle {
             spacing: 10
             anchors.top: usbContainer.bottom
             anchors.topMargin: 10
-            ICConfigEdit{
+            ICLineEdit{
                 id:searchBox
                 isNumberOnly: false
-                inputWidth: 250
+                width: 250
+                softkeyboardEn: true
             }
             ICButton{
                 id:searchBtn
@@ -172,7 +174,7 @@ Rectangle {
                 onButtonClicked: {
                     var m = recordsView.model;
                     for(var i = 0, len = m.count; i < len; ++i){
-                        m.setProperty(i, "visible", m.get(i).name.indexOf(searchBox.configValue) >= 0);
+                        m.setProperty(i, "visible", m.get(i).name.indexOf(searchBox.text) >= 0);
                     }
                 }
             }
@@ -181,7 +183,7 @@ Rectangle {
                 text: qsTr("Clear Search")
                 height: searchBox.height
                 onButtonClicked: {
-                    searchBox.configValue = "";
+                    searchBox.text = "";
                     var m = recordsView.model;
                     for(var i = 0, len = m.count; i < len; ++i){
                         m.setProperty(i, "visible", true);

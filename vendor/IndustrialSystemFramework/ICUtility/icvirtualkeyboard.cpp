@@ -107,7 +107,7 @@ void ICVirtualKeyboard::closeEvent(QCloseEvent *event)
      QToolButton* b = qobject_cast<QToolButton*>(w);
      QString curText = b->text();
      if(curText == tr("Ent")){
-         QString toCommit = QString("%1").arg(preeditString_.toDouble(),
+         QString toCommit = QString("%1").arg(ui->inputEdit->text().toDouble(),
                                               0,
                                               'f',
                                               validator_.decimals(),
@@ -175,6 +175,7 @@ void ICVirtualKeyboard::closeEvent(QCloseEvent *event)
      }
      int p = 0;
      QString tmp = preeditString_ + curText;
+     qDebug()<<validator_.validate(tmp, p);
      if(validator_.validate(tmp, p) == QValidator::Acceptable)
      {
          preeditString_ += curText;
