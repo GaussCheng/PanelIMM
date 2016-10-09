@@ -88,7 +88,7 @@ ICEditableItemBase{
         anchors.fill: parent
         id:ma
         function onCommit(text){
-            console.log(text)
+//            console.log(text)
             lineEdit.text = text;
             editFinished();
             virtualKeyboard.commit.disconnect(ma.onCommit);

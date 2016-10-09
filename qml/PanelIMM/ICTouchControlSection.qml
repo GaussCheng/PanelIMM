@@ -10,6 +10,7 @@ Rectangle {
     color: Style.touchControlSection.bg
     signal funcMenuItemTriggered(variant menuItem)
     signal recordMenuItemTriggered(variant menuItem)
+    signal alarmHistoryMenuItemTriggered(variant menuItem)
     Image {
         id: immModeBG
         source: "images/immModeBg.png"
@@ -28,6 +29,8 @@ Rectangle {
             onCheckedItemChanged: {
                 if(checkedItem == recordBtn)
                     recordMenuItemTriggered(checkedItem);
+                else if(checkedItem == alarmHistory)
+                    alarmHistoryMenuItemTriggered(checkedItem);
                 else
                     funcMenuItemTriggered(checkedItem);
             }

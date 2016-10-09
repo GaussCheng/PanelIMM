@@ -273,6 +273,12 @@ Rectangle {
         onRecordMenuItemTriggered: {
             normalMonitorSection.showNormalMonitorPage(menuItem);
             recordManagement.show();
+            alarmHistory.hide();
+        }
+        onAlarmHistoryMenuItemTriggered: {
+            normalMonitorSection.showNormalMonitorPage(menuItem);
+            alarmHistory.show();
+            recordManagement.hide();
         }
 
         onFuncMenuItemTriggered: {
@@ -281,6 +287,7 @@ Rectangle {
             var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
             detailMenuSection.refreshMenuItem(page.detailsMenuItems);
             recordManagement.hide();
+            alarmHistory.hide();
 
         }
     }
@@ -297,6 +304,20 @@ Rectangle {
             visible = false;
         }
     }
+    ICAlarmPage{
+        id:alarmHistory
+        width: parent.width
+        height: detailMenuSection.y - y + detailMenuSection.height
+        y:Style.monitorSection.header.rect.height
+        visible: false
+        function show(){
+            visible = true;
+        }
+        function hide(){
+            visible = false;
+        }
+    }
+
     ICOperationLogPage{
         visible: false
     }

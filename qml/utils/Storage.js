@@ -147,7 +147,9 @@ function appendAlarmToLog(alarmItem){
 }
 
 function alarmlog(){
-    if(!isDbInit) initialize();
+    if(!isDbInit) {
+        initialize();
+    }
 
     var db = getDatabase();
 //    var res="";
@@ -212,7 +214,9 @@ function appendOpToLog(opItem){
 }
 
 function oplog(){
-    if(!isDbInit) initialize();
+    if(!isDbInit) {
+        initialize();
+    }
 
     var db = getDatabase();
     var ret = [];
