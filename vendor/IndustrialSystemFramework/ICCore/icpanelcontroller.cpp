@@ -103,7 +103,7 @@ void ICPanelController::InitMainView()
     qDebug("Init MainView");
     mainView_ = new QtQuick1ApplicationViewer;
     mainView_->rootContext()->setContextProperty("panelController", this);
-//    mainView_->rootContext()->setContextProperty("virtualKeyboard", &virtualKeyboard);
+    mainView_->rootContext()->setContextProperty("virtualKeyboard", &virtualKeyboard);
     mainView_->addImportPath(QLatin1String("modules"));
     mainView_->setOrientation(QtQuick1ApplicationViewer::ScreenOrientationAuto);
 #ifdef Q_WS_QWS

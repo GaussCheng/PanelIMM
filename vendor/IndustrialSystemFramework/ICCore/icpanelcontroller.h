@@ -16,6 +16,7 @@
 #include "iclog.h"
 #include "qtquick1applicationviewer.h"
 #include "icmoldbase.h"
+#include "icvirtualkeyboard.h"
 
 class ICSplashScreen : public QSplashScreen
 {
@@ -188,6 +189,7 @@ private:
     ICLog* logger_;
     QSettings customSettings_;
     QtQuick1ApplicationViewer *mainView_;
+    ICVirtualKeyboard virtualKeyboard;
 #ifdef Q_WS_QWS
     static int wdFD;
     static int checkTime;
