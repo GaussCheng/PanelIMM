@@ -144,8 +144,7 @@ Rectangle {
         anchors.bottom: detailMenuSection.top
         ICStackContainer{
             id:detailPagesContainer
-            width: parent.width
-            height: parent.height
+            anchors.fill: parent
         }
     }
 

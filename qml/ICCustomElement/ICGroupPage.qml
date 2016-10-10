@@ -3,14 +3,14 @@ import QtQuick 1.1
 Rectangle {
     property alias title: titleLabel.text
     property alias titleBG: titleLabel.color
-    property Component content: null
-    Column{
-        id:content
-        ICLabel{
-            id:titleLabel
-        }
-
-
+    border.width: 1
+    border.color: "white"
+    color: "transparent"
+    ICLabel{
+        id:titleLabel
+        color: "green"
+        anchors.left: parent.left
+        anchors.bottom: parent.top
     }
-
+    y:titleLabel.height
 }

@@ -4,6 +4,7 @@ import "../../utils/utils.js" as Utils
 Rectangle {
     id:instance
     property bool keyNavInited: false
+    color: "transparent"
 
     signal editorFocusChanged(variant now)
 //    function editorFocusChanged(now){
