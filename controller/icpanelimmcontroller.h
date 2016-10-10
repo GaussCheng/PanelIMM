@@ -16,9 +16,11 @@ public:
 signals:
 
 public slots:
+    void OnNeedToInitHost();
 
 private:
     void InitMold_();
+    void InitMachineConfig_();
     void InitDatabase_();
     bool LoadTranslator_(const QString& name);
 

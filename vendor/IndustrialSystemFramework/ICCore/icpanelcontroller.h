@@ -11,12 +11,16 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QApplication>
+#include <QScriptValue>
+#include <QScriptEngine>
 #include <QDebug>
 
 #include "iclog.h"
 #include "qtquick1applicationviewer.h"
 #include "icmoldbase.h"
+#include "icmachineconfig.h"
 #include "icvirtualkeyboard.h"
+#include "icvirtualhost.h"
 
 class ICSplashScreen : public QSplashScreen
 {
@@ -138,6 +142,34 @@ public:
         qApp->postEvent(qApp->focusWidget(), e);
     }
 
+//    Q_INVOKABLE bool isInputOn(int index, int board) const
+//    {
+//        //        return rand() % 2;
+//        quint32 iStatus = host_->IStatus(board);
+//        return iStatus & (1 << index);
+//    }
+//    Q_INVOKABLE bool isOutputOn(int index, int board) const
+//    {
+//        //        return rand() % 2;
+//        quint32 oStatus = ICRobotVirtualhost::OStatus(board);
+//        return oStatus & (1 << index);
+//    }
+//    Q_INVOKABLE void sendKeyCommandToHost(int key);
+    Q_INVOKABLE quint32 getConfigValue(const QString& addr) const;
+    Q_INVOKABLE QString getConfigValueText(const QString& addr) const;
+    Q_INVOKABLE double getRealConfigValue(const QString& addr) const
+    {
+        return getConfigValueText(addr).toDouble();
+    }
+
+    Q_INVOKABLE int configDecimal(const QString& addr) const
+    {
+        QStringList item = addr.split("_", QString::SkipEmptyParts);
+        return (item.size() == 6) ? item.at(4).toInt() : 0;
+    }
+    Q_INVOKABLE void setConfigValue(const QString& addr, const QString& v);
+    Q_INVOKABLE void syncConfigs();
+
     Q_INVOKABLE QString currentRecordName() const
     {
         return mold_->CurrentMoldInfo().name;
@@ -174,17 +206,29 @@ public:
 #endif
     }
 
+    ICRange ICConfigRangeGetter(const QString& addrName) const;
+    quint32 AddrStrValueToInt(ICAddrWrapperCPTR addr, const QString& value) const;
+
+
 signals:
     void screenSave();
     void screenRestore();
     void LoadMessage(const QString&);
     void moldChanged();
+    void needToInitHost();
 //    void focusChanged(QWidget *old, QWidget* now);
 
 public slots:
 
 protected:
     QScopedPointer<ICMoldBase> mold_;
+    QScopedPointer<ICMachineConfig> machineConfigs_;
+    ICVirtualHostPtr host_;
+    mutable QScriptValue getConfigRange_;
+    QScriptEngine engine_;
+    ICAddrWrapperValuePairList moldFncModifyCache_;
+    ICAddrWrapperValuePairList machineConfigModifyCache_;
+
 private:
     ICLog* logger_;
     QSettings customSettings_;

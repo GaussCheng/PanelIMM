@@ -10,9 +10,6 @@ public:
     ICIMMMold();
     bool LoadMold(const ICMoldInfo &info);
     RecordDataObject NewRecord(const ICMoldInfo& info);
-
-private:
-    ICParametersCache fncCache_;
 };
 
 #endif // ICIMMMOLD_H

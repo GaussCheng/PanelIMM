@@ -38,8 +38,8 @@ public:
     ICVirtualHost(uint64_t hostId, QObject* parent = 0);
 	virtual ~ICVirtualHost();
 
-    bool InitConfigs(const QVector<QPair<quint32, quint32> >& configList, int startAddr = 2);
-    bool ReConfigs(const QVector<QPair<quint32, quint32> >& configList, int startAddr = 2);
+    bool InitConfigs(const QVector<QPair<int, quint32> >& configList, int startAddr = 2);
+    bool ReConfigs(const QVector<QPair<int, quint32> >& configList, int startAddr = 2);
     uint64_t HostID() const { return hostId_;}
     int CommunicateInterval() const  { return communicateInterval_;}
     void SetCommunicateInterval(int ms);
@@ -74,6 +74,8 @@ public:
     }
     virtual void StartCommunicate(){ SetCommunicateInterval(CommunicateInterval());}
 
+    virtual void SendConfigs(const QList<QPair<int, quint32> >& addrVals) = 0;
+
 //    virtual bool FrameNewSendPLC(int startaddr,QByteArray command) = 0;
 
 protected:
@@ -83,7 +85,7 @@ private slots:
 
 protected:
     ICCommunictionCommandQueue queue_;
-    virtual bool InitConfigsImpl(const QVector<QPair<quint32, quint32> >& configList, int startAddr) = 0;
+    virtual bool InitConfigsImpl(const QVector<QPair<int, quint32> >& configList, int startAddr) = 0;
     virtual bool IsInputOnImpl(int index) const = 0;
     virtual bool IsOutputOnImpl(int index) const = 0;
     virtual void CommunicateImpl() = 0;
@@ -163,7 +165,7 @@ inline bool ICVirtualHost::SetAddrValue(const ICAddrWrapper *addr, int value)
 	return false;
 }
 
-inline bool ICVirtualHost::InitConfigs(const QVector<QPair<quint32, quint32> > &configList, int startAddr)
+inline bool ICVirtualHost::InitConfigs(const QVector<QPair<int, quint32> > &configList, int startAddr)
 {
     bool ret = InitConfigsImpl(configList, startAddr);
 //    if(ret)
@@ -175,7 +177,7 @@ inline bool ICVirtualHost::InitConfigs(const QVector<QPair<quint32, quint32> > &
     return ret;
 }
 
-inline bool ICVirtualHost::ReConfigs(const QVector<QPair<quint32, quint32> > &configList, int startAddr)
+inline bool ICVirtualHost::ReConfigs(const QVector<QPair<int, quint32> > &configList, int startAddr)
 {
     return InitConfigsImpl(configList, startAddr);
 //    queue_.Clear();

@@ -9,12 +9,27 @@
 #include "icappsettings.h"
 #include "icimmmold.h"
 #include "parser.h"
+#include "icinjectionmachinehost.h"
 #include <QDebug>
 
 ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger, QObject *parent) :
     ICPanelController(splash, logger, parent)
 {
     mold_.reset(new ICIMMMold());
+    machineConfigs_.reset(new ICMachineConfig());
+    host_ = ICVirtualHostPtr(new ICInjectionMachineHost(1));
+    ICAppSettings settings;
+    QString uiMain = settings.UIMainName();
+
+    QString scriptFileName(QString("%1/configs/ConfigDefines.js").arg(uiMain));
+    QFile scriptFile(scriptFileName);
+    scriptFile.open(QIODevice::ReadOnly);
+    QString scriptContent = scriptFile.readAll();
+    scriptFile.close();
+    scriptContent = scriptContent.remove(0, sizeof(".pragma library"));
+    engine_.evaluate(scriptContent, scriptFileName);
+    //    qDebug()<<"PanelrobotController Init:"<<engine_.hasUncaughtException();
+    getConfigRange_ = engine_.evaluate("getConfigRange");
 }
 
 void ICPanelIMMController::Init()
@@ -23,9 +38,9 @@ void ICPanelIMMController::Init()
     InitDatabase_();
     emit LoadMessage("Database inited.");
     InitMold_();
-//    emit LoadMessage("Record inited.");
-//    InitMachineConfig_();
-//    emit LoadMessage("Machine configs inited.");
+    emit LoadMessage("Record inited.");
+    InitMachineConfig_();
+    emit LoadMessage("Machine configs inited.");
 
     //    host_->SetCommunicateDebug(true);
 //#ifdef COMM_DEBUG
@@ -66,6 +81,26 @@ void ICPanelIMMController::InitMold_()
 {
     ICAppSettings as;
     mold_->LoadMold(as.CurrentMoldConfig());
+}
+
+void ICPanelIMMController::InitMachineConfig_()
+{
+    ICSuperSettings as;
+    machineConfigs_->LoadMachineConfig(as.CurrentSystemConfig());
+    //    OnNeedToInitHost();
+}
+
+void ICPanelIMMController::OnNeedToInitHost()
+{
+
+//    ICRobotVirtualhost::SendMoldCountersDef(host_, mold->CountersToHost());
+//    ICRobotVirtualhost::SendMold(host_, mold->ProgramToDataBuffer(ICRobotMold::kMainProg));
+
+    QVector<QPair<int, quint32> > toHost = mold_->BareMachineConfigs().toVector();
+    toHost += machineConfigs_->BareMachineConfigs().toVector();
+    host_->InitConfigs(toHost);
+//    ICRobotVirtualhost::InitMachineConfig(host_,machineConfig->BareMachineConfigs());
+    emit needToInitHost();
 }
 
 bool ICPanelIMMController::LoadTranslator_(const QString &name)

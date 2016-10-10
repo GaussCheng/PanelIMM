@@ -14,7 +14,7 @@ Item {
 
     function onConfigValueEditFinished(index){
         var config = PData.configs[index];
-        var oldV = panelRobotController.getConfigValueText(config.configAddr);
+        var oldV = panelController.getConfigValueText(config.configAddr);
         var toSetConfigVal = config.configValue;
         if(config.hasOwnProperty("indexMappedValue"))
         {
@@ -22,9 +22,9 @@ Item {
                 toSetConfigVal = config.indexMappedValue[toSetConfigVal];
         }
 
-        panelRobotController.setConfigValue(config.configAddr, toSetConfigVal);
+        panelController.setConfigValue(config.configAddr, toSetConfigVal);
         if(!isCache){
-            panelRobotController.syncConfigs();
+            panelController.syncConfigs();
         }
         configValueChanged(config.configAddr, toSetConfigVal, oldV);
 
@@ -38,7 +38,7 @@ Item {
         for(var i = 0; i < count; ++i){
             config = PData.configs[i];
             config.configValueChanged.disconnect(handlers[i]);
-            toShowVal = panelRobotController.getConfigValueText(config.configAddr);
+            toShowVal = panelController.getConfigValueText(config.configAddr);
             if(config.hasOwnProperty("indexMappedValue")){
                 for(var j = 0, len = config.indexMappedValue.length; j < len; ++j){
                     if(toShowVal == config.indexMappedValue[j]){
@@ -56,13 +56,13 @@ Item {
 
     onVisibleChanged: {
         if(!visible && isCache){
-            panelRobotController.syncConfigs();
+            panelController.syncConfigs();
         }
     }
     Component.onCompleted: {
         PData.deepFindFitItem(container)
         PData.isLoaded = true;
-        panelRobotController.moldChanged.connect(needToUpdateConfigs)
+        panelController.moldChanged.connect(needToUpdateConfigs)
         needToUpdateConfigs();
     }
 

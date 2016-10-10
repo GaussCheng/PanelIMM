@@ -3,12 +3,15 @@
 
 #include <QFormLayout>
 #include <QDeclarativeContext>
+#include <qmath.h>
 
 #ifdef Q_WS_QWS
 int ICPanelController::wdFD = -1;
 int ICPanelController::checkTime = 60;
 int ICPanelController::dummy = 0;
 #endif
+
+
 
 
 
@@ -67,6 +70,7 @@ ICPanelController::ICPanelController(QSplashScreen *splash, ICLog* logger, QObje
     QObject(parent)
 {
     mainView_ = NULL;
+    getConfigRange_ = NULL;
     QDir backupDir(ICAppSettings::UserPath);
     if(!backupDir.exists())
     {
@@ -183,4 +187,126 @@ QString ICPanelController::records() const
     content.chop(1);
     QString ret = QString("[%1]").arg(content);
     return ret;
+}
+
+quint32 ICPanelController::getConfigValue(const QString &addr) const
+{
+    ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(addr);
+    if(configWrapper == NULL)
+    {
+        qWarning()<<addr<<"is invalid";
+        return 0;
+    }
+    if(configWrapper->AddrType() == ICAddrWrapper::kICAddrTypeMold)
+    {
+        return mold_->MoldFnc(configWrapper);
+    }
+    if(configWrapper->AddrType() == ICAddrWrapper::kICAddrTypeSystem)
+    {
+        return machineConfigs_->MachineConfig(configWrapper);
+    }
+    if(configWrapper->AddrType() == ICAddrWrapper::kICAddrTypeCrafts)
+    {
+        host_->HostStatusValue(configWrapper);
+    }
+    return 0;
+}
+
+QString ICPanelController::getConfigValueText(const QString &addr) const
+{
+    ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(addr);
+    if(configWrapper == NULL)
+    {
+        qWarning()<<addr<<"is invalid";
+        return QString();
+    }
+    quint32 v = getConfigValue(addr);
+    ICRange range = ICConfigRangeGetter(addr);
+    if((range.min < 0) && (v >> (configWrapper->Size() - 1)))
+    {
+        v |= ((-1) << configWrapper->Size());
+    }
+    return QString::number(qint32(v) / qPow(10, configWrapper->Decimal()),
+                           'f',
+                           configWrapper->Decimal());
+
+}
+
+void ICPanelController::setConfigValue(const QString &addr, const QString &v)
+{
+    ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(addr);
+    if(configWrapper == NULL) return;
+    qDebug()<<"PanelRobotController::setConfigValue"<<addr<<v;
+    quint32 intV = AddrStrValueToInt(configWrapper, v);
+    ICAddrWrapperValuePair p = qMakePair<ICAddrWrapperCPTR, quint32>(configWrapper, intV);
+    if(configWrapper->AddrType() == ICAddrWrapper::kICAddrTypeMold)
+    {
+        moldFncModifyCache_.append(p);
+    }
+    if(configWrapper->AddrType() == ICAddrWrapper::kICAddrTypeSystem)
+    {
+        machineConfigModifyCache_.append(p);
+    }
+    //    qDebug()<<moldFncModifyCache_;
+}
+
+void ICPanelController::syncConfigs()
+{
+    if(!moldFncModifyCache_.isEmpty())
+    {
+        QList<QPair<int, quint32> > addrVals = mold_->SetMoldFncs(moldFncModifyCache_);
+        host_->SendConfigs(addrVals);
+        moldFncModifyCache_.clear();
+    }
+    else if(!machineConfigModifyCache_.isEmpty())
+    {
+        QList<QPair<int, quint32> > addrVals = machineConfigs_->SetMachineConfigs(machineConfigModifyCache_);
+        host_->SendConfigs(addrVals);
+        machineConfigModifyCache_.clear();
+    }
+}
+ICRange ICPanelController::ICConfigRangeGetter(const QString& addrName) const
+{
+    QScriptValueList args;
+    args<<addrName;
+    QMap<QString, QVariant> ranges = getConfigRange_.call(QScriptValue(),args).toVariant().toMap();
+    QVariant minVariant = ranges.value("min");
+    QVariant maxVariant = ranges.value("max");
+    double min, max;
+    if(minVariant.type() != QVariant::String)
+        min = minVariant.toDouble();
+    else
+    {
+        ICRange ret = ICConfigRangeGetter(minVariant.toString());
+        qint32 v = getConfigValue(minVariant.toString());
+        ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(minVariant.toString());
+        if(ret.min < 0  && (v >> (configWrapper->Size() - 1)))
+        {
+            v |= (-1 << configWrapper->Size());
+        }
+        min = v / qPow(10, configWrapper->Decimal());
+    }
+    if(maxVariant.type() != QVariant::String)
+        max = maxVariant.toDouble();
+    else
+    {
+        ICRange ret = ICConfigRangeGetter(maxVariant.toString());
+        qint32 v = getConfigValue(maxVariant.toString());
+        ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(maxVariant.toString());
+        if(ret.min < 0  && (v >> (configWrapper->Size() - 1)))
+        {
+            v |= (-1 << configWrapper->Size());
+        }
+        max = v / qPow(10, configWrapper->Decimal());
+    }
+    return ICRange(min,max,ranges.value("decimal").toInt());
+}
+
+quint32 ICPanelController::AddrStrValueToInt(ICAddrWrapperCPTR addr, const QString& value) const
+{
+    double v = value.toDouble();
+    double diff = 5 * (v < 0 ? -1 : 1) / qPow(10, addr->Decimal() + 1);
+    v += diff;
+    qint32 ret = v * qPow(10, addr->Decimal());
+    return static_cast<quint32>(ret);
 }
