@@ -11,6 +11,7 @@ Rectangle {
     signal funcMenuItemTriggered(variant menuItem)
     signal recordMenuItemTriggered(variant menuItem)
     signal alarmHistoryMenuItemTriggered(variant menuItem)
+    signal ioMonitorMenuItemTriggered(variant menuItem)
     Image {
         id: immModeBG
         source: "images/immModeBg.png"
@@ -31,6 +32,8 @@ Rectangle {
                     recordMenuItemTriggered(checkedItem);
                 else if(checkedItem == alarmHistory)
                     alarmHistoryMenuItemTriggered(checkedItem);
+                else if(checkedItem == ioMonitor)
+                    ioMonitorMenuItemTriggered(checkedItem);
                 else
                     funcMenuItemTriggered(checkedItem);
             }

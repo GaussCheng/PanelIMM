@@ -1,6 +1,7 @@
 #ifndef ICPANELIMMCONTROLLER_H
 #define ICPANELIMMCONTROLLER_H
 #include "icpanelcontroller.h"
+#include "icconfigsaddr.h"
 
 class ICPanelIMMController : public ICPanelController
 {
@@ -11,7 +12,8 @@ public:
 
     Q_INVOKABLE QString newRecord(const QString& name, const QString& defaultFncValue);
 
-
+    Q_INVOKABLE quint32 iStatus(int boardID) const  { return host_->HostStatusValue(&c_ro_0_32_0_1538);}
+    Q_INVOKABLE quint32 oStatus(int boardID) const { return host_->HostStatusValue(&c_ro_0_32_0_1539);}
 
 signals:
 

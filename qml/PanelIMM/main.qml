@@ -270,15 +270,25 @@ Rectangle {
     ICTouchControlSection{
         id:touchControlSection
         anchors.bottom: parent.bottom
+        function showHelper(page){
+            recordManagement.hide();
+            alarmHistory.hide();
+            ioPage.hide();
+            if(page != null)
+                page.show();
+        }
+
         onRecordMenuItemTriggered: {
             normalMonitorSection.showNormalMonitorPage(menuItem);
-            recordManagement.show();
-            alarmHistory.hide();
+            showHelper(recordManagement);
         }
         onAlarmHistoryMenuItemTriggered: {
             normalMonitorSection.showNormalMonitorPage(menuItem);
-            alarmHistory.show();
-            recordManagement.hide();
+            showHelper(alarmHistory);
+        }
+        onIoMonitorMenuItemTriggered: {
+            normalMonitorSection.showNormalMonitorPage(menuItem);
+            showHelper(ioPage);
         }
 
         onFuncMenuItemTriggered: {
@@ -286,8 +296,7 @@ Rectangle {
             PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
             var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
             detailMenuSection.refreshMenuItem(page.detailsMenuItems);
-            recordManagement.hide();
-            alarmHistory.hide();
+            showHelper(null);
 
         }
     }
@@ -320,6 +329,20 @@ Rectangle {
 
     ICOperationLogPage{
         visible: false
+    }
+
+    IOPage{
+        id:ioPage
+        width: parent.width
+        height: detailMenuSection.y - y + detailMenuSection.height
+        y:Style.monitorSection.header.rect.height
+        visible: false
+        function show(){
+            visible = true;
+        }
+        function hide(){
+            visible = false;
+        }
     }
 
     Component.onCompleted: {
