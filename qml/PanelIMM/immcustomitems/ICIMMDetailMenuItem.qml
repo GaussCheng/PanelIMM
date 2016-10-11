@@ -1,6 +1,6 @@
 import QtQuick 1.1
 import "../../ICCustomElement"
-import "../style.js" as Style
+import "../../styles/style.js" as Style
 ICCheckableButton {
     id:instance
     property string bindingPageComponent: ""

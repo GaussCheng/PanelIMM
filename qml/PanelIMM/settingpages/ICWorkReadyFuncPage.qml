@@ -25,83 +25,114 @@ ICIMMFunctionPageBase {
         ICSettingConfigsScope{
             ICGroupPage{
                 title: qsTr("Clear Materia")
-                width: workReadyPage1.width
-                height: workReadyPage1.height - y
+                width: workReadyPage1.width - 1
+                height: workReadyPage1.height * 0.55 - y
                 Grid{
                     columns: 5
-                    spacing: 6
                     x:4
-                    y:4
-                    Text {
+                    y:2
+                    ICIMMText {
                         text: qsTr("CEAR")
                     }
-                    Text {
+                    ICIMMText {
                         text: qsTr("PRES")
                     }
-                    Text {
+                    ICIMMText {
                         text: qsTr("SPE")
                     }
-                    Text {
+                    ICIMMText {
                         text: qsTr("POSN")
                     }
-                    Text {
+                    ICIMMText {
                         text: qsTr("TIME")
                     }
 
-                    Text {
-                        text: " "
+                    ICIMMText {
                     }
-                    Text {
+                    ICIMMText {
                         text: qsTr("(bar)")
                     }
-                    Text {
+                    ICIMMText {
                         text: qsTr("(%)")
                     }
-                    Text {
+                    ICIMMText {
                         text: qsTr("(mm)")
                     }
-                    Text {
+                    ICIMMText {
                         text: qsTr("(s)")
                     }
 
-                    Text {
+                    ICIMMText {
                         text: qsTr("Inj.Seg1")
                     }
-                    ICLineEdit{
+                    ICIMMLineEdit{
                         id:m_rw_17_15_0_407
-                        bindConfig: "m_rw_17_15_0_407"
+                        configAddr: "m_rw_17_15_0_407"
                     }
-                    ICLineEdit{
+                    ICIMMLineEdit{
                         id:m_rw_0_16_0_408
-                        bindConfig: "m_rw_0_16_0_408"
+                        configAddr: "m_rw_0_16_0_408"
                     }
-                    ICLineEdit{
+                    ICIMMLineEdit{
                         id:m_rw_0_17_1_407
-                        bindConfig: "m_rw_0_17_1_407"
+                        configAddr: "m_rw_0_17_1_407"
                     }
-                    Text {
-                        text: " "
+                    ICIMMText {
                     }
 
-                    Text {
+                    ICIMMText {
                         text: qsTr("Inj.Seg2")
                     }
-                    ICLineEdit{
+                    ICIMMLineEdit{
                         id:m_rw_17_15_0_409
-                        bindConfig: "m_rw_17_15_0_409"
+                        configAddr: "m_rw_17_15_0_409"
                     }
-                    ICLineEdit{
+                    ICIMMLineEdit{
                         id:m_rw_0_16_0_410
-                        bindConfig: "m_rw_0_16_0_410"
+                        configAddr: "m_rw_0_16_0_410"
                     }
-                    ICLineEdit{
+                    ICIMMLineEdit{
                         id:m_rw_0_17_1_409
-                        bindConfig: "m_rw_0_17_1_409"
+                        configAddr: "m_rw_0_17_1_409"
                     }
-                    Text {
-                        text: " "
+                    ICIMMText {
                     }
 
+                    ICIMMText {
+                        text: qsTr("S.B")
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_17_15_0_411
+                        configAddr: "m_rw_17_15_0_411"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_16_0_412
+                        configAddr: "m_rw_0_16_0_412"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_17_1_411
+                        configAddr: "m_rw_0_17_1_411"
+                    }
+                    ICIMMText {
+                    }
+
+                    ICIMMText {
+                        text: qsTr("Feed")
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_17_15_0_413
+                        configAddr: "m_rw_17_15_0_413"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_16_0_414
+                        configAddr: "m_rw_0_16_0_414"
+                    }
+                    ICIMMText {
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_16_16_2_414
+                        configAddr: "m_rw_16_16_2_414"
+                    }
                 }
             }
         }

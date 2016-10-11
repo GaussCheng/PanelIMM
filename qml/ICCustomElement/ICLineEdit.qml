@@ -1,9 +1,11 @@
 import QtQuick 1.1
+import "../styles/style.js" as Style
 
 ICEditableItemBase{
     id:instance
     property alias text: lineEdit.text
-    property string bindConfig: ""
+    property alias configValue: lineEdit.text
+    property string configAddr: ""
     property alias unit: unit.text
     property alias horizontalAlignment: lineEdit.horizontalAlignment
     property bool isNumberOnly: true
@@ -11,12 +13,20 @@ ICEditableItemBase{
     property double min : 0
     property double max: 4000000000
     property int decimal: 0
+    property alias font: lineEdit.font
     tip: min.toFixed(decimal) + "-->" + max.toFixed(decimal)
+
+    onConfigAddrChanged: {
+        var rg = JSON.parse(panelController.configRange(configAddr));
+        min = rg.min;
+        max = rg.max;
+        decimal = rg.decimal;
+    }
 
     width: 100
     height: 24
-    border.color: "gray"
-    border.width: 1
+    border.color: Style.itemStyles.ICLineEdit.border.color
+    border.width: Style.itemStyles.ICLineEdit.border.width
 
     signal editFinished();
 
@@ -29,14 +39,14 @@ ICEditableItemBase{
     states: [
         State {
             name: "disabled"
-            PropertyChanges { target: instance; color:"gray";}
-            PropertyChanges { target: lineEdit; color:"gainsboro";}
+            PropertyChanges { target: instance; color:Style.itemStyles.ICLineEdit.disabled.bgColor;}
+            PropertyChanges { target: lineEdit; color:Style.itemStyles.ICLineEdit.disabled.fontColor;}
 
         },
         State{
             name: "focused"
-            PropertyChanges { target: instance; color:"blue";}
-            PropertyChanges { target: lineEdit; color:"white";}
+            PropertyChanges { target: instance; color:Style.itemStyles.ICLineEdit.focused.bgColor;}
+            PropertyChanges { target: lineEdit; color:Style.itemStyles.ICLineEdit.focused.fontColor;}
         }
 
     ]
@@ -102,13 +112,13 @@ ICEditableItemBase{
         function showSoftKeyboard(){
             if(softkeyboardEn){
                 var p = parent.mapToItem(null, lineEdit.x, lineEdit.y);
-                if(bindConfig.length != 0){
+                if(configAddr.length != 0){
                     virtualKeyboard.openSoftPanel(p.x,
                                                   p.y,
                                                   lineEdit.width,
                                                   lineEdit.height,
                                                   isNumberOnly,
-                                                  bindConfig,
+                                                  configAddr,
                                                   true);
                 }else if(isNumberOnly){
                     virtualKeyboard.openSoftPanel(p.x, p.y, lineEdit.width, lineEdit.height, min, max, decimal);

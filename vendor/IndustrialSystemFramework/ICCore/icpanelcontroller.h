@@ -194,6 +194,13 @@ public:
         return mold_->CopyRecord(name, source).toJSON();
     }
 
+    Q_INVOKABLE QString configRange(const QString& addr) const
+    {
+        ICRange rg = ICConfigRangeGetter(addr);
+        return QString("{\"min\":%1,\"max\":%2, \"decimal\":%3}")
+                .arg(rg.min).arg(rg.max).arg(rg.decimal);
+    }
+
     void InitMainView();
 
     QWidget* MainView()

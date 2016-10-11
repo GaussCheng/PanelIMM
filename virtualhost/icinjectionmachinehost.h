@@ -45,8 +45,9 @@ public:
         for(int i = 0; i != addrVals.size(); ++i)
         {
             tmp = addrVals.at(i);
-            AddWriteConfigCommunicationFrame(ICVirtualHostPtr(this), tmp.first, tmp.second);
-            AddReadConfigCommunicationFrame_(ICVirtualHostPtr(this));
+            ICVirtualHostPtr host = ICVirtualHostManager::GetVirtualHost<ICInjectionMachineHost>(1);
+            AddWriteConfigCommunicationFrame(host, tmp.first, tmp.second);
+            AddReadConfigCommunicationFrame_(host);
         }
     }
     //    static ICSTATUS CurrentStatus

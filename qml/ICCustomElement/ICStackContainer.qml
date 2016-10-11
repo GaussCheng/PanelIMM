@@ -11,10 +11,10 @@ Item {
         p.push(componentObject)
         pages = p;
         componentObject.visible = false;
-        componentObject.x = 2;
-        componentObject.y = 2;
-        componentObject.width = container.width - 4;
-        componentObject.height = container.height - 4;
+//        componentObject.x = 2;
+//        componentObject.y = 2;
+        componentObject.width = container.width;
+        componentObject.height = container.height;
         return pages.length - 1;
     }
 

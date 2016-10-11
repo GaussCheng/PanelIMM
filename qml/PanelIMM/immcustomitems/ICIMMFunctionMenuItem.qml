@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import "../style.js" as Style
+import "../../styles/style.js" as Style
 
 ICIMMDetailMenuItem{
     radius: 0

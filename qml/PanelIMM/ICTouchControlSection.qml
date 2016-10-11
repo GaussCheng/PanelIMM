@@ -1,5 +1,5 @@
 import QtQuick 1.1
-import "style.js" as Style
+import "../styles/style.js" as Style
 import "../ICCustomElement"
 import "immcustomitems"
 
@@ -15,6 +15,7 @@ Rectangle {
     Image {
         id: immModeBG
         source: "images/immModeBg.png"
+        smooth: true
         anchors.right: parent.right
         anchors.rightMargin: Style.touchControlSection.immModeBG.rightMargin
         anchors.top: parent.top

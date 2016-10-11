@@ -3,7 +3,7 @@ import QtQuick 1.1
 Item {
     id:instance
     property alias configName: configName.text
-    property alias configAddr: edit.bindConfig
+    property alias configAddr: edit.configAddr
     property alias unit: edit.unit
     property alias configValue: edit.text
     property alias alignMode: edit.horizontalAlignment

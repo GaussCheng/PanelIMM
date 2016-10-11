@@ -11,6 +11,7 @@ Rectangle {
         color: "green"
         anchors.left: parent.left
         anchors.bottom: parent.top
+        height: 16
     }
     y:titleLabel.height
 }

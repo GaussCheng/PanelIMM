@@ -7,7 +7,7 @@ function showPageHelper(container, pageMap, component, prefix, newFun){
             console.log(comp.errorString());
             return;
         }
-        var co = comp.createObject(container, {"width":container.width - 4, "height":container.height - 4});
+        var co = comp.createObject(container, {"width":container.width, "height":container.height});
         pageMap[component] = container.addPage(co);
         if(newFun){
             newFun(co);

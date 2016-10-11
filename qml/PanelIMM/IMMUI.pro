@@ -6,8 +6,12 @@ SOURCES = *.qml \
 immcustomitems/* \
 settingpages/* \
 monitorpages/* \
-configs/*
+configs/* \
+../styles/*
 }
+
+OTHER_FILES += \
+    immcustomitems/ICIMMText.qml
 
 
 

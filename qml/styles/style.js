@@ -18,6 +18,7 @@ var realH = 1024;
 
 var usedH = 768;
 
+
 var mainWindow = {
   "rect":new Rect(0, 0, usedH * aspectRatio, usedH),
 };
@@ -25,6 +26,19 @@ var mainWindow = {
 var wRatio = mainWindow.rect.width / realW;
 var hRatio = mainWindow.rect.height/ realH;
 var scaleRatio = usedH / realH;
+
+// item styles begin
+var itemStyles = {
+    "defaultFont":{"pixelSize":14 * scaleRatio},
+    "defaultSize":{"width":60 * wRatio, "height":24 * hRatio},
+    "ICLineEdit":{
+        "border":{"width":1, "color":"black"},
+        "disabled":{"bgColor":"gray","fontColor":"gainsboro"},
+        "focused":{"bgColor":"#FF7C00", "fontColor":"white"}
+    }
+}
+
+// item styles end
 
 var monitorSection = {
     "rect":new Rect(0, 0, mainWindow.rect.width, 217 * hRatio),
@@ -42,12 +56,12 @@ var monitorSection = {
 var detailMenuSection = {
     "rect":new Rect(0, 0, mainWindow.rect.width, 38 * hRatio),
     "bg":"#AAA7A7",
-    "menuItem":{"radius":38 * hRatio >> 2, "color":"#3FC3E4", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"white", "font":{"pixelSize":14 * scaleRatio}},
+    "menuItem":{"radius":38 * hRatio >> 2, "color":"#5558DF", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"white", "font":{"pixelSize":14 * scaleRatio}},
 
 }
 
 var touchControlSection = {
-    "bg":"#AAA7A7",
+    "bg":"#709089",
     "rect":new Rect(0, 579, mainWindow.rect.width, 445 * hRatio),
     "immModeBG":{"rightMargin": 2 * wRatio, "topMargin": 2 * hRatio},
     "touchKeyboard":{"btnSize":47 * scaleRatio, "btnBG":"#CCA0D2", "spacing": 2 * wRatio, "topMargin":20 * wRatio, "leftMargin": 4 * wRatio},

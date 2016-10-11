@@ -4,7 +4,7 @@ import "../ICCustomElement"
 import "immcustomitems"
 import "../utils/utils.js" as Utils
 import "../utils/Storage.js" as Storage
-import "style.js" as Style
+import "../styles/style.js" as Style
 import "main.js" as PData
 
 Rectangle {

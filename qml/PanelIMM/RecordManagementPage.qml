@@ -5,7 +5,7 @@ import "../utils/stringhelper.js" as ICString
 
 import "../ICCustomElement"
 import "ICOperationLog.js" as ICOperationLog
-import "style.js" as Style
+import "../styles/style.js" as Style
 import "configs/ConfigDefines.js" as ConfigDefines
 
 
