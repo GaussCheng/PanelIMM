@@ -11,7 +11,8 @@ configs/* \
 }
 
 OTHER_FILES += \
-    immcustomitems/ICIMMText.qml
+    immcustomitems/ICIMMText.qml \
+    immcustomitems/ICIMMEditableDummy.qml
 
 
 

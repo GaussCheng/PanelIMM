@@ -13,21 +13,21 @@ function getRandomNum(Min,Max)
 
 function formatDate(date, fmt)
 { //author: meizz
-  var o = {
-    "M+" : date.getMonth()+1,                 //月份
-    "d+" : date.getDate(),                    //日
-    "h+" : date.getHours(),                   //小时
-    "m+" : date.getMinutes(),                 //分
-    "s+" : date.getSeconds(),                 //秒
-    "q+" : Math.floor((date.getMonth()+3)/3), //季度
-    "S"  : date.getMilliseconds()             //毫秒
-  };
-  if(/(y+)/.test(fmt))
-    fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
-  for(var k in o)
-    if(new RegExp("("+ k +")").test(fmt))
-  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
-  return fmt;
+    var o = {
+        "M+" : date.getMonth()+1,                 //月份
+        "d+" : date.getDate(),                    //日
+        "h+" : date.getHours(),                   //小时
+        "m+" : date.getMinutes(),                 //分
+        "s+" : date.getSeconds(),                 //秒
+        "q+" : Math.floor((date.getMonth()+3)/3), //季度
+        "S"  : date.getMilliseconds()             //毫秒
+    };
+    if(/(y+)/.test(fmt))
+        fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+    for(var k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    return fmt;
 }
 
 function isDateTimeValid(yy,MM,dd,hh,mm,ss){
@@ -64,10 +64,12 @@ function deepFindEditableItems(root, itemMat){
                 if(!found){
                     row.push(root);
                     found = true;
+                    break;
                 }
             }else if(rootPos.y < tmpPos0.y){
                 itemMat.splice(i, 0, [root]);
                 found = true;
+                break;
             }
         }
         if(!found){
@@ -86,6 +88,7 @@ function generatePageKeyNav(root){
     deepFindEditableItems(root, ret);
     var row = [];
     var tryL;
+    var k, kL;
     for(var i = 0, rowLen = ret.length; i < rowLen; ++i){
         row = ret[i];
         for(var j = 0, colLen = row.length; j < colLen; ++j){
@@ -93,21 +96,32 @@ function generatePageKeyNav(root){
             row[j].navR = row[(j + 1) % row.length];
             tryL = (i - 1 + ret.length) % ret.length;
             while(tryL != i){
-                if(ret[tryL].length > j){
-                    row[j].navU = ret[tryL][j];
-                    break;
+                var f = false;
+                for(k = 0, kL = ret[tryL].length; k < kL; ++k){
+                    if(Math.abs(ret[tryL][k].screenPos().x - row[j].screenPos().x) <= 10){
+                        row[j].navU = ret[tryL][k];
+                        f = true;
+                        break;
+                    }
                 }
+                if(f)
+                    break;
                 tryL = (tryL - 1 + ret.length) % ret.length;
             };
             tryL = (i + 1) % ret.length;
             while(tryL != i){
-                if(ret[tryL].length > j){
-                    row[j].navD = ret[tryL][j];
-                    break;
+                for(k = 0, kL = ret[tryL].length; k < kL; ++k){
+                    if(Math.abs(ret[tryL][k].screenPos().x - row[j].screenPos().x) <= 10){
+                        row[j].navD = ret[tryL][k];
+                        f = true;
+                        break;
+                    }
                 }
+                if(f)
+                    break;
                 tryL = (tryL + 1) % ret.length;
             };
-//            row[j].navU = ret[(i - 1 + ret.length) % ret.length]
+            //            row[j].navU = ret[(i - 1 + ret.length) % ret.length]
         }
     }
     if(ret.length > 0)

@@ -8,14 +8,18 @@ Rectangle {
     property variant navL: null
     property variant navR: null
     property string tip: ""
-    function navHelper(which){
+    function navHelper(which, next){
         if(which != null){
-            which.focus = true;
-            focused(which);
+            if(!which.visible || !which.enabled){
+                navHelper(which[next], next);
+            }else{
+                which.focus = true;
+                focused(which);
+            }
         }
     }
     function screenPos(){
-        return mapToItem(null, x, y);
+        return mapToItem(null, 0, 0);
     }
 
     signal focused(variant me)
@@ -25,10 +29,10 @@ Rectangle {
             focused(instance);
     }
 
-    Keys.onUpPressed: navHelper(navU)
-    Keys.onDownPressed: navHelper(navD)
-    Keys.onLeftPressed: navHelper(navL)
-    Keys.onRightPressed: navHelper(navR)
+    Keys.onUpPressed: navHelper(navU, "navU")
+    Keys.onDownPressed: navHelper(navD, "navD")
+    Keys.onLeftPressed: navHelper(navL, "navL")
+    Keys.onRightPressed: navHelper(navR, "navR")
 
     //    KeyNavigation{
     //        id:kN

@@ -35,6 +35,15 @@ var itemStyles = {
         "border":{"width":1, "color":"black"},
         "disabled":{"bgColor":"gray","fontColor":"gainsboro"},
         "focused":{"bgColor":"#FF7C00", "fontColor":"white"}
+    },
+    "ICGroupPage":{
+        "border":{"width":1, "color":"white"},
+        "color":"transparent",
+        "titleLabel":{"color":"green"}
+    },
+    "ICVerSplitLine":{
+        "width":1,
+        "color":"white",
     }
 }
 

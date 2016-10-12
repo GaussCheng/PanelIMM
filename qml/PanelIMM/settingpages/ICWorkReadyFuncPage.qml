@@ -28,9 +28,105 @@ ICIMMFunctionPageBase {
                 width: workReadyPage1.width - 1
                 height: workReadyPage1.height * 0.55 - y
                 Grid{
-                    columns: 5
+                    id:chargeContainer
                     x:4
                     y:2
+                    columns: 5
+                    ICIMMText{text: qsTr("CHARGE")}
+                    ICIMMText{text: qsTr("PRES")}
+                    ICIMMText{text: qsTr("SPE")}
+                    ICIMMText{text: qsTr("B-P")}
+                    ICIMMText{text: qsTr("POSN")}
+
+                    ICIMMText{}
+                    ICIMMText{text: qsTr("(bar)")}
+                    ICIMMText{text: qsTr("(%)")}
+                    ICIMMText{text: qsTr("(bar)")}
+                    ICIMMText{text: qsTr("(mm)")}
+
+                    ICIMMText{text: qsTr("B.S.B")}
+                    ICIMMLineEdit{
+                        id:m_rw_17_15_1_285
+                        configAddr: "m_rw_17_15_1_285"
+                        objectName: "0"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_10_1_286
+                        configAddr: "m_rw_0_10_1_286"
+                        objectName: "1"
+                    }
+                    ICIMMText{}
+                    ICIMMLineEdit{
+                        id:m_rw_0_17_2_285
+                        configAddr: "m_rw_0_17_2_285"
+                        objectName: "2"
+                    }
+
+                    ICIMMText{text:qsTr("SEC1")}
+                    ICIMMLineEdit{
+                        id:m_rw_17_15_1_261
+                        configAddr: "m_rw_17_15_1_261"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_10_1_262
+                        configAddr: "m_rw_0_10_1_262"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_16_0_279
+                        configAddr: "m_rw_0_16_0_279"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_17_2_261
+                        configAddr: "m_rw_0_17_2_261"
+                    }
+
+                    ICIMMText{text:qsTr("SEC2")}
+                    ICIMMLineEdit{
+                        id:m_rw_17_15_1_265
+                        configAddr: "m_rw_17_15_1_265"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_10_1_266
+                        configAddr: "m_rw_0_10_1_266"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_16_16_0_279
+                        configAddr: "m_rw_16_16_0_279"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_17_2_265
+                        configAddr: "m_rw_0_17_2_265"
+                    }
+
+                    ICIMMText{text:qsTr("A.S.B")}
+                    ICIMMLineEdit{
+                        id:m_rw_17_15_1_292
+                        configAddr: "m_rw_17_15_1_292"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_10_1_293
+                        configAddr: "m_rw_0_10_1_293"
+                    }
+                    ICIMMText{}
+                    ICIMMLineEdit{
+                        id:m_rw_0_17_2_292
+                        configAddr: "m_rw_0_17_2_292"
+                    }
+                }
+
+                ICVerSplitLine{
+                    id:verSplitLine1
+                    height: parent.height
+                    anchors.left: chargeContainer.right
+                    anchors.leftMargin: 4
+                }
+
+                Grid{
+                    id:clearMateriaContainer
+                    columns: 5
+                    anchors.left: verSplitLine1.right
+                    anchors.leftMargin: 4
+                    y: chargeContainer.y
                     ICIMMText {
                         text: qsTr("CEAR")
                     }
@@ -68,14 +164,17 @@ ICIMMFunctionPageBase {
                     ICIMMLineEdit{
                         id:m_rw_17_15_0_407
                         configAddr: "m_rw_17_15_0_407"
+                        objectName: "3"
                     }
                     ICIMMLineEdit{
                         id:m_rw_0_16_0_408
                         configAddr: "m_rw_0_16_0_408"
+                        objectName: "4"
                     }
                     ICIMMLineEdit{
                         id:m_rw_0_17_1_407
                         configAddr: "m_rw_0_17_1_407"
+                        objectName: "5"
                     }
                     ICIMMText {
                     }
@@ -127,13 +226,14 @@ ICIMMFunctionPageBase {
                         id:m_rw_0_16_0_414
                         configAddr: "m_rw_0_16_0_414"
                     }
-                    ICIMMText {
-                    }
+                    ICIMMText {}
                     ICIMMLineEdit{
                         id:m_rw_16_16_2_414
                         configAddr: "m_rw_16_16_2_414"
                     }
                 }
+
+
             }
         }
 
@@ -141,5 +241,10 @@ ICIMMFunctionPageBase {
     Component.onCompleted: {
         addPage(workReadyPage1);
         setCurrentIndex(0);
+        console.log(JSON.stringify(m_rw_17_15_1_285.screenPos()),
+                    JSON.stringify(m_rw_0_10_1_286.screenPos()),
+                    JSON.stringify(m_rw_0_17_2_285.screenPos()),
+                    JSON.stringify(m_rw_17_15_0_407.screenPos()),
+                    JSON.stringify(m_rw_0_16_0_408.screenPos()));
     }
 }
