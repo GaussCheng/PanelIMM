@@ -159,6 +159,7 @@ ICIMMFunctionPageBase {
                     }
 
                     ICIMMText {
+                        id:injSeg1Label
                         text: qsTr("Inj.Seg1")
                     }
                     ICIMMLineEdit{
@@ -232,13 +233,15 @@ ICIMMFunctionPageBase {
                         configAddr: "m_rw_16_16_2_414"
                     }
                 }
-                ICConfigEdit{
+                ICIMMLabelLineEdit{
                     id:m_rw_0_8_0_415
                     configAddr: "m_rw_0_8_0_415"
-                    configName: qsTr("Clear Time")
+                    configName: qsTr("Clr.T")
                     unit: qsTr("times")
                     anchors.top: clearMateriaContainer.bottom
                     x: clearMateriaContainer.x
+                    configNameWidth: injSeg1Label.width - 1
+                    inputWidth: m_rw_0_10_1_262.width << 1
                 }
 
                 ICVerSplitLine{

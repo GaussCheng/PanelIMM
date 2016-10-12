@@ -1,6 +1,6 @@
 import QtQuick 1.1
 
-Item {
+ICEditableItemBase {
     id:instance
     property alias configName: configName.text
     property alias configAddr: edit.configAddr
@@ -13,7 +13,9 @@ Item {
     property alias min: edit.min
     property alias max: edit.max
     property alias decimal: edit.decimal
+    property alias font: edit.font
 
+    color: "transparent"
 
     signal editFinished();
 
@@ -33,11 +35,13 @@ Item {
 //            anchors.verticalCenter: parent.verticalCenter
             verticalAlignment: Text.AlignVCenter
             height: parent.height
+            font: edit.font
         }
         ICLineEdit{
             id: edit
             height: parent.height
             onEditFinished: instance.editFinished()
+            focus: instance.focus
         }
     }
 
