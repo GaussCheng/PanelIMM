@@ -23,8 +23,8 @@ ICIMMFunctionPageBase {
             instance.editorFocusChanged(now);
         }
         ICSettingConfigsScope{
-            ICGroupPage{
-                title: qsTr("Clear Materia")
+            ICIMMFrame{
+//                title: qsTr("Clear Materia")
                 width: workReadyPage1.width - 1
                 height: workReadyPage1.height * 0.55 - y
                 Grid{
@@ -232,8 +232,33 @@ ICIMMFunctionPageBase {
                         configAddr: "m_rw_16_16_2_414"
                     }
                 }
+                ICConfigEdit{
+                    id:m_rw_0_8_0_415
+                    configAddr: "m_rw_0_8_0_415"
+                    configName: qsTr("Clear Time")
+                    unit: qsTr("times")
+                    anchors.top: clearMateriaContainer.bottom
+                    x: clearMateriaContainer.x
+                }
 
+                ICVerSplitLine{
+                    id:verSplitLine2
+                    height: parent.height
+                    anchors.left: clearMateriaContainer.right
+                    anchors.leftMargin: 4
+                }
+                Grid{
+                    id:otherChargeContainer
+                    columns: 2
+                    anchors.left: verSplitLine2.right
+                    anchors.leftMargin: 4
+//                    ICCheckBoxEdit{
+//                        id:m_rw_0_1_0_253
+//                        text: qsTr("F.B.INJ")
+//                    }
+                    ICIMMText{}
 
+                }
             }
         }
 
@@ -241,10 +266,5 @@ ICIMMFunctionPageBase {
     Component.onCompleted: {
         addPage(workReadyPage1);
         setCurrentIndex(0);
-        console.log(JSON.stringify(m_rw_17_15_1_285.screenPos()),
-                    JSON.stringify(m_rw_0_10_1_286.screenPos()),
-                    JSON.stringify(m_rw_0_17_2_285.screenPos()),
-                    JSON.stringify(m_rw_17_15_0_407.screenPos()),
-                    JSON.stringify(m_rw_0_16_0_408.screenPos()));
     }
 }
