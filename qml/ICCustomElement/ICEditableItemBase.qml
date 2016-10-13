@@ -23,6 +23,7 @@ Rectangle {
     }
 
     signal focused(variant me)
+    signal editFinished()
 
     onFocusChanged: {
         if(focus)

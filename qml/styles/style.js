@@ -36,6 +36,16 @@ var itemStyles = {
         "disabled":{"bgColor":"gray","fontColor":"gainsboro"},
         "focused":{"bgColor":"#FF7C00", "fontColor":"white"}
     },
+    "ICCheckBox":{
+        "color":"transparent",
+        "box":{"color":{"focused":"#FF7C00", "checked":"lightgreen", "normal":"white"},
+               "border":{"width":1, "color":"black"}
+        }
+    },
+    "ICComboBox":{
+        "border":{"width":1, "color":"black"},
+        "color":{"normal":{"bg":"white", "fc":"black"}, "disabled":{"bg":"gray", "fc":"gainsboro"}, "focused":{"bg":"#FF7C00", "fc":"black"}},
+    },
     "ICGroupPage":{
         "border":{"width":1, "color":"white"},
         "color":"transparent",

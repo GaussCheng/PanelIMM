@@ -28,8 +28,6 @@ ICEditableItemBase{
     border.color: Style.itemStyles.ICLineEdit.border.color
     border.width: Style.itemStyles.ICLineEdit.border.width
 
-    signal editFinished();
-
     state: {
         if(!enabled) return "disabled";
         if(activeFocus) return "focused";
@@ -74,6 +72,7 @@ ICEditableItemBase{
         anchors.rightMargin: 4
         color: lineEdit.color
         y:lineEdit.y
+        anchors.verticalCenter: parent.verticalCenter
     }
 
     onActiveFocusChanged: {

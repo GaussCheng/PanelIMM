@@ -1,9 +1,11 @@
 import QtQuick 1.1
 
 Item {
+    id:instance
     property alias configName: configName.text
     property string configAddr:""
     property alias configValue: edit.currentIndex
+    property alias font: edit.font
 
 //    property string configText:edit.currentText
     property alias configNameWidth: configName.width
@@ -22,6 +24,9 @@ Item {
         return items[index];
     }
 
+    signal editFinished()
+
+
     height: 24
     width: container.width
     Row{
@@ -32,9 +37,13 @@ Item {
         Text {
             id: configName
             anchors.verticalCenter: parent.verticalCenter
+            font: instance.font
         }
         ICComboBox{
             id: edit
+            focus: instance.focus
+            height: instance.height
+            onEditFinished: instance.editFinished()
         }
     }
 }

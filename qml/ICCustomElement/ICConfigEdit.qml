@@ -1,6 +1,6 @@
 import QtQuick 1.1
 
-ICEditableItemBase {
+Item {
     id:instance
     property alias configName: configName.text
     property alias configAddr: edit.configAddr
@@ -15,7 +15,7 @@ ICEditableItemBase {
     property alias decimal: edit.decimal
     property alias font: edit.font
 
-    color: "transparent"
+//    color: "transparent"
 
     signal editFinished();
 

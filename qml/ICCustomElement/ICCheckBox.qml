@@ -1,6 +1,7 @@
 import QtQuick 1.1
+import "../styles/style.js" as Style
 
-Item {
+ICEditableItemBase {
     id:container
     property alias configName: text.text
     property alias text: text.text
@@ -22,13 +23,18 @@ Item {
 
     width: text.width + box.width + 4
     height: 24
+    color: Style.itemStyles.ICCheckBox.color
     Rectangle{
         id:box
         width: parent.height
         height: parent.height
-        border.width: 1
-        border.color: "black"
-        color: isChecked ? "lightgreen" :"white"
+        border.width: Style.itemStyles.ICCheckBox.box.border.width
+        border.color: Style.itemStyles.ICCheckBox.box.border.color
+        color: {
+            if(parent.activeFocus) return Style.itemStyles.ICCheckBox.box.color.focused;
+            return isChecked ? Style.itemStyles.ICCheckBox.box.color.checked :Style.itemStyles.ICCheckBox.box.color.normal
+        }
+//        focus: parent.activeFocus
         Image{
             id:checkedImage
             source: "images/checked.png"
@@ -63,9 +69,17 @@ Item {
         anchors.fill: parent
 
         onClicked: {
+            parent.focus = true;
             if(useCustomClickHandler || !isEditable) return;
             setChecked(!isChecked);
-            parent.clicked()
+            parent.clicked();
+            editFinished();
         }
     }
+     Keys.onPressed: {
+         if(event.key === Qt.Key_Return){
+             isChecked = !isChecked;
+             editFinished();
+         }
+     }
 }

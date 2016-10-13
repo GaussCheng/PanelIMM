@@ -1,12 +1,13 @@
 import QtQuick 1.1
+import "../styles/style.js" as Style
 
-Rectangle {
+ICEditableItemBase {
     id:container
     property variant items: []
     property int currentIndex: -1
     property int popupMode : 0
     property int itemHeight: 32
-    property int contentFontPixelSize: currentText.font.pixelSize
+    property alias font: currentText.font
     property alias popupWidth: itemContainer.width
     property int popupHeight: 0
 
@@ -22,17 +23,24 @@ Rectangle {
     width: 100
     height: 24
 
-    border.width: 1
-    border.color: "black"
+    border.width: Style.itemStyles.ICComboBox.border.width
+    border.color: Style.itemStyles.ICComboBox.border.color
 
-    state: enabled ? "" : "disabled"
+    state: {
+        if(focus) return "focused";
+        return enabled ? "" : "disabled"
+    }
 
     states: [
         State {
             name: "disabled"
-            PropertyChanges { target: container; color:"gray";}
-            PropertyChanges { target: currentText; color:"gainsboro";}
+            PropertyChanges { target: container; color:Style.itemStyles.ICComboBox.color.disabled.bg;}
+            PropertyChanges { target: currentText; color:Style.itemStyles.ICComboBox.color.disabled.fc;}
 
+        },
+        State{
+            name: "focused"
+            PropertyChanges { target: container; color:Style.itemStyles.ICComboBox.color.focused.bg;}
         }
 
     ]
@@ -76,13 +84,16 @@ Rectangle {
                 text: name
                 verticalAlignment: Text.AlignVCenter
                 x:4
-                font.pixelSize: contentFontPixelSize
+                font: container.font
                 MouseArea{
                     height: itemHeight
                     width: view.width
                     onClicked: {
-                        view.currentIndex = index
-                        currentIndex = index
+                        if(view.currentIndex != index){
+                            view.currentIndex = index;
+                            currentIndex = index;
+                            editFinished();
+                        }
                         itemContainer.visible = false
                     }
                 }
@@ -116,6 +127,7 @@ Rectangle {
                 var p = mapFromItem(null, 0, 0);
                 x = p.x;
                 y = p.y;
+
             }
         }
     }
@@ -144,6 +156,7 @@ Rectangle {
                 view.currentIndex = currentIndex;
                 itemContainer.visible = true;
             }
+            parent.focus = true;
         }
     }
 }

@@ -252,14 +252,40 @@ ICIMMFunctionPageBase {
                 }
                 Grid{
                     id:otherChargeContainer
-                    columns: 2
+                    columns: 1
                     anchors.left: verSplitLine2.right
                     anchors.leftMargin: 4
-//                    ICCheckBoxEdit{
+                    y: chargeContainer.y
+//                    ICIMMCheckBoxEdit{
 //                        id:m_rw_0_1_0_253
+//                        configAddr: "m_rw_0_1_0_253"
 //                        text: qsTr("F.B.INJ")
 //                    }
-                    ICIMMText{}
+                    ICIMMCheckBoxEdit{
+                        id:m_rw_16_1_0_284
+                        configAddr: "m_rw_16_1_0_284"
+                        configName: qsTr("F.A.Cool")
+                    }
+                    ICIMMLabelLineEdit{
+                        id:m_rw_0_16_2_284
+                        configAddr: "m_rw_0_16_2_284"
+                        configName: qsTr("COOL.TIME")
+                        unit: qsTr("s")
+                    }
+                    ICIMMLabelLineEdit{
+                        id:m_rw_0_16_0_281
+                        configAddr: "m_rw_0_16_0_281"
+                        configName: qsTr("F.Protect")
+                        unit: qsTr("s")
+                        configNameWidth: m_rw_0_16_2_284.configNameWidth
+                    }
+                    ICIMMLabelComboBoxEdit{
+                        id:m_rw_0_4_0_421
+                        configAddr: "m_rw_0_4_0_421"
+                        configName: qsTr("F.Mode")
+                        items: [qsTr("Fix"), qsTr("Before"), qsTr("After")]
+                        configNameWidth: m_rw_0_16_2_284.configNameWidth
+                    }
 
                 }
             }
