@@ -63,10 +63,10 @@ var monitorSection = {
     "rect":new Rect(0, 0, mainWindow.rect.width, 217 * hRatio),
     "bg":"#8D8D8D",
     "header":{"rect":new Rect(0, 0, mainWindow.rect.width >> 1, 54 * hRatio),
-        "bg":"#858385",
+        "bg":"#8D8D8D",
         "normalMonitorSection":{"normalMonitorTitleWidth":110 * wRatio,
         "normalMonitorTitleBG":"#00AE66",
-        "normalMonitorTitleBorderColor":"#AAA7A7",
+        "normalMonitorTitleBorderColor":"white",
         "normalMonitorTitleFontPixelSize":24 * scaleRatio},
         "convenientMonitorSection":{"time":{"font":{"pixelSize":16 * scaleRatio}}}
     },

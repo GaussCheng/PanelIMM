@@ -26,7 +26,7 @@ ICIMMFunctionPageBase {
             ICIMMFrame{
                 //                title: qsTr("Clear Materia")
                 id:topRow
-                width: workReadyPage1.width - 1
+                width: workReadyPage1.width
                 height: workReadyPage1.height * 0.55 - y
                 Grid{
                     id:chargeContainer
@@ -302,7 +302,7 @@ ICIMMFunctionPageBase {
                 id:bottomRowLeft
                 anchors.top: topRow.bottom
                 width: verSplitLine1.x
-                height: workReadyPage1.height * 0.45
+                height: workReadyPage1.height * 0.45  + 1
                 Grid{
                     id:delayContainer
                     columns: 1
@@ -348,7 +348,7 @@ ICIMMFunctionPageBase {
                 id:tuneMoldContainer
                 y:bottomRowLeft.y
                 anchors.left: bottomRowLeft.right
-                height: bottomRowLeft.height
+                height: bottomRowLeft.height + 1
                 width: verSplitLine2.x - bottomRowLeft.width
                 Column{
                     spacing: 6

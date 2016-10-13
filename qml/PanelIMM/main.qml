@@ -32,23 +32,17 @@ Rectangle {
                     ICTimeLable{
                         id:timeLabel
                         anchors.right: parent.right
-                        form: "yy/MM/dd hh:mm:ss"
-                        width: parent.width * 0.46 * Style.wRatio
+                        form: "yyyy/MM/dd hh:mm:ss"
+                        width: parent.width * 0.40
+                        //                        height: parent.height
                         font.pixelSize: Style.monitorSection.header.convenientMonitorSection.time.font.pixelSize
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.bottom: parent.bottom
                     }
-                    Item{
-                        width: parent.width - timeLabel.width
+                    Image{
+                        source: "images/convenientMonitorSectionHeader.png"
+                        width: parent.width * 0.60
                         height: parent.height
-                        Rectangle{
-                            width: 1
-                            height: parent.height * Math.sin(75 / 180 * Math.PI)
-                            rotation: -25
-                            anchors.right: parent.right
-                            anchors.rightMargin: 4 * Style.wRatio
-                            smooth: true
-                        }
-
+                        smooth: true
                         Text {
                             id: convenientMonitorTitle
                             text: qsTr("text")
@@ -56,10 +50,14 @@ Rectangle {
                         }
                     }
                 }
-                ICStackContainer{
-                    id:convenientMonitorPagesContainer
+                ICIMMFrame{
                     width: convenientMonitorSectionHeader.width
                     height: monitorSection.height - convenientMonitorSectionHeader.height
+                    ICStackContainer{
+                        id:convenientMonitorPagesContainer
+                        width: parent.width
+                        height: parent.height
+                    }
                 }
             }
             Column{
@@ -91,8 +89,11 @@ Rectangle {
                         width: parent.width - normalMonitorTitle.width
                         ICLabel{
                             text: qsTr("Mold")
+                            width: rangeTitle.width
                             height: moldName.height
                             color: Style.monitorSection.header.bg
+                            border.width: 1
+                            border.color: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleBorderColor
                         }
                         ICLabel{
                             id:moldName
@@ -100,6 +101,8 @@ Rectangle {
                             width: range.width
                             height: normalMonitorTitle.height >> 1
                             color: Style.monitorSection.header.bg
+                            border.width: 1
+                            border.color: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleBorderColor
                             function onMoldChanged(){
                                 moldName.text = panelController.currentRecordName();
                             }
@@ -116,32 +119,41 @@ Rectangle {
                             text: qsTr("Range")
                             height: moldName.height
                             color: Style.monitorSection.header.bg
-
+                            border.width: 1
+                            border.color: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleBorderColor
                         }
                         ICLabel{
                             id:range
                             text: "1 - 20"
                             height: moldName.height
                             color: Style.monitorSection.header.bg
-                            width: parent.width -  rangeTitle.width
+                            width: parent.width -  rangeTitle.width - 1
+                            border.width: 1
+                            border.color: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleBorderColor
                         }
                     }
                 }
-                ICStackContainer{
-                    id:normalMonitorPagesContainer
-                    width: normalMonitorSectionHeader.width
+                ICIMMFrame{
+                    width: normalMonitorSectionHeader.width - 1
                     height: monitorSection.height - normalMonitorSectionHeader.height
+                    ICStackContainer{
+                        id:normalMonitorPagesContainer
+                        width: parent.width
+                        height: parent.height
+                    }
                 }
             }
         }
     }
 
-    Rectangle{
+    ICIMMFrame{
         id:detailPagesSection
         color: detailMenuSection.color
-        width: detailMenuSection.width
+        width: detailMenuSection.width - 1
         anchors.top: monitorSection.bottom
+        anchors.topMargin: -1
         anchors.bottom: detailMenuSection.top
+        anchors.bottomMargin: 1
         ICStackContainer{
             id:detailPagesContainer
             anchors.fill: parent

@@ -38,8 +38,8 @@ ICEditableItemBase {
         Image{
             id:checkedImage
             source: "images/checked.png"
-            width:parent.width + 6
-            height:parent.height + 6
+            width:parent.width + 6 * Style.wRatio
+            height:parent.height + 6 * Style.hRatio
             visible: isChecked
             y:-2
         }
