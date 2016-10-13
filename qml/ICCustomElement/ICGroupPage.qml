@@ -4,6 +4,7 @@ import "../styles/style.js" as Style
 Rectangle {
     property alias title: titleLabel.text
     property alias titleBG: titleLabel.color
+    property alias titleHeight: titleLabel.height
     border.width: Style.itemStyles.ICGroupPage.border.width
     border.color: Style.itemStyles.ICGroupPage.border.color
     color: Style.itemStyles.ICGroupPage.color

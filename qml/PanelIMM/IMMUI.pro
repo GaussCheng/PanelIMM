@@ -16,7 +16,8 @@ OTHER_FILES += \
     immcustomitems/ICIMMFrame.qml \
     immcustomitems/ICIMMLabelLineEdit.qml \
     immcustomitems/ICIMMCheckBoxEdit.qml \
-    immcustomitems/ICIMMLabelComboBoxEdit.qml
+    immcustomitems/ICIMMLabelComboBoxEdit.qml \
+    immcustomitems/ICIMMButton.qml
 
 
 

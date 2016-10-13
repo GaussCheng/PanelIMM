@@ -24,7 +24,8 @@ ICIMMFunctionPageBase {
         }
         ICSettingConfigsScope{
             ICIMMFrame{
-//                title: qsTr("Clear Materia")
+                //                title: qsTr("Clear Materia")
+                id:topRow
                 width: workReadyPage1.width - 1
                 height: workReadyPage1.height * 0.55 - y
                 Grid{
@@ -256,11 +257,11 @@ ICIMMFunctionPageBase {
                     anchors.left: verSplitLine2.right
                     anchors.leftMargin: 4
                     y: chargeContainer.y
-//                    ICIMMCheckBoxEdit{
-//                        id:m_rw_0_1_0_253
-//                        configAddr: "m_rw_0_1_0_253"
-//                        text: qsTr("F.B.INJ")
-//                    }
+                    //                    ICIMMCheckBoxEdit{
+                    //                        id:m_rw_0_1_0_253
+                    //                        configAddr: "m_rw_0_1_0_253"
+                    //                        text: qsTr("F.B.INJ")
+                    //                    }
                     ICIMMCheckBoxEdit{
                         id:m_rw_16_1_0_284
                         configAddr: "m_rw_16_1_0_284"
@@ -285,9 +286,94 @@ ICIMMFunctionPageBase {
                         configName: qsTr("F.Mode")
                         items: [qsTr("Fix"), qsTr("Before"), qsTr("After")]
                         configNameWidth: m_rw_0_16_2_284.configNameWidth
+                        z:2
+                    }
+                    ICIMMLabelLineEdit{
+                        id:s_rw_0_8_0_282
+                        configAddr: "s_rw_0_8_0_282"
+                        configName: qsTr("F.T/Rotate")
+                        configNameWidth: m_rw_0_16_2_284.configNameWidth
+
                     }
 
                 }
+            }
+            ICIMMFrame{
+                id:bottomRowLeft
+                anchors.top: topRow.bottom
+                width: verSplitLine1.x
+                height: workReadyPage1.height * 0.45
+                Grid{
+                    id:delayContainer
+                    columns: 1
+                    x:4
+                    y:2
+                    ICIMMLabelLineEdit{
+                        id:m_rw_0_16_2_277
+                        configAddr: "m_rw_0_16_2_277"
+                        configName: qsTr("F.B.Delay")
+                        unit: qsTr("s")
+                        configNameWidth: m_rw_0_16_2_296.configNameWidth
+                    }
+                    ICIMMLabelLineEdit{
+                        id:m_rw_0_16_2_296
+                        configAddr: "m_rw_0_16_2_296"
+                        configName: qsTr("S.B.B.Delay")
+                        unit: qsTr("s")
+                    }
+                    ICIMMLabelLineEdit{
+                        id:m_rw_0_16_2_256
+                        configAddr: "m_rw_0_16_2_256"
+                        configName: qsTr("B.F.B.Delay")
+                        unit: qsTr("s")
+                        configNameWidth: m_rw_0_16_2_296.configNameWidth
+                    }
+                    ICIMMLabelLineEdit{
+                        id:m_rw_8_16_2_415
+                        configAddr: "m_rw_8_16_2_415"
+                        configName: qsTr("A.F.B.Delay")
+                        unit: qsTr("s")
+                        configNameWidth: m_rw_0_16_2_296.configNameWidth
+                    }
+                    ICIMMLabelLineEdit{
+                        id:m_rw_0_16_2_289
+                        configAddr: "m_rw_0_16_2_289"
+                        configName: qsTr("B.S.B.Delay")
+                        unit: qsTr("s")
+                        configNameWidth: m_rw_0_16_2_296.configNameWidth
+                    }
+                }
+            }
+            ICIMMFrame{
+                id:tuneMoldContainer
+                y:bottomRowLeft.y
+                anchors.left: bottomRowLeft.right
+                height: bottomRowLeft.height
+                width: verSplitLine2.x - bottomRowLeft.width
+                Column{
+                    spacing: 6
+                    x:4
+                    y:2
+                    ICIMMText{
+                        text: qsTr("Tune Mold")
+                    }
+                    Row{
+                        spacing: 12
+                        ICIMMButton{
+                            id:startTuneMold
+                            text: qsTr("Start")
+                        }
+                        ICIMMButton{
+                            id:stopTuneMold
+                            text:qsTr("Stop")
+                        }
+                    }
+                    ICIMMLabelLineEdit{
+                        configName:qsTr("Mold Width")
+                        unit: qsTr("mm")
+                    }
+                }
+
             }
         }
 
