@@ -92,6 +92,7 @@ ICEditableItemBase{
             if(v > max) v = max;
             lineEdit.text = parseFloat(v).toFixed(decimal);
         }
+        lineEdit.modified = false;
     }
 
     MouseArea{
@@ -146,6 +147,7 @@ ICEditableItemBase{
                 t = t.substring(0, t.length - 1);
         }else if(event.key == Qt.Key_Return){
             lineEdit.selectAll = true;
+
             editFinished();
             return;
         }else{

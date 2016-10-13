@@ -37,7 +37,7 @@ Item {
         var toShowVal;
         for(var i = 0; i < count; ++i){
             config = PData.configs[i];
-            config.configValueChanged.disconnect(handlers[i]);
+//            config.configValueChanged.disconnect(handlers[i]);
             toShowVal = panelController.getConfigValueText(config.configAddr);
             if(config.hasOwnProperty("indexMappedValue")){
                 for(var j = 0, len = config.indexMappedValue.length; j < len; ++j){
@@ -50,7 +50,7 @@ Item {
             }
 
             config.configValue = toShowVal;
-            config.configValueChanged.connect(handlers[i]);
+//            config.configValueChanged.connect(handlers[i]);
         }
     }
 

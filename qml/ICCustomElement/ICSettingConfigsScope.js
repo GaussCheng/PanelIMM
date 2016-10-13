@@ -12,6 +12,7 @@ function deepFindFitItem(item){
                 onConfigValueEditFinished(l);
             };
             handlers.push(fun);
+            item.editFinished.connect(fun);
             return;
         }
     }
