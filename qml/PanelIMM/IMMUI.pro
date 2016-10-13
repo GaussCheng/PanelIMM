@@ -10,15 +10,6 @@ configs/* \
 ../styles/*
 }
 
-OTHER_FILES += \
-    immcustomitems/ICIMMText.qml \
-    immcustomitems/ICIMMEditableDummy.qml \
-    immcustomitems/ICIMMFrame.qml \
-    immcustomitems/ICIMMLabelLineEdit.qml \
-    immcustomitems/ICIMMCheckBoxEdit.qml \
-    immcustomitems/ICIMMLabelComboBoxEdit.qml \
-    immcustomitems/ICIMMButton.qml
-
 
 
 

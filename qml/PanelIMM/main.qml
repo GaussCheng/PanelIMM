@@ -2,6 +2,7 @@ import QtQuick 1.1
 import "."
 import "../ICCustomElement"
 import "immcustomitems"
+import "monitorpages"
 import "../utils/utils.js" as Utils
 import "../utils/Storage.js" as Storage
 import "../styles/style.js" as Style
@@ -45,7 +46,7 @@ Rectangle {
                         smooth: true
                         Text {
                             id: convenientMonitorTitle
-                            text: qsTr("text")
+                            text: qsTr("Main Spec")
                             x:20
                         }
                     }
@@ -57,6 +58,13 @@ Rectangle {
                         id:convenientMonitorPagesContainer
                         width: parent.width
                         height: parent.height
+                        ICMainSpecMonitorPage{
+                            id:mainSpecMonitorPage
+                        }
+                        Component.onCompleted: {
+                            addPage(mainSpecMonitorPage);
+                            setCurrentIndex(0);
+                        }
                     }
                 }
             }
@@ -105,13 +113,6 @@ Rectangle {
                             border.color: Style.monitorSection.header.normalMonitorSection.normalMonitorTitleBorderColor
                             function onMoldChanged(){
                                 moldName.text = panelController.currentRecordName();
-                            }
-
-                            MouseArea{
-                                anchors.fill: parent
-                                onClicked: {
-
-                                }
                             }
                         }
                         ICLabel{
@@ -218,11 +219,10 @@ Rectangle {
             onButtonClickedID: {
                 var p  = detailPagesContainer.currentPage();
                 if(p.hasOwnProperty("onF" + (index + 1) + "Triggered"))
-                    p["onF" + (index + 1) + "Triggered"]();
+                    PData.convenientMonitorManager.showMonitor(p["onF" + (index + 1) + "Triggered"]());
                 else
                     detailMenuSection["onF" + (index + 1) + "Triggered"]();
             }
-
             ICIMMDetailMenuItem{
                 id:dMI1
                 width: Style.detailMenuSection.rect.width / 8 - 1
@@ -276,6 +276,13 @@ Rectangle {
                 height: dMI1.height
                 font.pixelSize: Style.detailMenuSection.menuItem.font.pixelSize
             }
+            ICIMMDetailMenuItem{
+                id:dMI9
+                visible: false
+            }
+//            Component.onCompleted: {
+//                reLayout();
+//            }
         }
     }
     ICTouchControlSection{
@@ -306,6 +313,7 @@ Rectangle {
             normalMonitorSection.showNormalMonitorPage(menuItem);
             PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
             var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
+            convenientMonitorPagesContainer.setCurrentIndex(0);
             detailMenuSection.refreshMenuItem(page.detailsMenuItems);
             showHelper(null);
 

@@ -8,7 +8,7 @@ ICIMMFunctionPageBase {
                 "f7":qsTr("Tune Mold"),
     }
     function onF6Triggered(){
-        console.log("open Temp")
+        return "ICTemperatureCVMonitorPage.qml"
     }
 
     function onF7Triggered(){

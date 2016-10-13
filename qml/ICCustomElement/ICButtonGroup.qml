@@ -31,6 +31,23 @@ Item {
         }
     }
 
+    function reLayout(){
+        var btns = pData.buttons;
+        pData.startPos = 0;
+        for(var i = 0, len = btns.length; i < len; ++i){
+            if(btns[i].visible){
+                if(layoutMode == 0){
+                    btns[i].x = pData.startPos;
+                    //            console.log(pData.startPos,button.width);
+                    pData.startPos += (btns[i].width + spacing);
+                }else if(layoutMode == 1){
+                    btns[i].y = pData.startPos;
+                    pData.startPos += (btns[i].height + spacing);
+                }
+            }
+        }
+    }
+
     QtObject{
         id:pData
         property variant buttons: []
