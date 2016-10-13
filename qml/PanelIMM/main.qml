@@ -212,6 +212,9 @@ Rectangle {
         function onF8Triggered(){
             console.log("onF8Triggered")
         }
+        function onF9Triggered(){
+
+        }
 
         ICButtonGroup{
             spacing: 1
@@ -314,6 +317,7 @@ Rectangle {
             PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
             var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
             convenientMonitorPagesContainer.setCurrentIndex(0);
+            dMI9.setChecked(true);
             detailMenuSection.refreshMenuItem(page.detailsMenuItems);
             showHelper(null);
 
