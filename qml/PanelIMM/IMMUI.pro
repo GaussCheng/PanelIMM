@@ -10,6 +10,10 @@ configs/* \
 ../styles/*
 }
 
+OTHER_FILES += \
+    settingpages/ICMoldFuncPage.qml \
+    monitorpages/ICMoldMonitorPage.qml
+
 
 
 

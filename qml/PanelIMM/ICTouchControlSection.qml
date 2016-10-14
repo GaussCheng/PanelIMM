@@ -84,6 +84,8 @@ Rectangle {
                 y: workReady.y
                 anchors.left: workReady.right
                 anchors.leftMargin: 8 * Style.wRatio
+                bindingPageComponent: "ICMoldFuncPage.qml"
+                monitorComponent: "ICMoldMonitorPage.qml"
             }
 
             ICIMMFunctionMenuItem{
