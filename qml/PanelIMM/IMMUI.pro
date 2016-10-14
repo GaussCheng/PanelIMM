@@ -10,9 +10,6 @@ configs/* \
 ../styles/*
 }
 
-OTHER_FILES += \
-    immcustomitems/ICIMMStatusWidget.qml
-
 
 
 

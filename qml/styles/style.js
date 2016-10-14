@@ -54,7 +54,12 @@ var itemStyles = {
     "ICVerSplitLine":{
         "width":1,
         "color":"white",
+    },
+    "ICHorSplitLine":{
+        "height":1,
+        "color":"white",
     }
+
 }
 
 // item styles end

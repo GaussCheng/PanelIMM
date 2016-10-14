@@ -8,11 +8,11 @@ ICIMMFunctionPageBase {
                 "f7":qsTr("Tune Mold"),
     }
     function onF6Triggered(){
-        return "ICTemperatureCVMonitorPage.qml"
+        return "ICTemperatureCVMonitorPage.qml";
     }
 
     function onF7Triggered(){
-        console.log("Open Tune MOld");
+        return "ICTuneMoldCVMonitorPage.qml";
     }
 
     ICSettingPageBase{
