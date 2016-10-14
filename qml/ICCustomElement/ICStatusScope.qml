@@ -19,7 +19,7 @@ Item {
             var t;
             for(var i = 0; i < count; ++i){
                 w = PData.status[i];
-                t = panelRobotController.statusValueText(w.bindStatus);
+                t = panelController.statusValueText(w.bindStatus);
                 if( t !== w.text)
                     w.text = t;
             }

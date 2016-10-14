@@ -161,6 +161,8 @@ public:
     {
         return getConfigValueText(addr).toDouble();
     }
+    Q_INVOKABLE int statusValue(const QString& addr) const;
+    Q_INVOKABLE QString statusValueText(const QString& addr) const;
 
     Q_INVOKABLE int configDecimal(const QString& addr) const
     {

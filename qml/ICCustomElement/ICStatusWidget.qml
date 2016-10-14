@@ -10,5 +10,7 @@ Item {
         id: status
         width: parent.width
         height: parent.height
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignRight
     }
 }

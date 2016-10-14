@@ -310,3 +310,17 @@ quint32 ICPanelController::AddrStrValueToInt(ICAddrWrapperCPTR addr, const QStri
     qint32 ret = v * qPow(10, addr->Decimal());
     return static_cast<quint32>(ret);
 }
+
+int ICPanelController::statusValue(const QString& addr) const
+{
+    ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(addr);
+    if(configWrapper == NULL) return 0;
+    return host_->HostStatusValue(configWrapper);
+}
+
+QString ICPanelController::statusValueText(const QString &addr) const
+{
+    ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(addr);
+    if(configWrapper == NULL) return "*";
+    return QString(host_->HostStatus(configWrapper));
+}

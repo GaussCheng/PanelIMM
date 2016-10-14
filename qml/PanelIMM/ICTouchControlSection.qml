@@ -76,7 +76,7 @@ Rectangle {
                 anchors.topMargin: 12 * Style.hRatio
                 //                anchors.verticalCenter: parent.verticalCenter
                 bindingPageComponent: "ICWorkReadyFuncPage.qml"
-                monitorComponent: "ICWorkReadyMonitorPage.qml"
+                monitorComponent: "ICInjectionMonitorPage.qml"
             }
             ICIMMFunctionMenuItem{
                 id:mold
