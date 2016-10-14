@@ -229,7 +229,17 @@ ICIMMFunctionPageBase {
                     }
 
                 }
-
+                ICVerSplitLine{
+                    id:verSplitLine2
+                    height: verSplitLine1.height
+                    anchors.left: openMoldContainer.right
+                    anchors.leftMargin: 4
+                }
+                Column{
+                    id:otherContainer
+                    anchors.left: verSplitLine2.right
+                    anchors.leftMargin: verSplitLine2.anchors.leftMargin
+                }
             }
         }
     }
