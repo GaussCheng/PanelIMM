@@ -3,7 +3,7 @@ import "../../ICCustomElement"
 import "../../styles/style.js" as Style
 
 ICConfigEdit {
-    width: 80 * Style.wRatio
+//    width: 80 * Style.wRatio
     font.pixelSize: Style.itemStyles.defaultFont.pixelSize
     height: Style.itemStyles.defaultSize.height
 }
