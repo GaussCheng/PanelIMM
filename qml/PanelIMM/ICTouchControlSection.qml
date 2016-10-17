@@ -116,6 +116,8 @@ Rectangle {
                 y:workReady.y
                 anchors.left: temperature.right
                 anchors.leftMargin: 12 * Style.wRatio
+                bindingPageComponent: "ICInjectFuncPage.qml"
+                monitorComponent: "ICInjectionMonitorPage.qml"
             }
 
             ICIMMFunctionMenuItem{

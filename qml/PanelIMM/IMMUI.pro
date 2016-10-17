@@ -11,7 +11,8 @@ configs/* \
 }
 
 OTHER_FILES += \
-    monitorpages/ICBlowCVMonitorPage.qml
+    monitorpages/ICBlowCVMonitorPage.qml \
+    settingpages/ICInjectFuncPage.qml
 
 
 
