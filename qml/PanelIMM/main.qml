@@ -58,13 +58,6 @@ Rectangle {
                         id:convenientMonitorPagesContainer
                         width: parent.width
                         height: parent.height
-                        ICMainSpecMonitorPage{
-                            id:mainSpecMonitorPage
-                        }
-                        Component.onCompleted: {
-                            addPage(mainSpecMonitorPage);
-                            setCurrentIndex(0);
-                        }
                     }
                 }
             }
@@ -214,7 +207,7 @@ Rectangle {
 
         }
         function onF5Triggered(){
-            console.log("onF5Triggered")
+            return "ICOperationLogPage.qml"
 
         }
         function onF6Triggered(){
@@ -228,7 +221,7 @@ Rectangle {
             console.log("onF8Triggered")
         }
         function onF9Triggered(){
-
+            return "ICMainSpecMonitorPage.qml"
         }
 
         ICButtonGroup{
@@ -239,7 +232,7 @@ Rectangle {
                 if(p.hasOwnProperty("onF" + (index + 1) + "Triggered"))
                     PData.convenientMonitorManager.showMonitor(p["onF" + (index + 1) + "Triggered"]());
                 else
-                    detailMenuSection["onF" + (index + 1) + "Triggered"]();
+                    PData.convenientMonitorManager.showMonitor(detailMenuSection["onF" + (index + 1) + "Triggered"]());
             }
             ICIMMDetailMenuItem{
                 id:dMI1
@@ -331,7 +324,6 @@ Rectangle {
             normalMonitorSection.showNormalMonitorPage(menuItem);
             PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
             var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
-            convenientMonitorPagesContainer.setCurrentIndex(0);
             dMI9.setChecked(true);
             detailMenuSection.refreshMenuItem(page.detailsMenuItems);
             showHelper(null);
@@ -365,9 +357,9 @@ Rectangle {
         }
     }
 
-    ICOperationLogPage{
-        visible: false
-    }
+//    ICOperationLogPage{
+//        visible: false
+//    }
 
     IOPage{
         id:ioPage

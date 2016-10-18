@@ -1,9 +1,9 @@
 .pragma library
 
-Qt.include("../utils/Storage.js")
-Qt.include("../utils/utils.js")
-Qt.include("configs/ConfigDefines.js")
-Qt.include("../utils/stringhelper.js")
+Qt.include("../../utils/Storage.js")
+Qt.include("../../utils/utils.js")
+Qt.include("../configs/ConfigDefines.js")
+Qt.include("../../utils/stringhelper.js")
 
 function ICOperationLog(){
     this.model = null;

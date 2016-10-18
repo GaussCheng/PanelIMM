@@ -1,8 +1,9 @@
 import QtQuick 1.1
 import "."
-import "ShareData.js" as ShareData
+import "../ShareData.js" as ShareData
 import "ICOperationLog.js" as ICOperationLog
-import "../ICCustomElement"
+import "../../ICCustomElement"
+import "../../styles/style.js" as Style
 
 Rectangle {
     id:container
@@ -27,31 +28,34 @@ Rectangle {
             id:hOpTime
             border.width: 1
             border.color: "gray"
-            width: 150
+            width: 150 * Style.wRatio
             height: 32
             text: qsTr("Operation Time")
             horizontalAlignment: Text.AlignLeft
             horizontalTextOffset: textOffset
+            font.pixelSize: Style.itemStyles.defaultFont.pixelSize
         }
         ICLabel{
             id:hUser
             border.width: hOpTime.border.width
             border.color: hOpTime.border.color
-            width: 80
+            width: 80 * Style.wRatio
             height: hOpTime.height
             text: qsTr("User")
             horizontalAlignment: Text.AlignLeft
             horizontalTextOffset: textOffset
+            font.pixelSize: Style.itemStyles.defaultFont.pixelSize
         }
         ICLabel{
             id:hDescr
             border.width: hOpTime.border.width
             border.color: hOpTime.border.color
-            width: 550
+            width: container.width - hOpTime.width - hUser.width
             height: hOpTime.height
             text: qsTr("Descr")
             horizontalAlignment: Text.AlignLeft
             horizontalTextOffset: textOffset
+            font.pixelSize: Style.itemStyles.defaultFont.pixelSize
         }
     }
 
@@ -78,7 +82,7 @@ Rectangle {
                     verticalAlignment: Text.AlignVCenter
                     height: parent.height
                     x:textOffset
-
+                    font.pixelSize: hOpTime.font.pixelSize
                 }
             }
             Rectangle{
@@ -91,6 +95,7 @@ Rectangle {
                     verticalAlignment: Text.AlignVCenter
                     height: parent.height
                     x:textOffset
+                    font.pixelSize: hUser.font.pixelSize
 
                 }
             }
@@ -104,7 +109,7 @@ Rectangle {
                     verticalAlignment: Text.AlignVCenter
                     height: parent.height
                     x:textOffset
-
+                    font.pixelSize: hDescr.font.pixelSize
                 }
             }
         }

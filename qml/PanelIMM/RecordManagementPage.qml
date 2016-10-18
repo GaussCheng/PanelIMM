@@ -4,7 +4,7 @@ import "../utils/utils.js" as Utils
 import "../utils/stringhelper.js" as ICString
 
 import "../ICCustomElement"
-import "ICOperationLog.js" as ICOperationLog
+import "monitorpages/ICOperationLog.js" as ICOperationLog
 import "../styles/style.js" as Style
 import "configs/ConfigDefines.js" as ConfigDefines
 
