@@ -93,6 +93,8 @@ Rectangle {
                 text: qsTr("Core")
                 y:workReady.y
                 x:extentTemp.x
+                bindingPageComponent: "ICCoreFuncPage.qml"
+                monitorComponent: "ICMoldMonitorPage.qml"
             }
 
             ICIMMFunctionMenuItem{

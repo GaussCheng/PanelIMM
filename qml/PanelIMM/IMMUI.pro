@@ -18,7 +18,9 @@ OTHER_FILES += \
     immcustomitems/ICIMMTimeLineEdit.qml \
     monitorpages/ICTemperaturePIDCVMonitorPage.qml \
     monitorpages/ICTemperatureAidCVMonitorPage.qml \
-    monitorpages/ICTemperatureBlowCVMonitorPage.qml
+    monitorpages/ICTemperatureBlowCVMonitorPage.qml \
+    settingpages/ICCoreFuncPage.qml \
+    monitorpages/ICCoreAidCVMonitorPage.qml
 
 
 
