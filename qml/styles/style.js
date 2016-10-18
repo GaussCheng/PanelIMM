@@ -97,9 +97,10 @@ var touchControlSection = {
     "touchKeyboard":{"btnSize":47 * scaleRatio, "btnBG":"#CCA0D2", "spacing": 2 * wRatio, "topMargin":20 * wRatio, "leftMargin": 4 * wRatio},
     "touchNavKeyboard":{"btnSize":43 * scaleRatio},
     "pageMenuKeyboard":{"btnWidth":60 * wRatio, "btnHeight": 50 * hRatio, "btnBG":"#B5D268", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"#AAA7A7"},
-    "optionalKeyboard":{"btnSize": 50 * scaleRatio, "labelHeight": 22 * hRatio, "btnSpacing": 2 * wRatio, "groupSpacing": 30 * wRatio, "rightMargin":6 * wRatio},
+    "optionalKeyboard":{"btnSize": 50 * scaleRatio, "labelHeight": 22 * hRatio, "btnSpacing": 2 * wRatio, "groupSpacing": 30 * wRatio, "rightMargin":6 * wRatio, "labelBG":"#578726", "btnBG":"#84953B"},
     "manageKeyboard":{"spacing":4 * scaleRatio},
-    "modeSwicherContainer":{"btnWidth":73 * wRatio, "btnHeight":36 * hRatio},
+    "modeSwicherContainer":{"btnWidth":73 * wRatio, "btnHeight":36 * hRatio, "btnBG":"#8FCD65"},
+
 
 };
 

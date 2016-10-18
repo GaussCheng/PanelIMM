@@ -12,6 +12,10 @@ Rectangle {
     signal recordMenuItemTriggered(variant menuItem)
     signal alarmHistoryMenuItemTriggered(variant menuItem)
     signal ioMonitorMenuItemTriggered(variant menuItem)
+    function init(){
+        funcMenuItemTriggered(workReady);
+    }
+
     Image {
         id: immModeBG
         source: "images/immModeBg.png"
@@ -77,6 +81,7 @@ Rectangle {
                 //                anchors.verticalCenter: parent.verticalCenter
                 bindingPageComponent: "ICWorkReadyFuncPage.qml"
                 monitorComponent: "ICInjectionMonitorPage.qml"
+                isChecked: true
             }
             ICIMMFunctionMenuItem{
                 id:mold
@@ -449,6 +454,8 @@ Rectangle {
             text: qsTr("Close")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
+            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
+            isChecked: true
 
         }
         ICCheckableButton{
@@ -456,30 +463,35 @@ Rectangle {
             text: qsTr("Prepare")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
+            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
         }
         ICCheckableButton{
             id:modeManualBtn
             text: qsTr("Manual")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
+            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
         }
         ICCheckableButton{
             id:modeSemiAutoBtn
             text: qsTr("Semi A")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
+            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
         }
         ICCheckableButton{
             id:modeAuto
             text: qsTr("Auto")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
+            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
         }
         ICCheckableButton{
             id:modeAutoRun
             text: qsTr("Auto R")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
+            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
         }
     }
 
@@ -487,9 +499,11 @@ Rectangle {
         id: optionalKeyboard
         anchors.bottom: parent.bottom
         anchors.bottomMargin: touchKeyboard.anchors.bottomMargin
-        anchors.right: parent.right
-        anchors.rightMargin: Style.touchControlSection.optionalKeyboard.rightMargin
+        anchors.horizontalCenter: modeSwicherContainer.horizontalCenter
+//        anchors.right: parent.right
+//        anchors.rightMargin: Style.touchControlSection.optionalKeyboard.rightMargin
         spacing: Style.touchControlSection.optionalKeyboard.groupSpacing
+//        visible: false
         Column{
             spacing: Style.touchControlSection.optionalKeyboard.btnSpacing
             ICLabel{
@@ -498,6 +512,7 @@ Rectangle {
                        Style.touchControlSection.optionalKeyboard.btnSpacing
                 height: Style.touchControlSection.optionalKeyboard.labelHeight
                 text: qsTr("SE Door")
+                color: Style.touchControlSection.optionalKeyboard.labelBG
             }
             Row{
                 spacing: Style.touchControlSection.optionalKeyboard.btnSpacing
@@ -507,6 +522,7 @@ Rectangle {
                     width: Style.touchControlSection.optionalKeyboard.btnSize
                     height: width
                     border.width: 0
+                    bgColor: Style.touchControlSection.optionalKeyboard.btnBG
 
                 }
                 ICButton{
@@ -515,6 +531,7 @@ Rectangle {
                     width: Style.touchControlSection.optionalKeyboard.btnSize
                     height: width
                     border.width: 0
+                    bgColor: securityDoorOpenBtn.bgColor
                 }
             }
         }
@@ -526,6 +543,7 @@ Rectangle {
                        Style.touchControlSection.optionalKeyboard.btnSpacing
                 height: Style.touchControlSection.optionalKeyboard.labelHeight
                 text: qsTr("Core")
+                color: Style.touchControlSection.optionalKeyboard.labelBG
             }
             Row{
                 spacing: Style.touchControlSection.optionalKeyboard.btnSpacing
@@ -535,6 +553,7 @@ Rectangle {
                     width: Style.touchControlSection.optionalKeyboard.btnSize
                     height: width
                     border.width: 0
+                    bgColor: securityDoorOpenBtn.bgColor
 
                 }
                 ICButton{
@@ -543,6 +562,8 @@ Rectangle {
                     width: Style.touchControlSection.optionalKeyboard.btnSize
                     height: width
                     border.width: 0
+                    bgColor: securityDoorOpenBtn.bgColor
+
                 }
             }
         }
@@ -551,6 +572,18 @@ Rectangle {
             spacing: Style.touchControlSection.optionalKeyboard.btnSpacing
             ICLabel{
                 text: qsTr("Blow")
+                width: Style.touchControlSection.optionalKeyboard.btnSize +
+                       Style.touchControlSection.optionalKeyboard.btnSpacing
+                height: Style.touchControlSection.optionalKeyboard.labelHeight
+                color: Style.touchControlSection.optionalKeyboard.labelBG
+            }
+            ICButton{
+                id:blowBtn
+                text: qsTr("Blow")
+                width: Style.touchControlSection.optionalKeyboard.btnSize
+                height: width
+                border.width: 0
+                bgColor: securityDoorOpenBtn.bgColor
             }
         }
     }

@@ -233,6 +233,7 @@ Rectangle {
                     PData.convenientMonitorManager.showMonitor(p["onF" + (index + 1) + "Triggered"]());
                 else
                     PData.convenientMonitorManager.showMonitor(detailMenuSection["onF" + (index + 1) + "Triggered"]());
+                convenientMonitorTitle.text = checkedItem.text.slice(3);
             }
             ICIMMDetailMenuItem{
                 id:dMI1
@@ -290,6 +291,8 @@ Rectangle {
             ICIMMDetailMenuItem{
                 id:dMI9
                 visible: false
+                text:"f9" + " " + qsTr("Main Spec")
+
             }
 //            Component.onCompleted: {
 //                reLayout();
@@ -379,6 +382,9 @@ Rectangle {
         PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer, mainWindow);
         PData.convenientMonitorManager.init(convenientMonitorPagesContainer);
         panelController.moldChanged.connect(moldName.onMoldChanged);
+        touchControlSection.init();
+        PData.convenientMonitorManager.showMonitor(detailMenuSection.onF9Triggered());
+
     }
 }
 
