@@ -5,7 +5,7 @@ import "../../styles/style.js" as Style
 
 ICSettingPageBase {
     id:instance
-    ICSettingConfigsScope{
+    ICIMMSettingConfigsScope{
         Grid{
             id:manualContainer
             x:4

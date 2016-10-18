@@ -28,9 +28,9 @@ Rectangle {
             id:hOpTime
             border.width: 1
             border.color: "gray"
-            width: 150 * Style.wRatio
+            width: 60 * Style.wRatio
             height: 32
-            text: qsTr("Operation Time")
+            text: qsTr("OP Time")
             horizontalAlignment: Text.AlignLeft
             horizontalTextOffset: textOffset
             font.pixelSize: Style.itemStyles.defaultFont.pixelSize

@@ -3,7 +3,7 @@ import "../../ICCustomElement"
 import "../immcustomitems"
 import "../../styles/style.js" as Style
 ICSettingPageBase {
-    ICSettingConfigsScope{
+    ICIMMSettingConfigsScope{
         Grid{
             id:topRow
             columns: 9

@@ -22,7 +22,7 @@ ICIMMFunctionPageBase {
         onEditorFocusChanged: {
             instance.editorFocusChanged(now);
         }
-        ICSettingConfigsScope{
+        ICIMMSettingConfigsScope{
             ICIMMFrame{
                 //                title: qsTr("Clear Materia")
                 id:topRow

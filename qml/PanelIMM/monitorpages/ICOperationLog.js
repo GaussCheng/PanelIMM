@@ -14,14 +14,14 @@ function ICOperationLog(){
         var t = new Date();
         for(var i = 0; i < ops.length; ++i){
             t.setTime(ops[i].opTime);
-            ops[i].opTime = formatDate(t, "yyyy/MM/dd hh:mm:ss");
+            ops[i].opTime = formatDate(t, "MM/dd\nhh:mm:ss");
             this.model.append(ops[i]);
         }
     }
     this.appendOperationLog = function(logText){
         var now = new Date();
         var opItem = new OperationLogItem(0,
-                                          formatDate(now, "yyyy/MM/dd hh:mm:ss"),
+                                          formatDate(now, "MM/dd\nhh:mm:ss"),
                                           this.currentUser,
                                           logText);
         opItem = appendOpToLog(opItem);
@@ -32,7 +32,7 @@ function ICOperationLog(){
     }
 
     this.appendNumberConfigOperationLog = function(addr, newV, oldV){
-        var logText = icStrformat(qsTr("{0} from {1} to {2}"),
+        var logText = icStrformat(qsTr("{0}\nfrom {1} to {2}"),
                                   getConfigDescr(addr),
                                   oldV, newV);
         this.appendOperationLog(logText);

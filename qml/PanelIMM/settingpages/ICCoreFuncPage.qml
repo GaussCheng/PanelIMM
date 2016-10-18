@@ -23,7 +23,7 @@ ICIMMFunctionPageBase {
         onEditorFocusChanged: {
             instance.editorFocusChanged(now);
         }
-        ICSettingConfigsScope{
+        ICIMMSettingConfigsScope{
             ICIMMFrame{
                 id:topRow
                 width: page1.width

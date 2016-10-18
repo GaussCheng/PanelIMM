@@ -138,7 +138,6 @@ ICEditableItemBase{
 
     Keys.onPressed: {
         var t = lineEdit.text;
-        console.log("Line")
         if(event.key == Qt.Key_Backspace){
             if(t.length == 0) return;
             if(lineEdit.selectAll)

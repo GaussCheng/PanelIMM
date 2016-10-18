@@ -21,7 +21,8 @@ OTHER_FILES += \
     monitorpages/ICTemperatureBlowCVMonitorPage.qml \
     settingpages/ICCoreFuncPage.qml \
     monitorpages/ICCoreAidCVMonitorPage.qml \
-    settingpages/ICCarrFuncPage.qml
+    settingpages/ICCarrFuncPage.qml \
+    immcustomitems/ICIMMSettingConfigsScope.qml
 
 
 
