@@ -6,4 +6,5 @@ ICConfigEdit {
 //    width: 80 * Style.wRatio
     font.pixelSize: Style.itemStyles.defaultFont.pixelSize
     height: Style.itemStyles.defaultSize.height
+    alignMode: Text.AlignRight
 }

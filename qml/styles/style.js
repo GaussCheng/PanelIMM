@@ -34,7 +34,8 @@ var itemStyles = {
     "ICLineEdit":{
         "border":{"width":1, "color":"black"},
         "disabled":{"bgColor":"gray","fontColor":"gainsboro"},
-        "focused":{"bgColor":"#FF7C00", "fontColor":"white"}
+        "focused":{"bgColor":"#FF7C00", "fontColor":"white"},
+        "lrMargin":2 * wRatio
     },
     "ICCheckBox":{
         "color":"transparent",
@@ -50,6 +51,11 @@ var itemStyles = {
         "border":{"width":1, "color":"white"},
         "color":"transparent",
         "titleLabel":{"color":"green"}
+    },
+    "ICTimeLineEdit":{
+        "border":{"width":1, "color":"black"},
+        "disabled":{"bgColor":"gray","fontColor":"gainsboro"},
+        "focused":{"bgColor":"#FF7C00", "fontColor":"white"}
     },
     "ICVerSplitLine":{
         "width":1,

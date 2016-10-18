@@ -62,14 +62,14 @@ ICEditableItemBase{
         property bool modified: false
         property string regExp: '^[+-]*\\d{0,9}(\\.\\d{0,' + decimal + '})?$'
         id: lineEdit
-        x:4
-        width: parent.width - unit.width - 12 // 4 * 3
+        x:Style.itemStyles.ICLineEdit.lrMargin
+        width: parent.width - unit.width - Style.itemStyles.ICLineEdit.lrMargin * 3 // 4 * 3
         anchors.verticalCenter: parent.verticalCenter
     }
     Text {
         id: unit
         anchors.right: parent.right
-        anchors.rightMargin: 4
+        anchors.rightMargin: Style.itemStyles.ICLineEdit.lrMargin
         color: lineEdit.color
         y:lineEdit.y
         anchors.verticalCenter: parent.verticalCenter
@@ -138,6 +138,7 @@ ICEditableItemBase{
 
     Keys.onPressed: {
         var t = lineEdit.text;
+        console.log("Line")
         if(event.key == Qt.Key_Backspace){
             if(t.length == 0) return;
             if(lineEdit.selectAll)

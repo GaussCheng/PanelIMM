@@ -2,9 +2,9 @@ import QtQuick 1.1
 import "../../ICCustomElement"
 import "../../styles/style.js" as Style
 
-ICComboBoxConfigEdit {
-//    width: 80 * Style.wRatio
+ICTimeLineEdit {
+    width: 70 * Style.wRatio
     font.pixelSize: Style.itemStyles.defaultFont.pixelSize
     height: Style.itemStyles.defaultSize.height
-    configName: ""
+//    horizontalAlignment:Text.AlignRight
 }

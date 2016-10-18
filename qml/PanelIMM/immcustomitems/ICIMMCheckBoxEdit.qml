@@ -6,4 +6,5 @@ ICCheckBoxEdit {
     property alias configName: instance.text
     height: 24 * Style.scaleRatio
     font.pixelSize: Style.itemStyles.defaultFont.pixelSize
+    text: ""
 }

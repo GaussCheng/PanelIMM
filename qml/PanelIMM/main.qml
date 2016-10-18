@@ -177,9 +177,24 @@ Rectangle {
         property alias f7Text: dMI7.text
         property alias f8Text: dMI8.text
 
+        property variant baseMenuItems: [
+            "f1" + " " + qsTr("Linked C"),
+            "f2" + " " + qsTr("Curves"),
+            "f3" + " " + qsTr("determine"),
+            "f4" + " " + qsTr("Servo"),
+            "f5" + " " + qsTr("OP Log"),
+            "","",""
+        ]
+
         function refreshMenuItem(menuItems){
-            for(var f in menuItems){
-                detailMenuSection[f + "Text"] = f + " " + menuItems[f];
+            var f;
+            for(var i = 1; i < 9; ++i){
+                f = "f" + i;
+                if(menuItems.hasOwnProperty(f)){
+                    detailMenuSection[f + "Text"] = f + " " + menuItems[f];
+                }else{
+                    detailMenuSection[f + "Text"] = baseMenuItems[i - 1]
+                }
             }
         }
 
@@ -231,35 +246,35 @@ Rectangle {
                 width: Style.detailMenuSection.rect.width / 8 - 1
                 height: Style.detailMenuSection.rect.height
                 font.pixelSize: Style.detailMenuSection.menuItem.font.pixelSize
-                text: "f1" + " " + qsTr("Linked C")
+                text: detailMenuSection.baseMenuItems[0]
             }
             ICIMMDetailMenuItem{
                 id:dMI2
                 width: dMI1.width
                 height: dMI1.height
                 font.pixelSize: Style.detailMenuSection.menuItem.font.pixelSize
-                text: "f2" + " " + qsTr("Curves")
+                text: detailMenuSection.baseMenuItems[1]
             }
             ICIMMDetailMenuItem{
                 id:dMI3
                 width: dMI1.width
                 height: dMI1.height
                 font.pixelSize: Style.detailMenuSection.menuItem.font.pixelSize
-                text: "f3" + " " + qsTr("determine")
+                text: detailMenuSection.baseMenuItems[2]
             }
             ICIMMDetailMenuItem{
                 id:dMI4
                 width: dMI1.width
                 height: dMI1.height
                 font.pixelSize: Style.detailMenuSection.menuItem.font.pixelSize
-                text: "f4" + " " + qsTr("Servo")
+                text: detailMenuSection.baseMenuItems[3]
             }
             ICIMMDetailMenuItem{
                 id:dMI5
                 width: dMI1.width
                 height: dMI1.height
                 font.pixelSize: Style.detailMenuSection.menuItem.font.pixelSize
-                text: "f5" + " " + qsTr("OP Log")
+                text: detailMenuSection.baseMenuItems[4]
             }
             ICIMMDetailMenuItem{
                 id:dMI6

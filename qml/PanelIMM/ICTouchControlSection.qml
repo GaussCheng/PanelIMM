@@ -108,6 +108,8 @@ Rectangle {
                 y:workReady.y
                 anchors.left: opDevice.right
                 anchors.leftMargin: 20 * Style.wRatio
+                bindingPageComponent: "ICTemperatureFuncPage.qml"
+                monitorComponent: "ICTemperatureMonitorPage.qml"
             }
 
             ICIMMFunctionMenuItem{
