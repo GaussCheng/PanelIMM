@@ -125,11 +125,13 @@ Rectangle {
             }
 
             ICIMMFunctionMenuItem{
-                id:nozzle
-                text: qsTr("Nozzle")
+                id:carr
+                text: qsTr("CARR")
                 anchors.top: opDevice.bottom
                 anchors.topMargin: 12 * Style.hRatio
-                x:opDevice.x
+                x:inject.x
+                bindingPageComponent: "ICCarrFuncPage.qml"
+                monitorComponent: "ICInjectionMonitorPage.qml"
             }
         }
     }

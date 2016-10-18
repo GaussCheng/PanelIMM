@@ -20,7 +20,8 @@ OTHER_FILES += \
     monitorpages/ICTemperatureAidCVMonitorPage.qml \
     monitorpages/ICTemperatureBlowCVMonitorPage.qml \
     settingpages/ICCoreFuncPage.qml \
-    monitorpages/ICCoreAidCVMonitorPage.qml
+    monitorpages/ICCoreAidCVMonitorPage.qml \
+    settingpages/ICCarrFuncPage.qml
 
 
 

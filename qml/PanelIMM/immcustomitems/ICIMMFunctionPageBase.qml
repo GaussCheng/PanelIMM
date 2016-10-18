@@ -3,7 +3,7 @@ import "../../ICCustomElement"
 
 ICStackContainer {
 
-    property variant detailsMenuItems: null
+    property variant detailsMenuItems: []
     signal editorFocusChanged(variant now)
 
 }
