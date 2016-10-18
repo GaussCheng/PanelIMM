@@ -65,12 +65,12 @@ void ICSplashScreen::OnMessageChanged(const QString &message)
 }
 
 ICPanelController::ICPanelController(QSplashScreen *splash, ICLog* logger, QObject *parent) :
+    QObject(parent),
     logger_(logger),
-    customSettings_("usr/customsettings.ini", QSettings::IniFormat),
-    QObject(parent)
+    customSettings_("usr/customsettings.ini", QSettings::IniFormat)
 {
     mainView_ = NULL;
-    getConfigRange_ = NULL;
+//    getConfigRange_ = NULL;
     QDir backupDir(ICAppSettings::UserPath);
     if(!backupDir.exists())
     {

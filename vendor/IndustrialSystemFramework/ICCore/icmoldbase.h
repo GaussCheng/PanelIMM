@@ -22,7 +22,8 @@ public:
         kRecordErr_Name_Is_Exists,
     };
     ICMoldBase();
-    virtual RecordDataObject NewRecord(const ICMoldInfo& info){}
+    virtual ~ICMoldBase(){}
+    virtual RecordDataObject NewRecord(const ICMoldInfo& info){ return RecordDataObject(info.name, QDateTime::currentDateTime().toString());}
     virtual RecordDataObject CopyRecord(const ICMoldInfo& now, const ICMoldInfo& old)
     {
         if(now.name.isEmpty()) return RecordDataObject(kRecordErr_Name_Is_Empty);
@@ -44,9 +45,9 @@ public:
     {
         return ICDALHelper::RecordTableInfos();
     }
-    virtual QVariant ExportMold(const ICMoldInfo& info){ return QVariant();}
-    virtual RecordDataObject ImportMold(const ICMoldInfo& info){ return RecordDataObject();}
-    virtual bool LoadMold(const ICMoldInfo& info){ return false;}
+    virtual QVariant ExportMold(const ICMoldInfo& info){ return QVariant(info.name);}
+    virtual RecordDataObject ImportMold(const ICMoldInfo& info){ return RecordDataObject(info.name, QDateTime::currentDateTime().toString());}
+    virtual bool LoadMold(const ICMoldInfo& info){Q_UNUSED(info); return false;}
     virtual bool SaveMold(){ return false;}
 
     quint32 MoldFnc(ICAddrWrapperCPTR addr)

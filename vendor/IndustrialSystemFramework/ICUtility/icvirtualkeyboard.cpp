@@ -14,9 +14,9 @@ QList<QPushButton*> cnButtons;
 
 
 ICVirtualKeyboard::ICVirtualKeyboard(AddrRangeGetter rangeGetter, QWidget *parent) :
-    rangeGetter_(rangeGetter),
     QWidget(parent),
-    ui(new Ui::ICVirtualKeyboard)
+    ui(new Ui::ICVirtualKeyboard),
+    rangeGetter_(rangeGetter)
 {
     ui->setupUi(this);
 #ifdef Q_WS_QWS
@@ -416,6 +416,7 @@ void ICVirtualKeyboard::closeEvent(QCloseEvent *event)
 
  void ICVirtualKeyboard::openSoftPanelImpl(int editPosx, int editPosy, int editW, int editH, double min, double max, int decimal, bool isNumberOnly, bool checkRange)
  {
+     Q_UNUSED(editH)
      ui->inputEdit->clear();
      if(isNumberOnly)
      {

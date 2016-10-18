@@ -370,7 +370,7 @@ bool ICInjectionMachineHost::InitConfigsImpl(const QVector<QPair<int, quint32> >
     int st = configs.size();
     for(int i = 0; i != configs.size(); ++i)
     {
-        if(configs.at(i).first >= static_cast<quint32>(startAddr))
+        if(configs.at(i).first >= (startAddr))
         {
             st = i;
             break;

@@ -45,6 +45,7 @@ QML_IMPORT_PATH =
 
 include(vendor/IndustrialSystemFramework/ICCore/ICCore.pri)
 include(vendor/IndustrialSystemFramework/ICUtility/ICUtility.pri)
+include(vendor/IndustrialSystemFramework/ICAlgorithm/ICAlgorithm.pri)
 include(vendor/IndustrialSystemFramework/QJson/QJson.pri)
 include(controller/controller.pri)
 include(common/common.pri)

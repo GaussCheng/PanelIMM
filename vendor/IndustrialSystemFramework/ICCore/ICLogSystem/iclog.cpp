@@ -54,7 +54,7 @@ void ICLog::Log(const QString &logContent)
 
     QByteArray writeContent = QString("%1%2%3<|>\n").arg(QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss"))
             .arg(Sep()).arg(logContent).toUtf8();
-    if(writeContent.size() < CalcLeftSpace_())
+    if(static_cast<quint64>(writeContent.size()) < CalcLeftSpace_())
     {
         strncpy(reinterpret_cast<char*>(mappedLog_ + endPos_), writeContent, writeContent.size());
         endPos_ += writeContent.size();
