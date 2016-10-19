@@ -10,20 +10,6 @@ configs/* \
 ../styles/*
 }
 
-OTHER_FILES += \
-    monitorpages/ICBlowCVMonitorPage.qml \
-    settingpages/ICInjectFuncPage.qml \
-    settingpages/ICTemperatureFuncPage.qml \
-    monitorpages/ICTemperatureMonitorPage.qml \
-    immcustomitems/ICIMMTimeLineEdit.qml \
-    monitorpages/ICTemperaturePIDCVMonitorPage.qml \
-    monitorpages/ICTemperatureAidCVMonitorPage.qml \
-    monitorpages/ICTemperatureBlowCVMonitorPage.qml \
-    settingpages/ICCoreFuncPage.qml \
-    monitorpages/ICCoreAidCVMonitorPage.qml \
-    settingpages/ICCarrFuncPage.qml \
-    immcustomitems/ICIMMSettingConfigsScope.qml
-
 
 
 

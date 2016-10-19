@@ -378,6 +378,15 @@ Rectangle {
         }
     }
 
+    ICAlarmBar{
+        id:alarmBar
+        y:detailMenuSection.y - height
+        width: parent.width
+        extentWidth: parent.width
+//        height: 64 * Style.hRatio
+//        errID: 1
+    }
+
     Component.onCompleted: {
         PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer, mainWindow);
         PData.convenientMonitorManager.init(convenientMonitorPagesContainer);
@@ -385,6 +394,19 @@ Rectangle {
         touchControlSection.init();
         PData.convenientMonitorManager.showMonitor(detailMenuSection.onF9Triggered());
 
+    }
+    Timer{
+        id:refreshTimer
+        running: true
+        repeat: true
+        interval: 50
+        onTriggered: {
+            var alams = panelController.alarms();
+            if(alams != alarmHistory.errs){
+                alarmHistory.errs = alams;
+                alarmBar.errID = alarmHistory.unResolvedAlarms;
+            }
+        }
     }
 }
 

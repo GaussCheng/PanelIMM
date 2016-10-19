@@ -120,6 +120,8 @@ ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger,
             SIGNAL(timeout()),
             SLOT(TemperatureSampling()));
     tempTimer_.start(1000);
+
+    host_->SetCommunicateInterval(25);
 }
 
 void ICPanelIMMController::Init()
@@ -131,6 +133,8 @@ void ICPanelIMMController::Init()
     emit LoadMessage("Record inited.");
     InitMachineConfig_();
     emit LoadMessage("Machine configs inited.");
+    OnNeedToInitHost();
+
 
     //    host_->SetCommunicateDebug(true);
 //#ifdef COMM_DEBUG
@@ -565,4 +569,20 @@ void ICPanelIMMController::Seg1FuzzyPID()
         qDebug()<<"Seg1FuzzyPID time test"<<time.restart()<<"ms";
     }
 #endif
+}
+
+QString ICPanelIMMController::alarms() const
+{
+    QBitArray als = host_->Alarms();
+    if(alarms_ != als)
+    {
+        alarmsBitStr_.clear();
+        alarms_ = als;
+        for(int i = 0; i < als.size(); ++i)
+        {
+            alarmsBitStr_.append(als.at(i) ? '1':'0');
+        }
+    }
+    return alarmsBitStr_;
+
 }

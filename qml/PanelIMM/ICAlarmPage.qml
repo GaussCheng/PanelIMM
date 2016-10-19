@@ -9,10 +9,23 @@ import "../ICCustomElement"
 Rectangle {
     id:container
     property int textOffset: 2
+    property string errs: ""
+    property string noErr: ""
 
 
     property variant unResolvedAlarms: []
     color: "#d1d1d1"
+
+    onErrsChanged: {
+        var es = errs;
+        var i, len;
+        resolvedAlarms();
+        for(i = 0, len = es.length; i < len; ++i){
+            if(es[i] == '1'){
+                appendAlarm(i);
+            }
+        }
+    }
 
     function appendAlarm(errNum){
         var alarmItem = new Storage.AlarmItem(0, errNum);
@@ -29,6 +42,7 @@ Rectangle {
 
     function resolvedAlarms(){
         var tmp = unResolvedAlarms;
+        var es = errs;
         if(tmp.length > 0){
             var unResolvedItem;
             var oldItem;
@@ -38,11 +52,13 @@ Rectangle {
                 oldItem = alarmModel.get(i);
                 for(var j = 0; j < tmp.length; ++j){
                     unResolvedItem = tmp[j];
-                    if(oldItem.id === unResolvedItem.id){
-                        oldItem.endTime = now;
-                        Storage.updateAlarmLog(oldItem);
-                        tmp.splice(j, 1);
-                        break;
+                    if(es[unResolvedItem.alarmNum] == '0'){
+                        if(oldItem.id === unResolvedItem.id){
+                            oldItem.endTime = now;
+                            Storage.updateAlarmLog(oldItem);
+                            tmp.splice(j, 1);
+                            break;
+                        }
                     }
                 }
                 if(tmp.length == 0){
@@ -217,5 +233,12 @@ Rectangle {
         for(var i = 0; i < alarmlog.length; ++i){
             alarmModel.append(alarmlog[i]);
         }
+        var initv = "00000000";
+        for(var i = 0; i < 5; ++i){
+            initv += initv;
+        }
+        errs = initv;
+        noErr = initv;
+
     }
 }

@@ -8,6 +8,7 @@
 #include "ictemperatureintegralrules.h"
 #include "ictemperaturedifferentialrules.h"
 
+
 class ICPanelIMMController : public ICPanelController
 {
     Q_OBJECT
@@ -20,6 +21,7 @@ public:
     Q_INVOKABLE quint32 iStatus(int boardID) const  { return host_->HostStatusValue(&c_ro_0_32_0_1538);}
     Q_INVOKABLE quint32 oStatus(int boardID) const { return host_->HostStatusValue(&c_ro_0_32_0_1539);}
 
+    Q_INVOKABLE QString alarms() const;
 signals:
 
 public slots:
@@ -57,6 +59,8 @@ private:
     double speedFactors_[7];
     double itermFactors_[7];
     QTimer tempTimer_;
+    mutable QBitArray alarms_;
+    mutable QString alarmsBitStr_;
 
 };
 
