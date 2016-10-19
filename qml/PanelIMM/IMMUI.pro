@@ -10,6 +10,10 @@ configs/* \
 ../styles/*
 }
 
+OTHER_FILES += \
+    settingpages/ICMaintainFuncPage.qml \
+    settingpages/ICPanelFuncPage.qml
+
 
 
 

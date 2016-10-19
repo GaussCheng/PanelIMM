@@ -4,6 +4,7 @@
 #include <QFormLayout>
 #include <QDeclarativeContext>
 #include <qmath.h>
+#include <QMessageBox>
 
 #ifdef Q_WS_QWS
 int ICPanelController::wdFD = -1;
@@ -174,6 +175,18 @@ void ICPanelController::setToRunningUIPath(const QString &dirname)
 #endif
         }
     }
+}
+
+bool ICPanelController::setCurrentTranslator(const QString &name)
+{
+    QMessageBox box;
+    box.setText("Language Chaning...");
+    box.show();
+    //    qApp->processEvents();
+    qApp->processEvents();
+
+    ICAppSettings().SetTranslatorName(name);
+    return LoadTranslator_(name);
 }
 
 QString ICPanelController::records() const

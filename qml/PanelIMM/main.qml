@@ -392,6 +392,7 @@ Rectangle {
         PData.convenientMonitorManager.init(convenientMonitorPagesContainer);
         panelController.moldChanged.connect(moldName.onMoldChanged);
         touchControlSection.init();
+        PData.convenientMonitorManager.showMonitor(detailMenuSection.onF5Triggered());
         PData.convenientMonitorManager.showMonitor(detailMenuSection.onF9Triggered());
 
     }

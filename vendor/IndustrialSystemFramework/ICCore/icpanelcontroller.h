@@ -142,6 +142,68 @@ public:
         qApp->postEvent(qApp->focusWidget(), e);
     }
 
+    Q_INVOKABLE bool setCurrentTranslator(const QString& name);
+
+    Q_INVOKABLE QString getCustomSettings(const QString& key, const QVariant& defval, const QString& group = QString::fromLatin1("custom"))
+    {
+        QString ret;
+        customSettings_.beginGroup(group);
+        ret = customSettings_.value(key, defval).toString();
+        customSettings_.endGroup();
+        return ret;
+    }
+
+    Q_INVOKABLE void setCustomSettings(const QString& key,
+                                       const QVariant& val,
+                                       const QString& group = QString::fromLatin1("custom"),
+                                       bool isSync = true)
+    {
+        customSettings_.beginGroup(group);
+        customSettings_.setValue(key, val);
+        customSettings_.endGroup();
+        if(isSync)
+            customSettings_.sync();
+    }
+
+    Q_INVOKABLE void setKeyTone(bool status)
+       {
+   #ifndef Q_WS_WIN32
+           int beepFD = open("/dev/szhc_beep", O_WRONLY);
+           if(beepFD > 0)
+           {
+               ioctl(beepFD, 0, status ? 1 : 0);
+               close(beepFD);
+           }
+   #endif
+       }
+
+       Q_INVOKABLE void setBrightness(int brightness)
+       {
+           if(brightness > 0 && brightness <9)
+               ::system(QString("BackLight.sh  %1").arg(brightness).toLatin1());
+       }
+
+       Q_INVOKABLE void closeBacklight()
+       {
+           system("BackLight.sh 0");
+       }
+
+       Q_INVOKABLE void setDatetime(const QString& datetime)
+       {
+           QDateTime dateTime = QDateTime::fromString(datetime, "yyyy/M/d h:m:s");
+           if(dateTime.isValid())
+           {
+               ::system(QString("date -s %1 && hwclock -w").arg(dateTime.toString("yyyy.MM.dd-hh:mm:ss")).toLatin1());
+           }
+       }
+
+       Q_INVOKABLE void setScreenSaverTime(int min)
+       {
+   #ifdef Q_WS_QWS
+           QWSServer::setScreenSaverInterval(min * 60000);
+   #endif
+       }
+
 //    Q_INVOKABLE bool isInputOn(int index, int board) const
 //    {
 //        //        return rand() % 2;
@@ -237,6 +299,10 @@ protected:
     QScriptEngine engine_;
     ICAddrWrapperValuePairList moldFncModifyCache_;
     ICAddrWrapperValuePairList machineConfigModifyCache_;
+
+private:
+    virtual bool LoadTranslator_(const QString& name) = 0;
+
 
 private:
     ICLog* logger_;

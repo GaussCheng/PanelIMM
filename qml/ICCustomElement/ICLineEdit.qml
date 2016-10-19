@@ -73,6 +73,7 @@ ICEditableItemBase{
         color: lineEdit.color
         y:lineEdit.y
         anchors.verticalCenter: parent.verticalCenter
+        font: lineEdit.font
     }
 
     onActiveFocusChanged: {

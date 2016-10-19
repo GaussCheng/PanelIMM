@@ -378,6 +378,8 @@ Rectangle {
         ICIMMFunctionMenuItem{
             id:generalSpecifications
             text: qsTr("Main\nSpec")
+            bindingPageComponent: "ICPanelFuncPage.qml"
+            monitorComponent: "ICMoldMonitorPage.qml"
         }
         ICIMMFunctionMenuItem{
             id:generalSettings
@@ -394,7 +396,9 @@ Rectangle {
         }
         ICIMMFunctionMenuItem{
             id:maintenance
-            text: qsTr("maint-\nenance")
+            text: qsTr("maintain")
+            bindingPageComponent: "ICMaintainFuncPage.qml"
+            monitorComponent: "ICMoldMonitorPage.qml"
         }
         ICIMMFunctionMenuItem{
             id:actionMonitor
