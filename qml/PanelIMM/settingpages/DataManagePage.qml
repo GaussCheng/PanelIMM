@@ -151,7 +151,7 @@ Item {
                 highlightMoveDuration:100
                 delegate: Text {
                     text: name
-                    width: 596
+                    width: parent.width
                     height: 24
                     verticalAlignment: Text.AlignVCenter
                     MouseArea{
