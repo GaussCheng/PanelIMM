@@ -6,8 +6,10 @@ ICIMMFunctionPageBase {
     id:panelSettingsPage
     property int rowSpacing: 12 * Style.wRatio
     ICSettingPageBase{
+        id:panelSettingsContainer
         width: parent.width
         height: parent.height
+        visible: false
         ICIMMButton{
             id:touchCalibrate
             anchors.right: parent.right
@@ -305,5 +307,10 @@ ICIMMFunctionPageBase {
                 secondConnection.target = second;
             }
         }
+    }
+    ICUpdatePage{
+        id:updatePage
+        width: parent.width
+        height: parent.height
     }
 }

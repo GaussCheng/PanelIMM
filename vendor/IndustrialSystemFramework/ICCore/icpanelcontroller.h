@@ -13,6 +13,7 @@
 #include <QApplication>
 #include <QScriptValue>
 #include <QScriptEngine>
+#include <QFileSystemWatcher>
 #include <QDebug>
 
 #include "iclog.h"
@@ -144,6 +145,68 @@ public:
 
     Q_INVOKABLE bool setCurrentTranslator(const QString& name);
 
+    Q_INVOKABLE QString scanUSBBackupPackages(const QString& filter) const;
+    Q_INVOKABLE QString viewBackupPackageDetails(const QString& package) const;
+
+    Q_INVOKABLE void runHardwareTest()
+    {
+        setWatchDogEnabled(false);
+        ::system("chmod +x /usr/bin/run_boardtest.sh && run_boardtest.sh");
+        setWatchDogEnabled(true);
+
+    }
+
+    Q_INVOKABLE void setWatchDogEnabled(bool en);
+
+    Q_INVOKABLE QString scanUSBUpdaters(const QString& filter) const;
+    Q_INVOKABLE QString scanUpdaters(const QString& filter, int mode = 0) const;
+    Q_INVOKABLE void startUpdate(const QString& updater, int mode = 0);
+    Q_INVOKABLE QString backupUpdater(const QString& updater);
+
+    Q_INVOKABLE QString getPictures() const;
+    Q_INVOKABLE QString getPicturesPath(const QString& picName) const;
+    Q_INVOKABLE void copyPicture(const QString &picName, const QString& to) const;
+    Q_INVOKABLE QString scanUserDir(const QString& path, const QString& filter) const;
+    Q_INVOKABLE QString scanMachineBackups(int mode) const;
+    Q_INVOKABLE QString scanHMIBackups(int mode) const;
+    Q_INVOKABLE QString scanGhostBackups(int mode) const;
+    Q_INVOKABLE QString backupHMIBackup(const QString& backupName, const QString& sqlData) const;
+    Q_INVOKABLE QString backupMRBackup(const QString& backupName) const;
+    Q_INVOKABLE QString makeGhost(const QString& ghostName, const QString& hmiSqlData) const;
+    Q_INVOKABLE int exportHMIBackup(const QString& backupName) const;
+    Q_INVOKABLE int exportMachineBackup(const QString& backupName) const;
+    Q_INVOKABLE int exportGhost(const QString& backupName) const;
+    Q_INVOKABLE int exportUpdater(const QString& updaterName) const;
+    Q_INVOKABLE QString restoreHMIBackup(const QString& backupName, int mode);
+    Q_INVOKABLE void restoreMRBackup(const QString& backupName, int mode);
+    Q_INVOKABLE QString restoreGhost(const QString& backupName, int mode);
+    Q_INVOKABLE void deleteHIMBackup(const QString& backupName, int mode);
+    Q_INVOKABLE void deleteMRBackup(const QString& backupName, int mode);
+    Q_INVOKABLE void deleteGhost(const QString& backupName, int mode);
+    Q_INVOKABLE void deleteUpdater(const QString& updater, int mode);
+    Q_INVOKABLE void reboot() { ::system("reboot");}
+
+    Q_INVOKABLE void processEvents()
+    {
+        qApp->processEvents();
+    }
+
+    Q_INVOKABLE int registerUseTime(const QString& fc, const QString& mC, const QString& rcCode);
+    Q_INVOKABLE QString generateMachineCode() const;
+    Q_INVOKABLE int restUseTime() const;
+    Q_INVOKABLE void setRestUseTime(int hour);
+    Q_INVOKABLE bool isTryTimeOver() const;
+
+    Q_INVOKABLE QString factoryCode() const
+    {
+        return ICSuperSettings().FactoryCode();
+    }
+
+    Q_INVOKABLE void setFactoryCode(const QString& fc)
+    {
+        ICSuperSettings().SetFactoryCode(fc);
+    }
+
     Q_INVOKABLE QString getCustomSettings(const QString& key, const QVariant& defval, const QString& group = QString::fromLatin1("custom"))
     {
         QString ret;
@@ -165,58 +228,64 @@ public:
             customSettings_.sync();
     }
 
+    Q_INVOKABLE QString hostVersion() const { return host_->HostVersion();}
+    Q_INVOKABLE QString panelControllerVersion() const { return SW_VER;}
+    Q_INVOKABLE QString controllerVersion() const {
+        return panelControllerVersion() + "_" + hostVersion();
+    }
+
     Q_INVOKABLE void setKeyTone(bool status)
-       {
-   #ifndef Q_WS_WIN32
-           int beepFD = open("/dev/szhc_beep", O_WRONLY);
-           if(beepFD > 0)
-           {
-               ioctl(beepFD, 0, status ? 1 : 0);
-               close(beepFD);
-           }
-   #endif
-       }
+    {
+#ifndef Q_WS_WIN32
+        int beepFD = open("/dev/szhc_beep", O_WRONLY);
+        if(beepFD > 0)
+        {
+            ioctl(beepFD, 0, status ? 1 : 0);
+            close(beepFD);
+        }
+#endif
+    }
 
-       Q_INVOKABLE void setBrightness(int brightness)
-       {
-           if(brightness > 0 && brightness <9)
-               ::system(QString("BackLight.sh  %1").arg(brightness).toLatin1());
-       }
+    Q_INVOKABLE void setBrightness(int brightness)
+    {
+        if(brightness > 0 && brightness <9)
+            ::system(QString("BackLight.sh  %1").arg(brightness).toLatin1());
+    }
 
-       Q_INVOKABLE void closeBacklight()
-       {
-           system("BackLight.sh 0");
-       }
+    Q_INVOKABLE void closeBacklight()
+    {
+        system("BackLight.sh 0");
+    }
 
-       Q_INVOKABLE void setDatetime(const QString& datetime)
-       {
-           QDateTime dateTime = QDateTime::fromString(datetime, "yyyy/M/d h:m:s");
-           if(dateTime.isValid())
-           {
-               ::system(QString("date -s %1 && hwclock -w").arg(dateTime.toString("yyyy.MM.dd-hh:mm:ss")).toLatin1());
-           }
-       }
+    Q_INVOKABLE void setDatetime(const QString& datetime)
+    {
+        QDateTime dateTime = QDateTime::fromString(datetime, "yyyy/M/d h:m:s");
+        if(dateTime.isValid())
+        {
+            ::system(QString("date -s %1 && hwclock -w").arg(dateTime.toString("yyyy.MM.dd-hh:mm:ss")).toLatin1());
+        }
+    }
 
-       Q_INVOKABLE void setScreenSaverTime(int min)
-       {
-   #ifdef Q_WS_QWS
-           QWSServer::setScreenSaverInterval(min * 60000);
-   #endif
-       }
+    Q_INVOKABLE void setScreenSaverTime(int min)
+    {
+#ifdef Q_WS_QWS
+        QWSServer::setScreenSaverInterval(min * 60000);
+#endif
+    }
 
-//    Q_INVOKABLE bool isInputOn(int index, int board) const
-//    {
-//        //        return rand() % 2;
-//        quint32 iStatus = host_->IStatus(board);
-//        return iStatus & (1 << index);
-//    }
-//    Q_INVOKABLE bool isOutputOn(int index, int board) const
-//    {
-//        //        return rand() % 2;
-//        quint32 oStatus = ICRobotVirtualhost::OStatus(board);
-//        return oStatus & (1 << index);
-//    }
-//    Q_INVOKABLE void sendKeyCommandToHost(int key);
+    //    Q_INVOKABLE bool isInputOn(int index, int board) const
+    //    {
+    //        //        return rand() % 2;
+    //        quint32 iStatus = host_->IStatus(board);
+    //        return iStatus & (1 << index);
+    //    }
+    //    Q_INVOKABLE bool isOutputOn(int index, int board) const
+    //    {
+    //        //        return rand() % 2;
+    //        quint32 oStatus = ICRobotVirtualhost::OStatus(board);
+    //        return oStatus & (1 << index);
+    //    }
+    //    Q_INVOKABLE void sendKeyCommandToHost(int key);
     Q_INVOKABLE quint32 getConfigValue(const QString& addr) const;
     Q_INVOKABLE QString getConfigValueText(const QString& addr) const;
     Q_INVOKABLE double getRealConfigValue(const QString& addr) const
@@ -280,6 +349,8 @@ public:
     ICRange ICConfigRangeGetter(const QString& addrName) const;
     quint32 AddrStrValueToInt(ICAddrWrapperCPTR addr, const QString& value) const;
 
+    QString GetAppID() const { return appID_;}
+    void SetAppID(const QString& id) { appID_ = id;}
 
 signals:
     void screenSave();
@@ -287,10 +358,12 @@ signals:
     void LoadMessage(const QString&);
     void moldChanged();
     void needToInitHost();
-//    void focusChanged(QWidget *old, QWidget* now);
+    void tryTimeOver();
 
 public slots:
-
+private slots:
+    void OnHostUpdateFinished(QString);
+    void OnWatchDogTimeOut();
 protected:
     QScopedPointer<ICMoldBase> mold_;
     QScopedPointer<ICMachineConfig> machineConfigs_;
@@ -302,14 +375,18 @@ protected:
 
 private:
     virtual bool LoadTranslator_(const QString& name) = 0;
-
-
+    QString HMIBackupPattern() const { return QString("*.hmi.%1.hcdb").arg(GetAppID());}
+    QString MachineBackupPattern() const { return QString("*.mr.%1.hcdb").arg(GetAppID());}
+    QString GhostPattern() const { return QString("*.ghost.%1.hcdb").arg(GetAppID());}
 private:
     ICLog* logger_;
     QSettings customSettings_;
     QtQuick1ApplicationViewer *mainView_;
     ICVirtualKeyboard virtualKeyboard;
+    QFileSystemWatcher hostUpdateFinishedWatcher_;
+    QString appID_;
 #ifdef Q_WS_QWS
+    QTimer watchDogTimer_;
     static int wdFD;
     static int checkTime;
     static int dummy;

@@ -75,7 +75,7 @@ public:
     virtual void StartCommunicate(){ SetCommunicateInterval(CommunicateInterval());}
 
     virtual void SendConfigs(const QList<QPair<int, quint32> >& addrVals) = 0;
-
+    virtual QString HostVersion() const = 0;
 //    virtual bool FrameNewSendPLC(int startaddr,QByteArray command) = 0;
 
 protected:

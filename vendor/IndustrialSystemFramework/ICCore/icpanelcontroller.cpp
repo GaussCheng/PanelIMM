@@ -1,5 +1,8 @@
 #include "icpanelcontroller.h"
 #include "icappsettings.h"
+#include "icregister.h"
+#include "icupdatesystem.h"
+#include "icutility.h"
 
 #include <QFormLayout>
 #include <QDeclarativeContext>
@@ -13,6 +16,20 @@ int ICPanelController::dummy = 0;
 #endif
 
 
+QString scanHelper(const QString& filter, const QString &path = ICAppSettings::UsbPath)
+{
+    QDir usb(path);
+    QStringList updaters = usb.entryList(QStringList()<<filter);
+    QString ret = "[";
+    for(int i = 0; i != updaters.size(); ++i)
+    {
+        ret.append(QString("\"%1\",").arg(updaters.at(i)));
+    }
+    if(updaters.size() != 0)
+        ret.chop(1);
+    ret.append("]");
+    return ret;
+}
 
 
 
@@ -86,15 +103,59 @@ ICPanelController::ICPanelController(QSplashScreen *splash, ICLog* logger, QObje
             splash,
             SLOT(showMessage(QString)));
     emit LoadMessage("Start");
-//    connect(qApp,
-//            SIGNAL(focusChanged(QWidget*,QWidget*)),
-//            SIGNAL(focusChanged(QWidget*,QWidget*)));
+
+
+    if(ICRegister::Instance()->IsTryTimeOver())
+    {
+        emit tryTimeOver();
+    }
+
+
+#ifdef Q_WS_QWS
+    screenSaver_ = new ICDefaultScreenSaver();
+    ScreenFunctionObject* fo = new ScreenFunctionObject();
+    screenSaver_->SetScreenFunction(fo);
+    connect(fo,
+            SIGNAL(ScreenSaved()),
+            SIGNAL(screenSave()));
+    connect(fo,
+            SIGNAL(ScreenRestored()),
+            SIGNAL(screenRestore()));
+    QWSServer::setScreenSaver(screenSaver_);
+    QWSServer::setScreenSaverBlockLevel(-1);
+    connect(&watchDogTimer_, SIGNAL(timeout()),
+            SLOT(OnWatchDogTimeOut()));
+    wdFD = open("/dev/watchdog", O_RDWR);
+    if(wdFD < 0)
+    {
+        qWarning("Open watchdog error\n");
+    }
+    else
+    {
+        ioctl(wdFD, WDIOC_SETTIMEOUT, &checkTime);
+        int options = WDIOS_ENABLECARD	;
+        ioctl(wdFD, WDIOC_SETOPTIONS, &options);
+    }
+
+    watchDogTimer_.start(20000);
+
+#endif
+
+    emit LoadMessage("Controller inited.");
+
 }
 
 ICPanelController::~ICPanelController()
 {
 #ifdef Q_WS_QWS
     close(wdFD);
+#endif
+}
+
+void ICPanelController::OnWatchDogTimeOut()
+{
+#ifdef Q_WS_QWS
+    ioctl(wdFD, WDIOC_KEEPALIVE, &dummy);
 #endif
 }
 
@@ -129,6 +190,7 @@ void ICPanelController::InitMainView()
     emit LoadMessage(appDir.filePath("main.qml"));
     mainView_->setMainQmlFile(appDir.filePath("main.qml"));
     mainView_->showExpanded();
+    appID_ = "base";
 }
 
 QString ICPanelController::usbDirs() const
@@ -249,7 +311,7 @@ void ICPanelController::setConfigValue(const QString &addr, const QString &v)
 {
     ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(addr);
     if(configWrapper == NULL) return;
-    qDebug()<<"PanelRobotController::setConfigValue"<<addr<<v;
+    qDebug()<<"ICPanelController::setConfigValue"<<addr<<v;
     quint32 intV = AddrStrValueToInt(configWrapper, v);
     ICAddrWrapperValuePair p = qMakePair<ICAddrWrapperCPTR, quint32>(configWrapper, intV);
     if(configWrapper->AddrType() == ICAddrWrapper::kICAddrTypeMold)
@@ -336,4 +398,444 @@ QString ICPanelController::statusValueText(const QString &addr) const
     ICAddrWrapperCPTR configWrapper = ICAddrWrapper::AddrStringToAddr(addr);
     if(configWrapper == NULL) return "*";
     return QString(host_->HostStatus(configWrapper));
+}
+
+
+QString ICPanelController::scanUSBUpdaters(const QString &filter) const
+{
+    return scanHelper(QString("%1*.bfe").arg(filter));
+}
+
+QString ICPanelController::scanUpdaters(const QString &filter, int mode) const
+{
+    if(mode == 1)
+        return scanUSBUpdaters(filter);
+    return scanUserDir("updaters", QString("%1*.bfe").arg(filter));
+}
+
+void ICPanelController::startUpdate(const QString &updater, int mode)
+{
+    ICUpdateSystem us;
+    if(mode == 0)
+        us.SetPacksDir(ICAppSettings().UsbPath);
+    else
+        us.SetPacksDir(QString(ICAppSettings().UserPath) + "/updaters");
+    host_->StopCommunicate();
+    system("mkdir updatehost/");
+    hostUpdateFinishedWatcher_.addPath("updatehost");
+    connect(&hostUpdateFinishedWatcher_, SIGNAL(directoryChanged(QString)), this, SLOT(OnHostUpdateFinished(QString)));
+    mainView_->hide();
+#ifdef Q_WS_QWS
+    int flags;
+    flags = WDIOS_DISABLECARD;
+    ioctl(wdFD, WDIOC_SETOPTIONS, &flags);
+#endif
+    us.StartUpdate(updater);
+#ifdef Q_WS_QWS
+    flags = WDIOS_ENABLECARD;
+    ioctl(wdFD, WDIOC_SETOPTIONS, &flags);
+#endif
+
+}
+
+QString ICPanelController::backupUpdater(const QString &updater)
+{
+    QDir dir(ICAppSettings::UserPath);
+    if(!dir.exists("updaters"))
+    {
+        dir.mkdir("updaters");
+    }
+    dir.cd("updaters");
+    QString bf = updater;
+    if(dir.exists(bf))
+    {
+        QFile::remove(dir.absoluteFilePath(bf));
+    }
+    QDir usbDir(ICAppSettings::UsbPath);
+    QFile::copy(usbDir.absoluteFilePath(bf), dir.absoluteFilePath(bf));
+    return bf;
+}
+
+QString ICPanelController::scanUSBBackupPackages(const QString& filter) const
+{
+    return scanHelper(QString("%1*.tar").arg(filter));
+}
+
+QString ICPanelController::viewBackupPackageDetails(const QString &package) const
+{
+    QString tarPath = QDir(ICAppSettings::UsbPath).absoluteFilePath(package);
+    QDir temp = QDir::temp();
+    QString packageDirName = package;
+    packageDirName.chop(4);
+    if(!temp.exists(packageDirName))
+    {
+        ::system(QString("tar -xf %1 -C %2").arg(tarPath).arg(temp.path()).toUtf8());
+    }
+    temp.cd(packageDirName);
+    QStringList molds = temp.entryList(QStringList()<<"*.act");
+#ifdef Q_WS_QWS
+    QByteArray ret = "[";
+#else
+    QString ret = "[";
+#endif
+    QString m;
+    for(int i = 0; i != molds.size(); ++i)
+    {
+        m = molds.at(i);
+        m.chop(4);
+        ret.append(QString("\"%1\",").arg(m));
+    }
+    if(molds.size() != 0)
+        ret.chop(1);
+    ret.append("]");
+#ifdef Q_WS_QWS
+    return QString::fromUtf8(ret);
+#else
+    return ret;
+#endif
+}
+
+void ICPanelController::OnHostUpdateFinished(QString)
+{
+    qDebug("finised");
+    disconnect(&hostUpdateFinishedWatcher_, SIGNAL(directoryChanged(QString)), this, SLOT(OnHostUpdateFinished(QString)));
+#ifdef QT5
+#else
+    mainView_->repaint();
+#endif
+    mainView_->show();
+    qApp->processEvents();
+    host_->StartCommunicate();
+    hostUpdateFinishedWatcher_.removePath("updatehost");
+    system("rm -r updatehost");
+}
+
+void ICPanelController::setWatchDogEnabled(bool en)
+{
+
+#ifdef Q_WS_QWS
+    int flags;
+    if(en)
+    {
+        flags = WDIOS_ENABLECARD;
+        ioctl(wdFD, WDIOC_SETTIMEOUT, &checkTime);
+    }
+    else
+    {
+        flags = WDIOS_DISABLECARD;
+    }
+    ioctl(wdFD, WDIOC_SETOPTIONS, &flags);
+#endif
+
+}
+
+QString ICPanelController::getPictures() const
+{
+    QDir usb(ICAppSettings::UsbPath);
+    if(!usb.exists("HCUpdate_pic")) return "[]";
+    usb.cd("HCUpdate_pic");
+    QStringList updaters = usb.entryList(QStringList()<<"*.png");
+    QString ret = "[";
+    for(int i = 0; i != updaters.size(); ++i)
+    {
+        ret.append(QString("\"%1\",").arg(updaters.at(i)));
+    }
+    if(updaters.size() != 0)
+        ret.chop(1);
+    ret.append("]");
+    return ret;
+}
+
+QString ICPanelController::getPicturesPath(const QString& picName) const
+{
+    QDir usb(ICAppSettings::UsbPath);
+    if(!usb.exists("HCUpdate_pic")) return "";
+    usb.cd("HCUpdate_pic");
+    return usb.absoluteFilePath(picName);
+}
+
+void ICPanelController::copyPicture(const QString &picName, const QString& to) const
+{
+    QDir usb(ICAppSettings::UsbPath);
+    if(!usb.exists("HCUpdate_pic")) return;
+    usb.cd("HCUpdate_pic");
+    ICAppSettings settings;
+    QString uiMain = settings.UIMainName();
+    QDir appDir = QDir::current();
+    appDir.cd(uiMain);
+    appDir.cd("images");
+    ::system(QString("cp %1 %2 -f").arg(usb.absoluteFilePath(picName))
+             .arg(appDir.absoluteFilePath(to)).toLatin1());
+    ::system("sync");
+}
+
+
+QString ICPanelController::scanUserDir(const QString &path, const QString &filter) const
+{
+    QDir dir(ICAppSettings::UserPath);
+    if(!dir.exists(path))
+        return "[]";
+    dir.cd(path);
+    QStringList toSearch = dir.entryList(QStringList()<<filter);
+    QString ret = "[";
+    for(int i = 0; i != toSearch.size(); ++i)
+    {
+        ret.append(QString("\"%1\",").arg(toSearch.at(i)));
+    }
+    if(toSearch.size() != 0)
+        ret.chop(1);
+    ret.append("]");
+    return ret;
+}
+
+QString ICPanelController::backupHMIBackup(const QString& backupName, const QString& sqlData) const
+{
+    QDir dir(ICAppSettings::UserPath);
+    if(!dir.exists("hmibps"))
+    {
+        dir.mkdir("hmibps");
+    }
+    dir.cd("hmibps");
+    QString utf8BackupName = backupName;
+    QString bf = utf8BackupName + ".hmi.hcdb";
+    if(dir.exists(bf.toUtf8()))
+    {
+        QFile::remove(dir.absoluteFilePath(bf.toUtf8()));
+    }
+    dir.mkdir(utf8BackupName.toUtf8());
+    dir.cd(utf8BackupName.toUtf8());
+    QFile sql(dir.absoluteFilePath("hmi.sql"));
+    if(sql.open(QFile::WriteOnly))
+    {
+        sql.write(sqlData.toUtf8());
+        sql.close();
+    }
+    QFile::copy("usr/customsettings.ini", dir.absoluteFilePath("customsettings.ini"));
+    QFile::copy("sysconfig/PanelRobot.ini", dir.absoluteFilePath("PanelRobot.ini"));
+    dir.cdUp();
+    ::system(QString("cd %1 && tar -zcvf - %2 | openssl des3 -salt -k szhcSZHCGaussCheng | dd of=%2.hmi.hcdb")
+             .arg(dir.absolutePath()).arg(utf8BackupName).toUtf8());
+
+    ICUtility::DeleteDirectory(dir.absoluteFilePath(utf8BackupName.toUtf8()));
+    return utf8BackupName + ".hmi.hcdb";
+}
+
+QString ICPanelController::restoreHMIBackup(const QString &backupName, int mode)
+{
+    QString dirPath = (mode == 0 ? QString(ICAppSettings::UserPath) + "/hmibps" : ICAppSettings::UsbPath);
+    QDir dir(dirPath);
+    if(!dir.exists(backupName.toUtf8())) return "";
+    ::system(QString("cd %2 && dd if=%1 | openssl des3 -d -k szhcSZHCGaussCheng | tar zxf -").arg(backupName).arg(dir.absolutePath()).toUtf8());
+    QString backupDirName = backupName;
+    backupDirName.chop(9);
+    QDir backupDir(dir.absoluteFilePath(backupDirName.toUtf8()));
+    QFile sqlData(backupDir.absoluteFilePath("hmi.sql"));
+    sqlData.open(QFile::ReadOnly);
+    QString ret = QString::fromUtf8(sqlData.readAll());
+    sqlData.close();
+    QFile::remove("usr/customsettings.ini");
+    QFile::remove("sysconfig/PanelRobot.ini");
+    QFile::copy(backupDir.absoluteFilePath("customsettings.ini"), "usr/customsettings.ini");
+    QFile::copy(backupDir.absoluteFilePath("PanelRobot.ini"), "sysconfig/PanelRobot.ini");
+    ::system(QString("rm -r %1").arg(backupDir.absolutePath()).toUtf8());
+    ::system("sync");
+    return ret;
+}
+
+QString ICPanelController::backupMRBackup(const QString &backupName) const
+{
+    QDir dir(ICAppSettings::UserPath);
+    if(!dir.exists("mrbps"))
+    {
+        dir.mkdir("mrbps");
+    }
+    dir.cd("mrbps");
+    QString bf = backupName + ".mr.hcdb";
+    if(dir.exists(bf.toUtf8()))
+    {
+        QFile::remove(dir.absoluteFilePath(bf.toUtf8()));
+    }
+    dir.mkdir(backupName.toUtf8());
+    dir.cd(backupName.toUtf8());
+    QFile::copy("RobotDatabase", dir.absoluteFilePath("RobotDatabase"));
+    dir.cdUp();
+    ::system(QString("cd %1 && tar -zcvf - %2 | openssl des3 -salt -k szhcSZHCGaussCheng | dd of=%2.mr.hcdb")
+             .arg(dir.absolutePath()).arg(backupName).toUtf8());
+    ICUtility::DeleteDirectory(dir.absoluteFilePath(backupName.toUtf8()));
+    return backupName + ".mr.hcdb";
+
+}
+
+void ICPanelController::restoreMRBackup(const QString &backupName, int mode)
+{
+    QString dirPath = (mode == 0 ? QString(ICAppSettings::UserPath) + "/mrbps" : ICAppSettings::UsbPath);
+    QDir dir(dirPath);
+    if(!dir.exists(backupName.toUtf8())) return;
+    ::system(QString("cd %2 && dd if=%1 | openssl des3 -d -k szhcSZHCGaussCheng | tar zxf -").arg(backupName).arg(dir.absolutePath()).toUtf8());
+    QString backupDirName = backupName;
+    backupDirName.chop(8);
+    QDir backupDir(dir.absoluteFilePath(backupDirName.toUtf8()));
+    QFile::remove("RobotDatabase");
+    QFile::copy(backupDir.absoluteFilePath("RobotDatabase"), "RobotDatabase");
+    ::system(QString("rm -rf %1").arg(backupDir.absolutePath()).toUtf8());
+
+}
+
+
+QString ICPanelController::makeGhost(const QString &ghostName, const QString& hmiSqlData) const
+{
+    QDir dir(ICAppSettings::UserPath);
+    if(!dir.exists("ghosts"))
+    {
+        dir.mkdir("ghosts");
+    }
+    dir.cd("ghosts");
+    QString bf = ghostName + ".ghost.hcdb";
+    if(dir.exists(bf.toUtf8()))
+    {
+        QFile::remove(dir.absoluteFilePath(bf.toUtf8()));
+    }
+    QFile sql("hmi.sql");
+    if(sql.open(QFile::WriteOnly))
+    {
+        sql.write(hmiSqlData.toUtf8());
+        sql.close();
+    }
+    ::system(QString("tar -zcvf - %1 | openssl des3 -salt -k szhcSZHCGaussCheng | dd of=%2")
+             .arg(QDir::current().absolutePath())
+             .arg(dir.absoluteFilePath(ghostName + ".ghost.hcdb")).toUtf8());
+    return ghostName + ".ghost.hcdb";
+}
+
+QString ICPanelController::restoreGhost(const QString& backupName, int mode)
+{
+    QString dirPath = (mode == 0 ? QString(ICAppSettings::UserPath) + "/ghosts" : ICAppSettings::UsbPath);
+    QDir dir(dirPath);
+    if(!dir.exists(backupName.toUtf8())) return "";
+    ::system(QString("cd %2 && dd if=%1 | openssl des3 -d -k szhcSZHCGaussCheng | tar zxf - -C /")
+             .arg(backupName)
+             .arg(dir.absolutePath()).toUtf8());
+    QFile sql("hmi.sql");
+    QString ret;
+    if(sql.open(QFile::ReadOnly))
+    {
+        ret = QString::fromUtf8(sql.readAll());
+        sql.close();
+    }
+    return ret;
+}
+
+QString ICPanelController::scanHMIBackups(int mode) const
+{
+    if(mode == 1)
+        return scanHelper(HMIBackupPattern());
+    return scanUserDir("hmibps", HMIBackupPattern());
+}
+
+QString ICPanelController::scanMachineBackups(int mode) const
+{
+    if(mode == 1)
+        return scanHelper(MachineBackupPattern());
+    return scanUserDir("mrbps", MachineBackupPattern());
+
+}
+
+QString ICPanelController::scanGhostBackups(int mode) const
+{
+    if(mode == 1)
+        return scanHelper(GhostPattern());
+    return scanUserDir("ghosts", GhostPattern());
+}
+
+int exportBackupHelper(const QString& backupName, const QString& path)
+{
+    QDir dir(ICAppSettings::UserPath);
+    if(!dir.cd(path)) return -1;
+    if(!dir.exists(backupName.toUtf8())) return -1;
+    if(!ICUtility::IsUsbAttached()) return -2;
+    //    qDebug()<<dir.absoluteFilePath(backupName.toUtf8())<<QDir(ICAppSettings::UsbPath).absoluteFilePath(backupName)<<QDir(ICAppSettings::UsbPath).absoluteFilePath(backupName.toUtf8());
+    if(QFile::copy(dir.absoluteFilePath(backupName.toUtf8()), QDir(ICAppSettings::UsbPath).absoluteFilePath(backupName.toUtf8())))
+    {
+#ifdef  Q_WS_QWS
+        ::sync();
+#endif
+        return 0;
+    }
+    return -3;
+}
+
+int ICPanelController::exportHMIBackup(const QString &backupName) const
+{
+    return exportBackupHelper(backupName, "hmibps");
+}
+
+int ICPanelController::exportMachineBackup(const QString &backupName) const
+{
+    return exportBackupHelper(backupName, "mrbps");
+}
+
+int ICPanelController::exportGhost(const QString &backupName) const
+{
+    return exportBackupHelper(backupName, "ghosts");
+}
+
+int ICPanelController::exportUpdater(const QString &updaterName) const
+{
+    return exportBackupHelper(updaterName, "updaters");
+}
+
+void deleteBackupHelper(const QString& subPath, const QString &backupName, int mode)
+{
+    QString dirPath = (mode == 0 ? QString(ICAppSettings::UserPath) + "/" + subPath : ICAppSettings::UsbPath);
+    QDir dir(dirPath);
+    if(!dir.exists(backupName.toUtf8())) return;
+    QFile::remove(dir.absoluteFilePath(backupName.toUtf8()));
+}
+
+void ICPanelController::deleteHIMBackup(const QString &backupName, int mode)
+{
+    deleteBackupHelper("hmibps", backupName, mode);
+}
+
+void ICPanelController::deleteMRBackup(const QString &backupName, int mode)
+{
+    deleteBackupHelper("mrbps", backupName, mode);
+}
+
+void ICPanelController::deleteGhost(const QString &backupName, int mode)
+{
+    deleteBackupHelper("ghosts", backupName, mode);
+}
+
+void ICPanelController::deleteUpdater(const QString &updater, int mode)
+{
+    deleteBackupHelper("updaters", updater, mode);
+}
+
+int ICPanelController::registerUseTime(const QString &fc, const QString &mC, const QString &rcCode)
+{
+    int ret = ICRegister::Register(fc, mC, rcCode);
+    if(ret < 0) return ret;
+    ICRegister::Instance()->SetUseTime(ret);
+    return ret;
+}
+
+QString ICPanelController::generateMachineCode() const
+{
+    return ICRegister::GenerateMachineCode();
+}
+
+int ICPanelController::restUseTime() const
+{
+    return ICRegister::Instance()->LeftUseTime();
+}
+
+bool ICPanelController::isTryTimeOver() const
+{
+    return ICRegister::Instance()->IsTryTimeOver();
+}
+
+void ICPanelController::setRestUseTime(int hour)
+{
+    ICRegister::Instance()->SetUseTime(hour);
 }

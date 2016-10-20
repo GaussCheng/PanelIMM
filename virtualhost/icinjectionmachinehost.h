@@ -50,6 +50,8 @@ public:
             AddReadConfigCommunicationFrame_(host);
         }
     }
+
+    QString HostVersion() const { return "1.0.0";}
     //    static ICSTATUS CurrentStatus
 
     static HeateState GetHeateStateFromHostStatus(quint32 hostStatusValue)

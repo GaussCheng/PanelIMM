@@ -4,12 +4,6 @@ import "../immcustomitems"
 import "../../styles/style.js" as Style
 ICIMMFunctionPageBase {
     id:instance
-    property variant detailsMenuItems: {
-        "f6":qsTr("Aid Settings"),
-    }
-    function onF6Triggered(){
-        return "ICCoreAidCVMonitorPage.qml";
-    }
     //    function onF7Triggered(){
     //        return "ICTemperaturePIDCVMonitorPage.qml";
     //    }
