@@ -12,7 +12,8 @@ configs/* \
 
 OTHER_FILES += \
     settingpages/ICMaintainFuncPage.qml \
-    settingpages/ICPanelFuncPage.qml
+    settingpages/ICPanelFuncPage.qml \
+    immcustomitems/ICIMMLedTextLabel.qml
 
 
 

@@ -139,6 +139,123 @@ Rectangle {
                 monitorComponent: "ICInjectionMonitorPage.qml"
             }
         }
+        Item{
+            id:actLedContainer
+            y:parent.height * 0.6
+            height: parent.height * 0.4
+            Row{
+                id:ledRow1
+                z:2
+                ICIMMLedTextLabel{
+                    id:actCMLed
+                    text: qsTr("C.M")
+                }
+                ICIMMText{text: "-->"}
+                ICIMMLedTextLabel{
+                    id:actNOZADVLed
+                    text: qsTr("NOZ.ADV")
+                }
+                ICIMMText{text: "-->"}
+                ICIMMLedTextLabel{
+                    id:actBCHARLed
+                    text: qsTr("B.CHAR")
+                }
+                ICIMMText{text: "-->"}
+                ICIMMLedTextLabel{
+                    id:actINJLed
+                    text: qsTr("INJ")
+                }
+                ICIMMText{text: "-->"}
+                ICIMMLedTextLabel{
+                    id:actHPLed
+                    text: qsTr("H.P")
+                }
+            }
+            Item{
+                id:ledCol1
+                y:actHPLed.y + actHPLed.height / 2
+                x:actHPLed.x
+                Rectangle{
+                    id:bgContainer
+                    color: "green"
+                    anchors.left: actCOOLLed.left
+                    anchors.right: actNOZRETLed.right
+                    anchors.top: r2.top
+                    anchors.bottom: actCOOLLed.bottom
+                }
+                ICIMMText{id:r3;text: "↓"}
+                ICIMMText{id:r1;text: "________";anchors.horizontalCenter: r3.horizontalCenter}
+                ICIMMText{id:r2;text: "↓      ↓";y:r1.height / 2;anchors.horizontalCenter: r1.horizontalCenter}
+                ICIMMLedTextLabel{
+                    id:actBCCOOLLed
+                    text: qsTr("BC.COOL")
+                    anchors.top:r2.bottom
+                    anchors.topMargin: -4 * Style.hRatio
+                    anchors.right: r3.left
+                }
+                ICIMMLedTextLabel{
+                    id:actNOZRETLed
+                    text: qsTr("NOZ.RET")
+                    y:actBCCOOLLed.y
+                    anchors.left: actBCCOOLLed.right
+                    anchors.leftMargin: 10 * Style.wRatio
+                }
+                ICIMMText{id:r4;text: "↓      ↓";y:actBCCOOLLed.height / 2 + actBCCOOLLed.y;x:r2.x}
+                ICIMMText{id:r5;text: "________";x:r1.x;y:r4.y}
+                ICIMMText{id:r6;text: "↓";x:r3.x;y:r5.y + r5.height / 2}
+                ICIMMLedTextLabel{
+                    id:actCHARLed
+                    text: qsTr("CHAR")
+                    anchors.top: r6.bottom
+                    anchors.topMargin: -4 * Style.hRatio
+                    anchors.horizontalCenter: r6.horizontalCenter
+                }
+                ICIMMText{id:r7;text: "↓";x:r3.x;y:actCHARLed.y + actCHARLed.height / 2}
+                ICIMMLedTextLabel{
+                    id:actNOZRET2Led
+                    text: qsTr("NOZ.RET")
+                    anchors.top: r7.bottom
+                    anchors.topMargin: -4 * Style.hRatio
+                    anchors.horizontalCenter: r7.horizontalCenter
+                }
+                ICIMMText{id:r8;text: "←";anchors.right: actNOZRET2Led.left;y:actNOZRET2Led.y}
+                ICIMMLedTextLabel{
+                    id:actCOOLLed
+                    text: qsTr("COOL")
+                    y:actNOZRET2Led.y
+                    anchors.right: r8.left
+                }
+            }
+            Row{
+                id:ledRow2
+                x:4 * Style.wRatio
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 10
+                ICIMMText{text: "___________"}
+                ICIMMLedTextLabel{
+                    id:actEJELed
+                    text: qsTr("EJE")
+                }
+                ICIMMText{text: "←"}
+                ICIMMLedTextLabel{
+                    id:actOMLed
+                    text: qsTr("O.M")
+                }
+                ICIMMText{text: "←"}
+            }
+            ICIMMText{id:l1;text: "|";anchors.bottom: ledRow2.top;anchors.bottomMargin: -height;x:4 * Style.wRatio}
+            ICIMMText{id:l2;text: "↑";anchors.bottom: l1.top;anchors.bottomMargin: -5}
+            ICIMMLedTextLabel{
+                id:actRecycleLed
+                text: qsTr("RECYCLE")
+                anchors.bottom: l2.top;
+                anchors.bottomMargin: -5
+            }
+            ICIMMText{id:l3;text: "|";anchors.bottom: actRecycleLed.top;x:l1.x;anchors.bottomMargin: -3}
+            ICIMMText{id:l4;text: "|";anchors.bottom: l3.top;anchors.bottomMargin: -5;x:4 * Style.wRatio}
+            ICIMMText{id:l5;text: "↑";anchors.bottom: l4.top;anchors.bottomMargin: -5}
+
+        }
     }
 
     Grid{
