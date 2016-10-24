@@ -4,6 +4,7 @@ Item {
     property string bindStatus: ""
     property alias text: status.text
     property alias font: status.font
+    property alias color: status.color
     width: 50
     height: 24
     Text {

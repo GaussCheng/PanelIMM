@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QIcon>
 #include <QFile>
+#include <QDeclarativeComponent>
 #include "iclog.h"
 #include "icappsettings.h"
 #include "icpanelimmcontroller.h"

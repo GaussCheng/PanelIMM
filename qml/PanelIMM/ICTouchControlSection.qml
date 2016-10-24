@@ -13,7 +13,7 @@ Rectangle {
     signal alarmHistoryMenuItemTriggered(variant menuItem)
     signal ioMonitorMenuItemTriggered(variant menuItem)
     function init(){
-        funcMenuItemTriggered(workReady);
+        funcMenuItemTriggered(actionMonitor);
     }
 
     Image {
@@ -81,7 +81,6 @@ Rectangle {
                 //                anchors.verticalCenter: parent.verticalCenter
                 bindingPageComponent: "ICWorkReadyFuncPage.qml"
                 monitorComponent: "ICInjectionMonitorPage.qml"
-                isChecked: true
             }
             ICIMMFunctionMenuItem{
                 id:mold
@@ -520,6 +519,10 @@ Rectangle {
         ICIMMFunctionMenuItem{
             id:actionMonitor
             text: qsTr("Act\nMon")
+            bindingPageComponent: "ICActionMonitorFuncPage.qml"
+            monitorComponent: "ICActionMonitorPage.qml"
+            isChecked: true
+
         }
         ICIMMFunctionMenuItem{
             id:produceMonitor
