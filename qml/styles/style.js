@@ -16,7 +16,7 @@ var aspectRatio = 0.75;
 var realW = 768;
 var realH = 1024;
 
-var usedH = 768;
+var usedH = 1024;
 
 
 var mainWindow = {
@@ -93,8 +93,9 @@ var detailMenuSection = {
 var touchControlSection = {
     "bg":"#709089",
     "rect":new Rect(0, 579, mainWindow.rect.width, 445 * hRatio),
+    "functionMenuItem":{"font":{"pixelSize":18 * scaleRatio}},
     "immModeBG":{"rightMargin": 2 * wRatio, "topMargin": 2 * hRatio},
-    "touchKeyboard":{"btnSize":47 * scaleRatio, "btnBG":"#CCA0D2", "spacing": 2 * wRatio, "topMargin":20 * wRatio, "leftMargin": 4 * wRatio},
+    "touchKeyboard":{"btnSize":47 * scaleRatio, "btnBG":"#CCA0D2", "spacing": 2 * wRatio, "topMargin":20 * wRatio, "leftMargin": 4 * wRatio,  "font":{"pixelSize":18 * scaleRatio}},
     "touchNavKeyboard":{"btnSize":43 * scaleRatio},
     "pageMenuKeyboard":{"btnWidth":60 * wRatio, "btnHeight": 50 * hRatio, "btnBG":"#B5D268", "pressedColor":"#C2B485", "checkedColor":"#00AE66","borderColor":"#AAA7A7"},
     "optionalKeyboard":{"btnSize": 50 * scaleRatio, "labelHeight": 22 * hRatio, "btnSpacing": 2 * wRatio, "groupSpacing": 30 * wRatio, "rightMargin":6 * wRatio, "labelBG":"#578726", "btnBG":"#84953B"},

@@ -23,7 +23,7 @@ RCC_DIR = temp_$${suffix}
 
 INCLUDEPATH += vendor/protocol/
 
-
+SK_SIZE = 15
 
 
 # Add more folders to ship with the application, here
@@ -38,7 +38,7 @@ utils.target = qml
 init.source = Init
 init.target = .
 styles.source = qml/styles
-styles.target = .
+styles.target = qml
 DEPLOYMENTFOLDERS =  ICCustomElement utils init styles
 
 # Additional import path used to resolve QML modules in Creator's code model
@@ -53,7 +53,6 @@ include(controller/controller.pri)
 include(common/common.pri)
 include(datamanerger/datamanerger.pri)
 include(virtualhost/virtualhost.pri)
-include(extentui/extentui.pri)
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp
 
@@ -80,6 +79,25 @@ updateDir = tools/Update
 
 target.path = /opt/Qt/apps
 
+
+
+#db.path = /opt/Qt/apps/
+#db.files += $${reinstallDir}/RobotDatabase
+qmap.path = /home/root
+qmap.files += $${reinstallDir}/$${SK_SIZE}-inch-qmap/*
+usr_bin_scripts.path = /usr/bin
+#usr_bin_scripts.files += $${reinstallDir}/usr_bin_scripts/*
+usr_bin_scripts.files += $${reinstallDir}/$${SK_SIZE}RunApp/*
+#usr_sbin_scripts.path = /usr/sbin
+#usr_sbin_scripts.files += $${reinstallDir}/usr_sbin_scripts/*
+configs.path = /opt/Qt/apps/sysconfig
+configs.files += $${reinstallDir}/configs/PanelRobot.ini
+testapp.path = /opt/Qt/apps
+#testapp.files += $${reinstallDir}/3a8HardwareTest*
+
+qmls.path = $${target.path}/qml
+qmls.files += qml/PanelIMM*
+
 CONFIG(release, debug|release) {
 message("in release")
 db.path = /opt/Qt/apps/
@@ -90,21 +108,4 @@ message("in Reinstall")
 INSTALLS += db configs
 }
 
-#db.path = /opt/Qt/apps/
-#db.files += $${reinstallDir}/RobotDatabase
-qmap.path = /home/root
-qmap.files += $${reinstallDir}/$${SK_SIZE}-inch-qmap/*
-usr_bin_scripts.path = /usr/bin
-usr_bin_scripts.files += $${reinstallDir}/usr_bin_scripts/*
-usr_bin_scripts.files += $${reinstallDir}/$${SK_SIZE}RunApp/*
-usr_sbin_scripts.path = /usr/sbin
-usr_sbin_scripts.files += $${reinstallDir}/usr_sbin_scripts/*
-configs.path = /opt/Qt/apps/sysconfig
-configs.files += $${reinstallDir}/configs/PanelRobot.ini
-testapp.path = /opt/Qt/apps
-#testapp.files += $${reinstallDir}/3a8HardwareTest*
-
-qmls.path = $${target.path}/qml
-qmls.files += qml/PanelIMM*
-
-INSTALLS += qmap usr_bin_scripts usr_sbin_scripts qmls testapp
+INSTALLS += qmap qmls usr_bin_scripts

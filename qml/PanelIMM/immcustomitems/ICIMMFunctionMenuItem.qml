@@ -6,6 +6,7 @@ ICIMMDetailMenuItem{
     width: Style.touchControlSection.pageMenuKeyboard.btnWidth
     height: Style.touchControlSection.pageMenuKeyboard.btnHeight
     bgColor: Style.touchControlSection.pageMenuKeyboard.btnBG
+    font.pixelSize: Style.touchControlSection.functionMenuItem.font.pixelSize
 
     property string monitorComponent: ""
 }

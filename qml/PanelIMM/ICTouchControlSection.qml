@@ -273,6 +273,7 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: 0
+            font.pixelSize: Style.touchControlSection.touchKeyboard.font.pixelSize
         }
         ICButton{
             id:btn7
@@ -282,7 +283,7 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_7, "7");
-
+            font.pixelSize: helpBtn.font.pixelSize
         }
         ICButton{
             id:btn8
@@ -292,6 +293,8 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_8, "8");
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
         ICButton{
             id:btn9
@@ -301,6 +304,8 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_9, "9");
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
         ICButton{
             id:clkBtn
@@ -310,6 +315,7 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_Backspace, "");
+            font.pixelSize: helpBtn.font.pixelSize
 
         }
         ICButton{
@@ -320,6 +326,7 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_4, "4");
+            font.pixelSize: helpBtn.font.pixelSize
 
         }
         ICButton{
@@ -330,6 +337,7 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_5, "5");
+            font.pixelSize: helpBtn.font.pixelSize
 
         }
         ICButton{
@@ -340,6 +348,8 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_6, "6");
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
         ICButton{
             id:fnBtn
@@ -348,6 +358,8 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
         ICButton{
             id:btn1
@@ -357,6 +369,8 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_1, "1");
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
         ICButton{
             id:btn2
@@ -366,6 +380,8 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_2, "2");
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
         ICButton{
             id:btn3
@@ -375,6 +391,7 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_3, "3");
+            font.pixelSize: helpBtn.font.pixelSize
 
         }
         ICButton{
@@ -384,6 +401,8 @@ Rectangle {
             height: width
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
         ICButton{
             id:btn0
@@ -393,6 +412,7 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_0, "0");
+            font.pixelSize: helpBtn.font.pixelSize
 
         }
         ICButton{
@@ -403,6 +423,8 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_Period, ".");
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
         ICButton{
             id:btnEnt
@@ -412,6 +434,8 @@ Rectangle {
             bgColor: Style.touchControlSection.touchKeyboard.btnBG
             border.width: helpBtn.border.width
             onButtonClicked: panelController.posKeyEvent(Qt.Key_Return, "");
+            font.pixelSize: helpBtn.font.pixelSize
+
         }
     }
 
@@ -552,13 +576,13 @@ Rectangle {
             id:alarmHistory
             text: qsTr("Alarm\nHistory")
         }
-        ICButton{
+        ICIMMButton{
             id:clearAlarm
             text: qsTr("Alarm\nClear")
             width: alarmHistory.width
             height: alarmHistory.height
         }
-        ICButton{
+        ICIMMButton{
             id:showAlarm
             text: qsTr("Show\nAlarm")
             width: alarmHistory.width

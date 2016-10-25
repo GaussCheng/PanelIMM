@@ -5,8 +5,9 @@ import "../../styles/style.js" as Style
 ICIMMFunctionPageBase {
     id:instance
     ICStatusScope{
+        anchors.bottom: parent.bottom
         width: parent.width
-        height: parent.height
+        height: parent.height - 44 * Style.hRatio
         Image {
             id: machineDesk
             source: "../images/machine_desk.png"

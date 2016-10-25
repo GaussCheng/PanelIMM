@@ -10,10 +10,6 @@ configs/* \
 ../styles/*
 }
 
-OTHER_FILES += \
-    monitorpages/ICActionMonitorPage.qml
-
-
 
 
 

@@ -387,6 +387,7 @@ private:
     QString appID_;
 #ifdef Q_WS_QWS
     QTimer watchDogTimer_;
+    ICDefaultScreenSaver *screenSaver_;
     static int wdFD;
     static int checkTime;
     static int dummy;
