@@ -79,7 +79,7 @@ var monitorSection = {
         "normalMonitorTitleBG":"#00AE66",
         "normalMonitorTitleBorderColor":"white",
         "normalMonitorTitleFontPixelSize":24 * scaleRatio},
-        "convenientMonitorSection":{"time":{"font":{"pixelSize":16 * scaleRatio}}}
+        "convenientMonitorSection":{"time":{"font":{"pixelSize":16 * scaleRatio}}, "title":{"font":{"pixelSize":20 * scaleRatio}}}
     },
 }
 

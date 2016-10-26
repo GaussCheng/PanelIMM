@@ -149,22 +149,34 @@ Rectangle {
                     id:actCMLed
                     text: qsTr("C.M")
                 }
-                ICIMMText{text: "-->"}
+                Image {
+                    source: "images/arrow-Left.png"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
                 ICIMMLedTextLabel{
                     id:actNOZADVLed
                     text: qsTr("NOZ.ADV")
                 }
-                ICIMMText{text: "-->"}
+                Image {
+                    source: "images/arrow-Left.png"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
                 ICIMMLedTextLabel{
                     id:actBCHARLed
                     text: qsTr("B.CHAR")
                 }
-                ICIMMText{text: "-->"}
+                Image {
+                    source: "images/arrow-Left.png"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
                 ICIMMLedTextLabel{
                     id:actINJLed
                     text: qsTr("INJ")
                 }
-                ICIMMText{text: "-->"}
+                Image {
+                    source: "images/arrow-Left.png"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
                 ICIMMLedTextLabel{
                     id:actHPLed
                     text: qsTr("H.P")
@@ -172,88 +184,118 @@ Rectangle {
             }
             Item{
                 id:ledCol1
-                y:actHPLed.y + actHPLed.height / 2
-                x:actHPLed.x
+                anchors.top: ledRow1.bottom
+                x:actHPLed.x - r2.width / 2
                 Rectangle{
                     id:bgContainer
                     color: "green"
-                    anchors.left: actCOOLLed.left
+                    anchors.left: actBCCOOLLed.x > actCOOLLed.x ? actCOOLLed.left : actBCCOOLLed.left
                     anchors.right: actNOZRETLed.right
                     anchors.top: r2.top
                     anchors.bottom: actCOOLLed.bottom
                 }
-                ICIMMText{id:r3;text: "↓"}
-                ICIMMText{id:r1;text: "________";anchors.horizontalCenter: r3.horizontalCenter}
-                ICIMMText{id:r2;text: "↓      ↓";y:r1.height / 2;anchors.horizontalCenter: r1.horizontalCenter}
+                Image{
+                    id:r2
+                    source: "images/arrow-Branch.png"
+                }
                 ICIMMLedTextLabel{
                     id:actBCCOOLLed
                     text: qsTr("BC.COOL")
                     anchors.top:r2.bottom
-                    anchors.topMargin: -4 * Style.hRatio
-                    anchors.right: r3.left
+//                    anchors.topMargin: -4 * Style.hRatio
+                    anchors.horizontalCenter: r2.left
                 }
                 ICIMMLedTextLabel{
                     id:actNOZRETLed
                     text: qsTr("NOZ.RET")
                     y:actBCCOOLLed.y
-                    anchors.left: actBCCOOLLed.right
-                    anchors.leftMargin: 10 * Style.wRatio
+                    anchors.horizontalCenter: r2.right
                 }
-                ICIMMText{id:r4;text: "↓      ↓";y:actBCCOOLLed.height / 2 + actBCCOOLLed.y;x:r2.x}
-                ICIMMText{id:r5;text: "________";x:r1.x;y:r4.y}
-                ICIMMText{id:r6;text: "↓";x:r3.x;y:r5.y + r5.height / 2}
+                Image{
+                    id:r4
+                    source: "images/arrow-Unit.png"
+                    anchors.top: actNOZRETLed.bottom
+                }
+
                 ICIMMLedTextLabel{
                     id:actCHARLed
                     text: qsTr("CHAR")
-                    anchors.top: r6.bottom
-                    anchors.topMargin: -4 * Style.hRatio
-                    anchors.horizontalCenter: r6.horizontalCenter
+                    anchors.top: r4.bottom
+                    anchors.horizontalCenter: r4.horizontalCenter
                 }
-                ICIMMText{id:r7;text: "↓";x:r3.x;y:actCHARLed.y + actCHARLed.height / 2}
+                Image {
+                    id:r5
+                    source: "images/arrow-Left.png"
+                    anchors.top: actCHARLed.bottom
+                    anchors.horizontalCenter: r4.horizontalCenter
+                    rotation: 90
+                }
                 ICIMMLedTextLabel{
                     id:actNOZRET2Led
                     text: qsTr("NOZ.RET")
-                    anchors.top: r7.bottom
-                    anchors.topMargin: -4 * Style.hRatio
-                    anchors.horizontalCenter: r7.horizontalCenter
+                    anchors.top: r5.bottom
+                    anchors.horizontalCenter: r5.horizontalCenter
                 }
-                ICIMMText{id:r8;text: "←";anchors.right: actNOZRET2Led.left;y:actNOZRET2Led.y}
+                Image {
+                    id:r6
+                    source: "images/arrow-Left.png"
+                    anchors.verticalCenter: actNOZRET2Led.verticalCenter
+                    anchors.right: actNOZRET2Led.left
+                    rotation: -180
+                }
                 ICIMMLedTextLabel{
                     id:actCOOLLed
                     text: qsTr("COOL")
                     y:actNOZRET2Led.y
-                    anchors.right: r8.left
+                    anchors.right: r6.left
                 }
-            }
-            Row{
-                id:ledRow2
-                x:4 * Style.wRatio
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
-                ICIMMText{text: "___________"}
-                ICIMMLedTextLabel{
-                    id:actEJELed
-                    text: qsTr("EJE")
+                Image {
+                    id:r7
+                    source: "images/arrow-Left.png"
+                    anchors.top: actCOOLLed.top
+                    anchors.right: bgContainer.left
+                    rotation: -180
                 }
-                ICIMMText{text: "←"}
                 ICIMMLedTextLabel{
                     id:actOMLed
                     text: qsTr("O.M")
+                    anchors.right: r7.left
+                    anchors.verticalCenter: r7.verticalCenter
                 }
-                ICIMMText{text: "←"}
+                Image {
+                    id:r8
+                    source: "images/arrow-Left.png"
+                    anchors.verticalCenter: r7.verticalCenter
+                    anchors.right: actOMLed.left
+                    rotation: -180
+                }
+                ICIMMLedTextLabel{
+                    id:actEJELed
+                    text: qsTr("EJE")
+                    anchors.right: r8.left
+                    anchors.verticalCenter: r7.verticalCenter
+                }
+                Image {
+                    id:r9
+                    source: "images/arrow-Turn.png"
+                    anchors.bottom: r7.verticalCenter
+                    anchors.right: actEJELed.left
+                    width: sourceSize.width * 0.9
+                }
+                ICIMMLedTextLabel{
+                    id:actRecycleLed
+                    text: qsTr("RECYCLE")
+                    anchors.bottom: r9.top;
+                    anchors.left: r9.left
+                }
+                Image {
+                    id:r10
+                    source: "images/arrow-LongUp.png"
+                    anchors.bottom: actRecycleLed.top
+                    anchors.left: actRecycleLed.left
+                    height: sourceSize.height * 1.5
+                }
             }
-            ICIMMText{id:l1;text: "|";anchors.bottom: ledRow2.top;anchors.bottomMargin: -height;x:4 * Style.wRatio}
-            ICIMMText{id:l2;text: "↑";anchors.bottom: l1.top;anchors.bottomMargin: -5}
-            ICIMMLedTextLabel{
-                id:actRecycleLed
-                text: qsTr("RECYCLE")
-                anchors.bottom: l2.top;
-                anchors.bottomMargin: -5
-            }
-            ICIMMText{id:l3;text: "|";anchors.bottom: actRecycleLed.top;x:l1.x;anchors.bottomMargin: -3}
-            ICIMMText{id:l4;text: "|";anchors.bottom: l3.top;anchors.bottomMargin: -5;x:4 * Style.wRatio}
-            ICIMMText{id:l5;text: "↑";anchors.bottom: l4.top;anchors.bottomMargin: -5}
-
         }
     }
 
@@ -266,7 +308,7 @@ Rectangle {
         anchors.leftMargin: Style.touchControlSection.touchKeyboard.leftMargin
         anchors.topMargin: Style.touchControlSection.touchKeyboard.topMargin
         spacing: Style.touchControlSection.touchKeyboard.spacing
-        ICButton{
+        ICIMMGrowBigButtion{
             id:helpBtn
             text: "?"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -275,7 +317,7 @@ Rectangle {
             border.width: 0
             font.pixelSize: Style.touchControlSection.touchKeyboard.font.pixelSize
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn7
             text: "7"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -285,7 +327,7 @@ Rectangle {
             onButtonClicked: panelController.posKeyEvent(Qt.Key_7, "7");
             font.pixelSize: helpBtn.font.pixelSize
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn8
             text: "8"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -296,7 +338,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn9
             text: "9"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -307,7 +349,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:clkBtn
             text: "CLK"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -318,7 +360,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn4
             text: "4"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -329,7 +371,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn5
             text: "5"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -340,7 +382,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn6
             text: "6"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -351,7 +393,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:fnBtn
             text: "Fn"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -361,7 +403,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn1
             text: "1"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -372,7 +414,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn2
             text: "2"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -383,7 +425,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn3
             text: "3"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -394,7 +436,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:printBtn
             text: "Print"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -404,7 +446,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btn0
             text: "0"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -415,7 +457,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btnDot
             text: "."
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -426,7 +468,7 @@ Rectangle {
             font.pixelSize: helpBtn.font.pixelSize
 
         }
-        ICButton{
+        ICIMMGrowBigButtion{
             id:btnEnt
             text: "←┘"
             width: Style.touchControlSection.touchKeyboard.btnSize
@@ -661,6 +703,7 @@ Rectangle {
                 height: Style.touchControlSection.optionalKeyboard.labelHeight
                 text: qsTr("SE Door")
                 color: Style.touchControlSection.optionalKeyboard.labelBG
+                font.pixelSize: Style.touchControlSection.functionMenuItem.font.pixelSize
             }
             Row{
                 spacing: Style.touchControlSection.optionalKeyboard.btnSpacing
@@ -671,7 +714,7 @@ Rectangle {
                     height: width
                     border.width: 0
                     bgColor: Style.touchControlSection.optionalKeyboard.btnBG
-
+                    font.pixelSize: securityDoorLabel.font.pixelSize
                 }
                 ICButton{
                     id:securityDoorCloseBtn
@@ -680,6 +723,7 @@ Rectangle {
                     height: width
                     border.width: 0
                     bgColor: securityDoorOpenBtn.bgColor
+                    font.pixelSize: securityDoorLabel.font.pixelSize
                 }
             }
         }
@@ -692,6 +736,7 @@ Rectangle {
                 height: Style.touchControlSection.optionalKeyboard.labelHeight
                 text: qsTr("Core")
                 color: Style.touchControlSection.optionalKeyboard.labelBG
+                font.pixelSize: securityDoorLabel.font.pixelSize
             }
             Row{
                 spacing: Style.touchControlSection.optionalKeyboard.btnSpacing
@@ -702,6 +747,7 @@ Rectangle {
                     height: width
                     border.width: 0
                     bgColor: securityDoorOpenBtn.bgColor
+                    font.pixelSize: securityDoorLabel.font.pixelSize
 
                 }
                 ICButton{
@@ -711,6 +757,7 @@ Rectangle {
                     height: width
                     border.width: 0
                     bgColor: securityDoorOpenBtn.bgColor
+                    font.pixelSize: securityDoorLabel.font.pixelSize
 
                 }
             }
@@ -724,6 +771,7 @@ Rectangle {
                        Style.touchControlSection.optionalKeyboard.btnSpacing
                 height: Style.touchControlSection.optionalKeyboard.labelHeight
                 color: Style.touchControlSection.optionalKeyboard.labelBG
+                font.pixelSize: securityDoorLabel.font.pixelSize
             }
             ICButton{
                 id:blowBtn
@@ -732,6 +780,7 @@ Rectangle {
                 height: width
                 border.width: 0
                 bgColor: securityDoorOpenBtn.bgColor
+                font.pixelSize: securityDoorLabel.font.pixelSize
             }
         }
     }

@@ -14,5 +14,6 @@ Row {
     Text{
         id:labelText
         font.pixelSize: Style.itemStyles.defaultFont.pixelSize
+        anchors.verticalCenter: parent.verticalCenter
     }
 }

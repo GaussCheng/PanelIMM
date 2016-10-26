@@ -46,8 +46,10 @@ Rectangle {
                         smooth: true
                         Text {
                             id: convenientMonitorTitle
+                            anchors.verticalCenter: parent.verticalCenter
                             text: qsTr("Main Spec")
                             x:20
+                            font.pixelSize: Style.monitorSection.header.convenientMonitorSection.title.font.pixelSize
                         }
                     }
                 }

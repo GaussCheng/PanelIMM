@@ -63,18 +63,21 @@ Rectangle {
     }
     ICButton{
         id:shrink
-        text: ">"
-        width: 32
+        text: ">>"
+        width: 54
         height: 40
+        icon: "images/alarm.png"
+        iconPos: 1
+//        bgColor: "gray"
         onButtonClicked: {
             if(!isShrinked){
                 errTextContainer.visible = false;
                 shrinkAnimation.start();
-                text = "<";
+                text = "<<";
             }else{
                 errTextContainer.visible = true;
                 extentAnimation.start();
-                text = ">"
+                text = ">>"
             }
             isShrinked = !isShrinked;
         }
@@ -94,7 +97,7 @@ Rectangle {
         id:shrinkAnimation;
         PropertyAnimation{ target: container; properties: "x"; to:container.extentWidth - shrink.width; duration: 100}
         PropertyAnimation{ target: container; properties: "width"; to:shrink.width;duration: 100}
-        PropertyAction{ target: shrink; properties: "bgColor"; value:"red"}
+        PropertyAction{ target: shrink; properties: "bgColor"; value:"yellow"}
     }
     ParallelAnimation{
         id:extentAnimation;
