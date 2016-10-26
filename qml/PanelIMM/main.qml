@@ -296,9 +296,9 @@ Rectangle {
                 text:"f9" + " " + qsTr("Main Spec")
 
             }
-//            Component.onCompleted: {
-//                reLayout();
-//            }
+            //            Component.onCompleted: {
+            //                reLayout();
+            //            }
         }
     }
     ICTouchControlSection{
@@ -362,9 +362,7 @@ Rectangle {
         }
     }
 
-//    ICOperationLogPage{
-//        visible: false
-//    }
+
 
     IOPage{
         id:ioPage
@@ -385,8 +383,8 @@ Rectangle {
         y:detailMenuSection.y - height
         width: parent.width
         extentWidth: parent.width
-//        height: 64 * Style.hRatio
-//        errID: 1
+        //        height: 64 * Style.hRatio
+        //        errID: 1
     }
 
     Component.onCompleted: {

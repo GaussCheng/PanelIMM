@@ -7,6 +7,7 @@
 #include "iclog.h"
 #include "icappsettings.h"
 #include "icpanelimmcontroller.h"
+#include "icaxis.h"
 
 ICLog iclog("RobotPanel.debuglog", 1024 * 1024);
 
@@ -31,6 +32,7 @@ int main(int argc, char *argv[])
 #else
     qInstallMsgHandler(appMessageOutput);
 #endif
+    qmlRegisterType<ICAxis>("Extentuis", 1, 0, "ICAxis");
     QApplication app(argc, argv);
     app.setOrganizationName("SZHC");
     app.setApplicationName("IMMPanel");

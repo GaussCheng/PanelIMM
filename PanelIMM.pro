@@ -53,6 +53,7 @@ include(controller/controller.pri)
 include(common/common.pri)
 include(datamanerger/datamanerger.pri)
 include(virtualhost/virtualhost.pri)
+include(extentuis/extentuis.pri)
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp
 
