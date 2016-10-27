@@ -2,6 +2,7 @@ import QtQuick 1.1
 import "../ICCustomElement"
 import "configs/AlarmInfo.js" as AlarmInfo
 import "../utils/Storage.js" as Storage
+import "immcustomitems"
 
 Rectangle {
     id:container
@@ -61,7 +62,7 @@ Rectangle {
 //        }
 
     }
-    ICButton{
+    ICIMMButton{
         id:shrink
         text: ">>"
         width: 54

@@ -73,7 +73,7 @@ public:
     void EnYGrid(bool enable) { grid_->enableY(enable);}
     void EnXMinGrid(bool enable) { grid_->enableXMin(enable);}
     void EnYMinGrid(bool enable) { grid_->enableYMin(enable);}
-    QPen majPen() const {grid_->majPen();}
+    QPen majPen() const {return grid_->majPen();}
     void setMajPen(const QPen& pen) {grid_->setMajPen(pen);}
 
     QFont XAxisFont() const

@@ -2,6 +2,7 @@ import QtQuick 1.1
 import "../../ICCustomElement"
 import "../../styles/style.js" as Style
 ICButton {
+    id:instance
 //    property int oW: 0
 //    property int oH: 0
 //    property int oF: 0

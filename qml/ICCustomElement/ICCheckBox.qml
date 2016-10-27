@@ -10,6 +10,7 @@ ICEditableItemBase {
     property bool isEditable: true
     property int textPos: 0
     property alias font: text.font
+    property alias textColor:text.color
 
     signal clicked();
 

@@ -4,10 +4,12 @@ INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
 HEADERS += \
-    extentuis/icaxis.h
+    extentuis/icaxis.h \
+    extentuis/ictemperaturecurve.h
 
 SOURCES += \
-    extentuis/icaxis.cpp
+    extentuis/icaxis.cpp \
+    extentuis/ictemperaturecurve.cpp
 
 FORMS +=
 

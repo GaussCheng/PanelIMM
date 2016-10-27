@@ -16,6 +16,8 @@ public:
         return upTime.toString();
     }
 
+    void setBaseTime(const QTime& t) {baseTime = t;}
+
 private:
     QTime baseTime;
 };

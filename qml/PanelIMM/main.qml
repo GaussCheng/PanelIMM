@@ -394,6 +394,7 @@ Rectangle {
         touchControlSection.init();
         PData.convenientMonitorManager.showMonitor(detailMenuSection.onF5Triggered());
         PData.convenientMonitorManager.showMonitor(detailMenuSection.onF9Triggered());
+        PData.mainWindow = mainWindow;
 
     }
     Timer{

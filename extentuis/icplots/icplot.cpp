@@ -10,7 +10,7 @@ ICPlot::ICPlot(QWidget *parent) :
   #endif
 {
 #ifndef Q_WS_WIN32
-    canvas()->setBorderRadius( 10 );
+//    canvas()->setBorderRadius( 10 );
     plotLayout()->setAlignCanvasToScales( true );
 #endif
     grid_ = new QwtPlotGrid();

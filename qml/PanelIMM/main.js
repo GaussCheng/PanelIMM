@@ -64,3 +64,4 @@ function ConvenientMonitorManager(){
 
 var funcPageManager = new FuncPageManager();
 var convenientMonitorManager = new ConvenientMonitorManager();
+var mainWindow;
