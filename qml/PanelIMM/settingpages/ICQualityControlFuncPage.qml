@@ -4,6 +4,12 @@ import "../immcustomitems"
 import "../../styles/style.js" as Style
 ICIMMFunctionPageBase {
     id:instance
+    property variant detailsMenuItems: {
+        "f6":qsTr("Aid Settings"),
+    }
+    function onF6Triggered(){
+        return "ICProductControlCVMonitorPage.qml";
+    }
     ICSettingPageBase{
         id:page1
         width: parent.width
@@ -13,8 +19,8 @@ ICIMMFunctionPageBase {
         }
         ICIMMSettingConfigsScope{
             id:topRow
-            width: page1.width
-            height: page1.height
+            width: page1.width * 0.54
+            height: page1.height * 0.5
             Grid{
                 x:4
                 y:2
@@ -116,14 +122,22 @@ ICIMMFunctionPageBase {
                 }
             }
         }
+        ICHorSplitLine{
+            id:horSplitLine1
+            anchors.top: topRow.bottom
+            anchors.topMargin: 4
+            width: bottomRow.width
+        }
+
         ICIMMSettingConfigsScope{
             id:bottomRow
-            width: page1.width
-            height: page1.height
+            width: topRow.width
+            height: page1.height * 0.5
+            anchors.top: horSplitLine1.bottom
+            anchors.topMargin: 4
             Grid{
                 x:4
                 y:2
-                anchors.top: topRow.bottom
                 columns: 6
 
                 ICIMMText{}
@@ -211,6 +225,105 @@ ICIMMFunctionPageBase {
                 }
                 ICIMMText{}
 
+            }
+        }
+
+        ICVerSplitLine{
+            id:verSplitLine1
+            anchors.left: horSplitLine1.right
+            height: page1.height
+        }
+        ICIMMSettingConfigsScope{
+            width: page1.width - topRow.width
+            height: page1.height
+            anchors.left: verSplitLine1.right
+            anchors.rightMargin: 4
+            Column{
+                x:4
+                y:2
+                spacing: 6
+                ICIMMCheckBoxEdit{
+                    id:m_rw_16_1_0_421
+                    configAddr: "m_rw_16_1_0_421"
+                    configName: qsTr("Robot En")
+                }
+                ICIMMCheckBoxEdit{
+                    id:m_rw_26_1_0_444
+                    configAddr: "m_rw_26_1_0_444"
+                    configName: qsTr("Alarm Out Time En")
+                }
+                ICIMMLabelComboBoxEdit{
+                    id:m_rw_27_5_0_444
+                    configAddr: "m_rw_27_5_0_444"
+                    configName: qsTr("Alarm Out Time")
+                    items: [qsTr("SEG5s"), qsTr("SEG10s"), qsTr("SEG20s"), qsTr("SEG30s"), qsTr("1min"), qsTr("5min"), qsTr("10min"), qsTr("30min")]
+                }
+
+                Row{
+                    spacing: 4
+                    ICIMMLabelLineEdit{
+                        id:m_rw_0_16_0_420
+                        configAddr: "m_rw_0_16_0_420"
+                        configName: qsTr("Cycle Pro.")
+                        inputWidth: 60 * Style.wRatio
+                        unit: qsTr("s")
+                    }
+                    ICIMMLabelLineEdit{
+                        id:m_rw_0_16_2_452
+                        configAddr: "m_rw_0_16_2_452"
+                        inputWidth: m_rw_0_16_0_420.inputWidth
+                        configName: qsTr("E Eye Pro.")
+                        configNameWidth: m_rw_16_16_2_452.configNameWidth
+                        unit: qsTr("s")
+                    }
+
+                }
+                Row{
+                    spacing: 4
+                    ICIMMLabelLineEdit{
+                        id:m_rw_16_16_0_420
+                        configAddr: "m_rw_16_16_0_420"
+                        configName: qsTr("Abn.Time")
+                        configNameWidth: m_rw_0_16_0_420.configNameWidth
+                        inputWidth: m_rw_0_16_0_420.inputWidth
+
+                        unit: qsTr("s")
+                    }
+                    ICIMMLabelLineEdit{
+                        id:m_rw_16_16_2_452
+                        configAddr: "m_rw_16_16_2_452"
+                        configName: qsTr("E.Eye.Cover")
+                        inputWidth: m_rw_0_16_0_420.inputWidth
+
+                        unit: qsTr("s")
+                    }
+                }
+                ICIMMCheckBoxEdit{
+                    id:m_rw_24_1_0_429
+                    configAddr: "m_rw_24_1_0_429"
+                    configName: qsTr("Lub A.Boot")
+                }
+                Grid{
+                    columns: 3
+                    ICIMMText{text: qsTr("Lub.Mold Count")}
+                    ICIMMText{text: qsTr("Lub.Mold Time")}
+                    ICIMMText{text: qsTr("Lub.Che Time")}
+
+                    ICIMMLineEdit{
+                        id:m_rw_0_24_0_429
+                        configAddr: "m_rw_0_24_0_429"
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_0_16_2_428
+                        configAddr: "m_rw_0_16_2_428"
+                        unit: qsTr("s")
+                    }
+                    ICIMMLineEdit{
+                        id:m_rw_16_16_2_428
+                        configAddr: "m_rw_16_16_2_428"
+                        unit: qsTr("s")
+                    }
+                }
             }
         }
     }
