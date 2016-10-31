@@ -597,6 +597,8 @@ Rectangle {
         ICIMMFunctionMenuItem{
             id:qualityControl
             text: qsTr("Qual\nCtrl")
+            bindingPageComponent: "ICQualityControlFuncPage.qml"
+            monitorComponent: "ICActionMonitorPage.qml"
         }
         ICIMMFunctionMenuItem{
             id:curveMonitor

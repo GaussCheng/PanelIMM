@@ -10,6 +10,9 @@ configs/* \
 ../styles/*
 }
 
+OTHER_FILES += \
+    immcustomitems/ICIMMTwoStatusWidget.qml
+
 
 
 

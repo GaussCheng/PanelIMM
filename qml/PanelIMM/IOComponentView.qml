@@ -13,7 +13,7 @@ Rectangle {
         id:view
         width: parent.width
         height: 400
-        spacing: 10
+        spacing: 6
         model: model
         delegate: Row{
             spacing: 10

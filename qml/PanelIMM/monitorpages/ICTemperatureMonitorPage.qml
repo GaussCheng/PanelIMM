@@ -28,7 +28,7 @@ Rectangle {
             temperatureCurve.width = width;
             temperatureCurve.height = height * 0.8;
             temperatureCurve.y = axisConfigContainer.y + axisConfigContainer.height + 6;
-            zoomInBtn.text = qsTr("ZoomOut");
+            zoomInBtn.text = "-";
             isZoomIn = true;
         }
 
@@ -43,56 +43,91 @@ Rectangle {
             curvesSelContainer.visible = false;
             axisConfigContainer.visible = false;
             isZoomIn = false;
+            zoomInBtn.text = "+";
+
         }
 
         Row{
             id:curvesSelContainer
             visible: false
             spacing: 6
+            function changeCurveVisible(){
+                var status = "";
+                status += seg0.isChecked ? "1" : "0";
+                status += seg1.isChecked ? "1" : "0";
+                status += seg2.isChecked ? "1" : "0";
+                status += seg3.isChecked ? "1" : "0";
+                status += seg4.isChecked ? "1" : "0";
+                status += seg5.isChecked ? "1" : "0";
+                status += seg6.isChecked ? "1" : "0";
+                status += seg7.isChecked ? "1" : "0";
+                temperatureCurve.curveVisible = status;
+
+            }
+
             ICIMMText{text:qsTr("Curve to show")}
             ICIMMCheckBoxEdit{
                 id:seg0
                 text: qsTr("SEG-0")
                 textColor: temperatureCurve.curveColor(0)
+                isChecked: true
+                onEditFinished: curvesSelContainer.changeCurveVisible();
             }
             ICIMMCheckBoxEdit{
                 id:seg1
                 text: qsTr("SEG-1")
                 textColor: temperatureCurve.curveColor(1)
+                isChecked: true
+                onEditFinished: curvesSelContainer.changeCurveVisible();
 
             }
             ICIMMCheckBoxEdit{
                 id:seg2
                 text: qsTr("SEG-2")
                 textColor: temperatureCurve.curveColor(2)
+                isChecked: true
+                onEditFinished: curvesSelContainer.changeCurveVisible();
 
             }
             ICIMMCheckBoxEdit{
                 id:seg3
                 text: qsTr("SEG-3")
                 textColor: temperatureCurve.curveColor(3)
+                isChecked: true
+                onEditFinished: curvesSelContainer.changeCurveVisible();
+
             }
             ICIMMCheckBoxEdit{
                 id:seg4
                 text: qsTr("SEG-4")
                 textColor: temperatureCurve.curveColor(4)
+                isChecked: true
+                onEditFinished: curvesSelContainer.changeCurveVisible();
+
             }
             ICIMMCheckBoxEdit{
                 id:seg5
                 text: qsTr("SEG-5")
                 textColor: temperatureCurve.curveColor(5)
+                isChecked: true
+                onEditFinished: curvesSelContainer.changeCurveVisible();
 
             }
             ICIMMCheckBoxEdit{
                 id:seg6
                 text: qsTr("SEG-6")
                 textColor: temperatureCurve.curveColor(6)
+                isChecked: true
+                onEditFinished: curvesSelContainer.changeCurveVisible();
 
             }
             ICIMMCheckBoxEdit{
                 id:seg7
                 text: qsTr("SEG-7")
                 textColor: temperatureCurve.curveColor(7)
+                isChecked: true
+                onEditFinished: curvesSelContainer.changeCurveVisible();
+
             }
         }
         Row{
@@ -155,11 +190,11 @@ Rectangle {
         }
         ICIMMButton{
             id:zoomInBtn
-            text: qsTr("ZoomIn")
+            text: "+"
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 10
             x: 4
-            width: 50
+            width: 30
             onButtonClicked: {
                 if(!temperatureCurveContainer.isZoomIn)
                     temperatureCurveContainer.zoomIn();

@@ -104,5 +104,130 @@ ICIMMFunctionPageBase {
                 height: sourceSize.height * Style.hRatio
             }
         }
+        Column{
+            anchors.bottom: parent.top
+            anchors.bottomMargin: -20
+            spacing: 4
+            x:4
+            Row{
+                id:heatStatusContainer
+                ICIMMTwoStatusWidget{
+                    id:heatStatusSeg0
+                    onImg: "../images/heat-seg0.png"
+                    offImg: "../images/cool-seg0.png"
+                    isOn: true
+                    bindStatus: "c_ro_0_16_1_1560"
+                }
+                ICIMMTwoStatusWidget{
+                    id:heatStatusSeg1
+                    onImg: "../images/heat-segn.png"
+                    offImg: "../images/cool-segn.png"
+                    bindStatus: "c_ro_16_16_1_1560"
+
+                }
+                ICIMMTwoStatusWidget{
+                    id:heatStatusSeg2
+                    onImg: heatStatusSeg1.onImg
+                    offImg: heatStatusSeg1.offImg
+                    isOn: true
+                    bindStatus: "c_ro_0_16_1_1561"
+
+                }
+                ICIMMTwoStatusWidget{
+                    id:heatStatusSeg3
+                    onImg: heatStatusSeg1.onImg
+                    offImg: heatStatusSeg1.offImg
+                    bindStatus: "c_ro_16_16_1_1561"
+
+                }
+                ICIMMTwoStatusWidget{
+                    id:heatStatusSeg4
+                    onImg: heatStatusSeg1.onImg
+                    offImg: heatStatusSeg1.offImg
+                    bindStatus: "c_ro_0_16_1_1562"
+
+                }
+                ICIMMTwoStatusWidget{
+                    id:heatStatusSeg5
+                    onImg: heatStatusSeg1.onImg
+                    offImg: heatStatusSeg1.offImg
+                    bindStatus: "c_ro_16_16_1_1562"
+
+                }
+                ICIMMTwoStatusWidget{
+                    id:heatStatusSeg6
+                    onImg: heatStatusSeg1.onImg
+                    offImg: heatStatusSeg1.offImg
+                    bindStatus: "c_ro_0_16_1_1563"
+
+                }
+            }
+            Item{
+                height: heatSeg0Setting.height
+                width: heatStatusContainer.width
+                ICIMMLineEdit{
+                    id:heatSeg0Setting
+                    enabled: false
+                    width: heatStatusSeg0.width - 4
+                    height: 16
+                    border.color: "white"
+                    x:heatStatusSeg0.x + 2
+                }
+                ICIMMLineEdit{
+                    id:heatSeg1Setting
+                    enabled: heatSeg0Setting.enabled
+                    width: heatStatusSeg1.width - 4
+                    height: heatSeg0Setting.height
+                    border.color: "white"
+                    x:heatStatusSeg1.x + 2
+
+                }
+                ICIMMLineEdit{
+                    id:heatSeg2Setting
+                    enabled: heatSeg0Setting.enabled
+                    width: heatSeg1Setting.width
+                    height: heatSeg0Setting.height
+                    border.color: heatSeg1Setting.border.color
+                    x:heatStatusSeg2.x + 2
+
+                }
+                ICIMMLineEdit{
+                    id:heatSeg3Setting
+                    enabled: heatSeg0Setting.enabled
+                    width: heatSeg1Setting.width
+                    height: heatSeg0Setting.height
+                    border.color: heatSeg1Setting.border.color
+                    x:heatStatusSeg3.x + 2
+
+                }
+                ICIMMLineEdit{
+                    id:heatSeg4Setting
+                    enabled: heatSeg0Setting.enabled
+                    width: heatSeg1Setting.width
+                    height: heatSeg0Setting.height
+                    border.color: heatSeg1Setting.border.color
+                    x:heatStatusSeg4.x + 2
+
+                }
+                ICIMMLineEdit{
+                    id:heatSeg5Setting
+                    enabled: heatSeg0Setting.enabled
+                    width: heatSeg1Setting.width
+                    height: heatSeg0Setting.height
+                    border.color: heatSeg1Setting.border.color
+                    x:heatStatusSeg5.x + 2
+
+                }
+                ICIMMLineEdit{
+                    id:heatSeg6Setting
+                    enabled: heatSeg0Setting.enabled
+                    width: heatSeg1Setting.width
+                    height: heatSeg0Setting.height
+                    border.color: heatSeg1Setting.border.color
+                    x:heatStatusSeg6.x + 2
+
+                }
+            }
+        }
     }
 }
