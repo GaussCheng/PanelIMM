@@ -16,7 +16,7 @@ var aspectRatio = 0.75;
 var realW = 768;
 var realH = 1024;
 
-var usedH = 1024;
+var usedH = 768;
 
 
 var mainWindow = {

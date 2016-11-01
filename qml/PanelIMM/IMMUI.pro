@@ -11,7 +11,8 @@ configs/* \
 }
 
 OTHER_FILES += \
-    immcustomitems/ICIMMTwoStatusWidget.qml
+    configs/ActionDefine.js
+
 
 
 

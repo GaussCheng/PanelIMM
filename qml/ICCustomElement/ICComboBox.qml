@@ -11,6 +11,10 @@ ICEditableItemBase {
     property alias popupWidth: itemContainer.width
     property int popupHeight: 0
 
+    property int innerZ: -1
+    property int pHeight: parent.height
+    property int rY: y
+
     function currentText(){
         return currentIndex < 0 ?  "" : items[currentIndex];
     }
@@ -91,9 +95,10 @@ ICEditableItemBase {
                     onClicked: {
                         if(view.currentIndex != index){
                             view.currentIndex = index;
-                            currentIndex = index;
                             editFinished();
                         }
+                        currentIndex = index;
+                        container.z = innerZ;
                         itemContainer.visible = false
                     }
                 }
@@ -121,8 +126,8 @@ ICEditableItemBase {
             }
         }
         MouseArea{
-            width: 800
-            height: 600
+            width: Style.mainWindow.rect.width
+            height: Style.mainWindow.rect.height
             Component.onCompleted: {
                 var p = mapFromItem(null, 0, 0);
                 x = p.x;
@@ -153,6 +158,13 @@ ICEditableItemBase {
         anchors.fill: parent
         onClicked: {
             if(itemModel.count > 0){
+                innerZ = container.z;
+                container.z = 1000;
+                var uS = rY;
+                var dS = pHeight - uS - container.height;
+                console.log("cBox", uS, dS);
+                popupMode = (uS > dS ? 1 : 0);
+                popupHeight = (popupMode == 1 ? uS : dS);
                 view.currentIndex = currentIndex;
                 itemContainer.visible = true;
             }

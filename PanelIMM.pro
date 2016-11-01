@@ -11,9 +11,11 @@ QMAKE_CXX = ccache $${QMAKE_CXX}
 suffix = $${VERSION}
 CONFIG(debug, debug|release) {
 suffix = $${suffix}_debug
+DEFINES += TTYPORT='\\"/dev/ttyUSB1\\"'
 }
 else{
 suffix = $${suffix}_release
+DEFINES += TTYPORT='\\"/dev/ttySZHC0\\"'
 }
 DESTDIR = bin_$${suffix}
 OBJECTS_DIR = temp_$${suffix}

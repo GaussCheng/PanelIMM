@@ -14,6 +14,7 @@
 #include <QScriptValue>
 #include <QScriptEngine>
 #include <QFileSystemWatcher>
+#include <QTranslator>
 #include <QDebug>
 
 #include "iclog.h"
@@ -372,6 +373,7 @@ protected:
     QScriptEngine engine_;
     ICAddrWrapperValuePairList moldFncModifyCache_;
     ICAddrWrapperValuePairList machineConfigModifyCache_;
+    QTranslator translator_;
 
 private:
     virtual bool LoadTranslator_(const QString& name) = 0;

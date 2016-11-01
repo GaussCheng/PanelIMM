@@ -173,7 +173,7 @@ void ICSerialTransceiver::StartCommunicate()
     {
         return;
     }
-    serialFD_ = open("/dev/ttySZHC0", O_RDWR | O_NOCTTY | O_NDELAY);
+    serialFD_ = open(TTYPORT, O_RDWR | O_NOCTTY | O_NDELAY);
 
     if(serialFD_ < 0)
     {
@@ -195,7 +195,8 @@ void ICSerialTransceiver::StartCommunicate()
     tios.c_cflag |= (CREAD | CLOCAL);
     tios.c_cflag &= ~CSIZE;
     tios.c_cflag |= CS8;
-    tios.c_cflag |= CSTOPB;
+//    tios.c_cflag |= CSTOPB;
+    tios.c_cflag &= ~CSTOPB;
     tios.c_cflag &= ~PARENB;
 
     tios.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);

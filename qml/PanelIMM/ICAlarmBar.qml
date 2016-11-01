@@ -14,6 +14,7 @@ Rectangle {
     property bool isUP: false
     property int  extentWidth: 0
     visible: errID.length !== 0
+    height: Math.max(descr.height, shrink.height) + (container.border.width * 2)
     Row{
         id:errTextContainer
         height: parent.height - parent.parent.border.width * 6
@@ -37,10 +38,9 @@ Rectangle {
                 var err = "";
                 var errs = errID;
                 for(var i = 0, len = errs.length; i < len; ++i){
-                    err += "Err" + errID[i].alarmNum + ":" + AlarmInfo.getAlarmDescr(errID[i].alarmNum) + '\n';
+                    err += "Err" + errID[i] + ":" + AlarmInfo.getAlarmDescr(errID[i]) + '\n';
                 }
-                err = err.slice(0, err.length - 2);
-                container.height = Math.max(font.pixelSize * errs.length, shrink.height) + container.border.width;
+                err = err.slice(0, err.length - 1);
                 return err;
             }
 //            elide: Text.ElideRight
@@ -70,7 +70,7 @@ Rectangle {
         icon: "images/alarm.png"
         iconPos: 1
 //        bgColor: "gray"
-        onButtonClicked: {
+        function toggled(){
             if(!isShrinked){
                 errTextContainer.visible = false;
                 shrinkAnimation.start();
@@ -82,6 +82,8 @@ Rectangle {
             }
             isShrinked = !isShrinked;
         }
+
+        onButtonClicked: toggled();
         anchors.right: parent.right
         anchors.rightMargin: parent.border.width
         anchors.verticalCenter : parent.verticalCenter
@@ -157,9 +159,18 @@ Rectangle {
         }
     }
 
-    onVisibleChanged: {
+//    onVisibleChanged: {
+//        if(visible){
+//            flicker.start();
+//        }
+//    }
+    onErrIDChanged: {
         if(visible){
             flicker.start();
+            console.log(isShrinked)
+            if(isShrinked){
+                shrink.toggled();
+            }
         }
     }
 }

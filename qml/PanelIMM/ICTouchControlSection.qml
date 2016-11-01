@@ -12,6 +12,7 @@ Rectangle {
     signal recordMenuItemTriggered(variant menuItem)
     signal alarmHistoryMenuItemTriggered(variant menuItem)
     signal ioMonitorMenuItemTriggered(variant menuItem)
+    signal ioFuncMenuItemTriggered(variant menuItem)
     function init(){
         funcMenuItemTriggered(actionMonitor);
     }
@@ -39,6 +40,8 @@ Rectangle {
                     alarmHistoryMenuItemTriggered(checkedItem);
                 else if(checkedItem == ioMonitor)
                     ioMonitorMenuItemTriggered(checkedItem);
+                else if(checkedItem == ioSettingsIMM)
+                    ioFuncMenuItemTriggered(checkedItem);
                 else
                     funcMenuItemTriggered(checkedItem);
             }
@@ -566,15 +569,18 @@ Rectangle {
         ICIMMFunctionMenuItem{
             id:generalSettings
             text: qsTr("Gen\nConf")
-
+            bindingPageComponent: "ICGenConfigFuncPage.qml"
+            monitorComponent: "ICMoldMonitorPage.qml"
         }
         ICIMMFunctionMenuItem{
             id:recordBtn
             text: qsTr("Record")
         }
         ICIMMFunctionMenuItem{
-            id:prepareIMM
-            text: qsTr("Prepare")
+            id:ioSettingsIMM
+            text: qsTr("I/O\nFunc")
+            bindingPageComponent: "ICIOFuncPage.qml"
+            monitorComponent: "ICMoldMonitorPage.qml"
         }
         ICIMMFunctionMenuItem{
             id:maintenance

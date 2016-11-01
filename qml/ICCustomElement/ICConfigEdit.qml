@@ -14,6 +14,7 @@ Item {
     property alias max: edit.max
     property alias decimal: edit.decimal
     property alias font: edit.font
+    property alias softkeyboardEn: edit.softkeyboardEn
 
 //    color: "transparent"
 

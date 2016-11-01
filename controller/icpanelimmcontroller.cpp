@@ -19,6 +19,7 @@ ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger,
     mold_.reset(new ICIMMMold());
     machineConfigs_.reset(new ICMachineConfig());
     host_ = ICVirtualHostManager::GetVirtualHost<ICInjectionMachineHost>(1);
+    host_->SetCommunicateDebug(true);
     ICAppSettings settings;
     QString uiMain = settings.UIMainName();
 
@@ -142,7 +143,7 @@ void ICPanelIMMController::Init()
 //    //    OnNeedToInitHost();
 //#endif
     //    InitMainView();
-//    qApp->installTranslator(&translator);
+    qApp->installTranslator(&translator_);
 //    qApp->installTranslator(&panelRoboTranslator_);
     LoadTranslator_(ICAppSettings().TranslatorName());
 
@@ -215,14 +216,14 @@ bool ICPanelIMMController::LoadTranslator_(const QString &name)
         InitMainView();
         return false;
     }
-//    bool ret = translator.load(qml.filePath(name));
+    bool ret = translator_.load(qml.filePath(name));
 //    QString language = getCustomSettings("Language", "CN");
 //    if(language == "CN")
 //        panelRoboTranslator_.load(":/PanelRobot_zh_CN.qm");
 //    else
 //        panelRoboTranslator_.load(":/PanelRobot_en_US.qm");
     InitMainView();
-    return true;
+    return ret;
 }
 
 QString ICPanelIMMController::newRecord(const QString &name, const QString &defaultFncValue)
@@ -585,4 +586,9 @@ QString ICPanelIMMController::alarms() const
     }
     return alarmsBitStr_;
 
+}
+
+void ICPanelIMMController::sendKeyCommand(int key)
+{
+    ICInjectionMachineHost::AddActionCommunicationFrame(host_, key);
 }

@@ -140,6 +140,7 @@ ICEditableItemBase{
     Keys.onPressed: {
         var t = lineEdit.text;
         if(event.key == Qt.Key_Backspace){
+            event.accepted = true;
             if(t.length == 0) return;
             if(lineEdit.selectAll)
                 t = "";
@@ -147,14 +148,23 @@ ICEditableItemBase{
                 t = t.substring(0, t.length - 1);
         }else if(event.key == Qt.Key_Return){
             lineEdit.selectAll = true;
-
-            editFinished();
+            if(lineEdit.modified)
+                editFinished();
+            event.accepted = true;
             return;
         }else{
-            if(lineEdit.selectAll)
-                t = event.text;
-            else
-                t += event.text;
+            if(event.key < 0x01000030 || event.key > 0x01000052){
+                if(lineEdit.selectAll)
+                    t = event.text;
+                else
+                    t += event.text;
+                event.accepted = true;
+            }else{
+                lineEdit.selectAll = true;
+                if(lineEdit.modified)
+                    editFinished();
+                return;
+            }
         }
         if(isNumberOnly){
             var re = new RegExp(lineEdit.regExp);

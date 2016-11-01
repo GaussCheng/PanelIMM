@@ -22,6 +22,8 @@ public:
     Q_INVOKABLE quint32 oStatus(int boardID) const { return host_->HostStatusValue(&c_ro_0_32_0_1539);}
 
     Q_INVOKABLE QString alarms() const;
+
+    Q_INVOKABLE void sendKeyCommand(int key);
 signals:
 
 public slots:

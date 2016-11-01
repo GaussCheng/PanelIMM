@@ -14,6 +14,7 @@ Item {
     property alias popupMode : edit.popupMode
     property alias popupHeight: edit.popupHeight
     property variant indexMappedValue: []
+    z:edit.z
 
 
     function configText(){
@@ -43,6 +44,8 @@ Item {
             id: edit
             focus: instance.focus
             height: instance.height
+            pHeight: instance.parent.height
+            rY: instance.y
             onEditFinished: instance.editFinished()
         }
     }

@@ -9,7 +9,7 @@ ICIMMFunctionPageBase {
         id:panelSettingsContainer
         width: parent.width
         height: parent.height
-        visible: false
+        visible: true
         ICIMMButton{
             id:touchCalibrate
             anchors.right: parent.right
@@ -50,7 +50,7 @@ ICIMMFunctionPageBase {
                         onClicked: {
                             if(isChecked){
                                 panelController.setCustomSettings("Language", "CN");
-                                panelController.setCurrentTranslator("HAMOUI_zh_CN.qm");
+                                panelController.setCurrentTranslator("IMM_zh_CN.qm");
                             }
                         }
                     }
@@ -60,7 +60,7 @@ ICIMMFunctionPageBase {
                         onClicked: {
                             if(isChecked){
                                 panelController.setCustomSettings("Language", "US");
-                                panelController.setCurrentTranslator("HAMOUI_en_US.qm");
+                                panelController.setCurrentTranslator("IMM_en_US.qm");
                             }
                         }
                     }
@@ -256,7 +256,7 @@ ICIMMFunctionPageBase {
             console.log("lang", lang == "");
             if(lang == ""){
                 panelController.setCustomSettings("Language", "CN");
-                panelController.setCurrentTranslator("HAMOUI_zh_CN.qm");
+                panelController.setCurrentTranslator("IMM_zh_CN.qm");
                 lang = "CN";
                 console.log("language", panelController.getCustomSettings("Language", ""));
             }
@@ -312,5 +312,6 @@ ICIMMFunctionPageBase {
         id:updatePage
         width: parent.width
         height: parent.height
+        visible: false
     }
 }

@@ -7,6 +7,7 @@ import "../utils/utils.js" as Utils
 import "../utils/Storage.js" as Storage
 import "../styles/style.js" as Style
 import "main.js" as PData
+import "configs/ActionDefine.js" as ActionDefine
 
 Rectangle {
     id:mainWindow
@@ -66,7 +67,7 @@ Rectangle {
             Column{
                 id:normalMonitorSection
                 function showNormalMonitorPage(menuItem){
-                    normalMonitorTitle.text = menuItem.text
+                    normalMonitorTitle.text = menuItem.text.replace("\n","");
                 }
 
                 Rectangle{
@@ -113,6 +114,7 @@ Rectangle {
                         ICLabel{
                             id:rangeTitle
                             text: qsTr("Range")
+                            width: 60 * Style.wRatio
                             height: moldName.height
                             color: Style.monitorSection.header.bg
                             border.width: 1
@@ -231,8 +233,11 @@ Rectangle {
             mustChecked: true
             onButtonClickedID: {
                 var p  = detailPagesContainer.currentPage();
-                if(p.hasOwnProperty("onF" + (index + 1) + "Triggered"))
-                    PData.convenientMonitorManager.showMonitor(p["onF" + (index + 1) + "Triggered"]());
+                if(p.hasOwnProperty("onF" + (index + 1) + "Triggered")){
+                    var p = p["onF" + (index + 1) + "Triggered"]();
+                    if(p !== "")
+                        PData.convenientMonitorManager.showMonitor(p);
+                }
                 else
                     PData.convenientMonitorManager.showMonitor(detailMenuSection["onF" + (index + 1) + "Triggered"]());
                 convenientMonitorTitle.text = checkedItem.text.slice(3);
@@ -324,6 +329,14 @@ Rectangle {
             normalMonitorSection.showNormalMonitorPage(menuItem);
             showHelper(ioPage);
         }
+        onIoFuncMenuItemTriggered: {
+            normalMonitorSection.showNormalMonitorPage(menuItem);
+            PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
+            var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
+            dMI1.setChecked(true);
+            detailMenuSection.refreshMenuItem(page.detailsMenuItems);
+            showHelper(null);
+        }
 
         onFuncMenuItemTriggered: {
             normalMonitorSection.showNormalMonitorPage(menuItem);
@@ -332,7 +345,6 @@ Rectangle {
             dMI9.setChecked(true);
             detailMenuSection.refreshMenuItem(page.detailsMenuItems);
             showHelper(null);
-
         }
     }
     RecordManagementPage{
@@ -397,6 +409,19 @@ Rectangle {
         PData.mainWindow = mainWindow;
 
     }
+    focus: true
+    Keys.onPressed: {
+        console.log("pressed:",ActionDefine.getActionFromKey(event.key));
+        panelController.sendKeyCommand(ActionDefine.getActionFromKey(event.key));
+    }
+    Keys.onReleased: {
+        if(ActionDefine.getActionFromKey(event.key) !== ActionDefine.ACTION_NULL){
+            console.log("released:",event.key);
+            panelController.sendKeyCommand(ActionDefine.ACTION_NULL);
+        }
+
+    }
+
     Timer{
         id:refreshTimer
         running: true
@@ -406,7 +431,7 @@ Rectangle {
             var alams = panelController.alarms();
             if(alams != alarmHistory.errs){
                 alarmHistory.errs = alams;
-                alarmBar.errID = alarmHistory.unResolvedAlarms;
+                alarmBar.errID = alarmHistory.currentAlarms;
             }
         }
     }

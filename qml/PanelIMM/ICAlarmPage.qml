@@ -14,17 +14,21 @@ Rectangle {
 
 
     property variant unResolvedAlarms: []
+    property variant currentAlarms: []
     color: "#d1d1d1"
 
     onErrsChanged: {
         var es = errs;
         var i, len;
+        var als = [];
         resolvedAlarms();
         for(i = 0, len = es.length; i < len; ++i){
             if(es[i] == '1'){
                 appendAlarm(i);
+                als.push(i);
             }
         }
+        currentAlarms = als;
     }
 
     function appendAlarm(errNum){
