@@ -79,7 +79,7 @@ ICEditableItemBase{
     onActiveFocusChanged: {
         if(activeFocus){
             lineEdit.selectAll = true;
-            ma.showSoftKeyboard();
+//            ma.showSoftKeyboard();
         }
         else if(lineEdit.modified)
             editFinished();
@@ -101,12 +101,14 @@ ICEditableItemBase{
         function onCommit(text){
 //            console.log(text)
             lineEdit.text = text;
+//            focus = false;
             editFinished();
             virtualKeyboard.commit.disconnect(ma.onCommit);
             virtualKeyboard.reject.disconnect(ma.onReject);
         }
 
         function onReject(){
+//            focus = false;
             virtualKeyboard.commit.disconnect(ma.onCommit);
             virtualKeyboard.reject.disconnect(ma.onReject);
         }

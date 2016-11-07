@@ -10,9 +10,6 @@ configs/* \
 ../styles/*
 }
 
-OTHER_FILES += \
-    configs/ActionDefine.js
-
 
 
 

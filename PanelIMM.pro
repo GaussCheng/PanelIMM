@@ -112,3 +112,6 @@ INSTALLS += db configs
 }
 
 INSTALLS += qmap qmls usr_bin_scripts
+
+RESOURCES += \
+    resources.qrc

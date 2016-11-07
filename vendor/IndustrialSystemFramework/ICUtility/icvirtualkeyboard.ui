@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>788</width>
+    <width>768</width>
     <height>398</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../resources.qrc">
+    <normaloff>:/resources/logo_icon.png</normaloff>:/resources/logo_icon.png</iconset>
   </property>
   <widget class="QLineEdit" name="inputEdit">
    <property name="geometry">
@@ -1721,6 +1725,8 @@ _</string>
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

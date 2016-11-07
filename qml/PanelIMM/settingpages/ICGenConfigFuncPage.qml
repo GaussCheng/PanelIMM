@@ -21,7 +21,7 @@ ICIMMFunctionPageBase {
 
             ICIMMLabelLineEdit{
                 id:val
-                configName: qsTr("name")
+                configName: qsTr("Value")
                 configAddr: addr.configValue
                 onEditFinished: {
                     panelController.setConfigValue(addr.configValue, configValue);

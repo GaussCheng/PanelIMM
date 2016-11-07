@@ -329,20 +329,14 @@ Rectangle {
             normalMonitorSection.showNormalMonitorPage(menuItem);
             showHelper(ioPage);
         }
-        onIoFuncMenuItemTriggered: {
-            normalMonitorSection.showNormalMonitorPage(menuItem);
-            PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
-            var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
-            dMI1.setChecked(true);
-            detailMenuSection.refreshMenuItem(page.detailsMenuItems);
-            showHelper(null);
-        }
-
         onFuncMenuItemTriggered: {
             normalMonitorSection.showNormalMonitorPage(menuItem);
             PData.funcPageManager.showNormalMonitorPage(menuItem.monitorComponent);
             var page = PData.funcPageManager.showDetailPage(menuItem.bindingPageComponent);
-            dMI9.setChecked(true);
+            if(mulPage)
+                dMI1.setChecked(true);
+            else
+                dMI9.setChecked(true);
             detailMenuSection.refreshMenuItem(page.detailsMenuItems);
             showHelper(null);
         }
@@ -403,10 +397,12 @@ Rectangle {
         PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer, mainWindow);
         PData.convenientMonitorManager.init(convenientMonitorPagesContainer);
         panelController.moldChanged.connect(moldName.onMoldChanged);
-        touchControlSection.init();
         PData.convenientMonitorManager.showMonitor(detailMenuSection.onF5Triggered());
         PData.convenientMonitorManager.showMonitor(detailMenuSection.onF9Triggered());
         PData.mainWindow = mainWindow;
+        touchControlSection.init();
+
+
 
     }
     focus: true

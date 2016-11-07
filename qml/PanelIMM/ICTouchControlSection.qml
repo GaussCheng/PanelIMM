@@ -8,13 +8,20 @@ Rectangle {
     width: Style.touchControlSection.rect.width
     height: Style.touchControlSection.rect.height
     color: Style.touchControlSection.bg
-    signal funcMenuItemTriggered(variant menuItem)
+    signal funcMenuItemTriggered(variant menuItem, bool mulPage)
     signal recordMenuItemTriggered(variant menuItem)
     signal alarmHistoryMenuItemTriggered(variant menuItem)
     signal ioMonitorMenuItemTriggered(variant menuItem)
-    signal ioFuncMenuItemTriggered(variant menuItem)
     function init(){
-        funcMenuItemTriggered(actionMonitor);
+        funcMenuItemTriggered(workReady, false);
+        funcMenuItemTriggered(mold, false);
+        funcMenuItemTriggered(core, false);
+        funcMenuItemTriggered(inject, false);
+        funcMenuItemTriggered(carr,false);
+        funcMenuItemTriggered(temperature, false);
+        funcMenuItemTriggered(ioSettingsIMM, true);
+        funcMenuItemTriggered(generalSpecifications, true);
+        funcMenuItemTriggered(actionMonitor, false);
     }
 
     Image {
@@ -41,9 +48,11 @@ Rectangle {
                 else if(checkedItem == ioMonitor)
                     ioMonitorMenuItemTriggered(checkedItem);
                 else if(checkedItem == ioSettingsIMM)
-                    ioFuncMenuItemTriggered(checkedItem);
+                    funcMenuItemTriggered(checkedItem, true);
+                else if(checkedItem == generalSpecifications)
+                    funcMenuItemTriggered(checkedItem, true);
                 else
-                    funcMenuItemTriggered(checkedItem);
+                    funcMenuItemTriggered(checkedItem, false);
             }
 
             ICIMMFunctionMenuItem{

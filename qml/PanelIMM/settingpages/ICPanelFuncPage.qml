@@ -5,6 +5,18 @@ import "../../styles/style.js" as Style
 ICIMMFunctionPageBase {
     id:panelSettingsPage
     property int rowSpacing: 12 * Style.wRatio
+    property variant detailsMenuItems: {
+        'f1':qsTr("Panel Conf"),
+                'f2':qsTr("Udpate")
+    }
+    function onF1Triggered(){
+        setCurrentIndex(0);
+        return ""
+    }
+    function onF2Triggered(){
+        setCurrentIndex(1);
+        return ""
+    }
     ICSettingPageBase{
         id:panelSettingsContainer
         width: parent.width
@@ -313,5 +325,9 @@ ICIMMFunctionPageBase {
         width: parent.width
         height: parent.height
         visible: false
+    }
+    Component.onCompleted: {
+        addPage(panelSettingsPage);
+        addPage(updatePage);
     }
 }

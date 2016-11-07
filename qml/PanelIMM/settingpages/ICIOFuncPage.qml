@@ -19,6 +19,14 @@ ICIMMFunctionPageBase {
         setCurrentIndex(1);
         return ""
     }
+    function onF3Triggered(){
+        setCurrentIndex(2);
+        return ""
+    }
+    function onF4Triggered(){
+        setCurrentIndex(3);
+        return ""
+    }
     ICSettingPageBase{
         id:ioDefinePage
         width: parent.width
@@ -938,9 +946,501 @@ ICIMMFunctionPageBase {
         }
     }
 
+    ICSettingPageBase{
+        id:inputSimulatePage
+        width: parent.width
+        height: parent.height
+        onEditorFocusChanged: {
+            instance.editorFocusChanged(now);
+        }
+        ICIMMSettingConfigsScope{
+            Grid{
+                x:4
+                y:2
+                columns: 15
+                spacing: 6
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X00")
+                    configAddr: "s_rw_0_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X01")
+                    configAddr: "s_rw_2_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X02")
+                    configAddr: "s_rw_4_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X03")
+                    configAddr: "s_rw_6_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X04")
+                    configAddr: "s_rw_8_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X05")
+                    configAddr: "s_rw_10_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X06")
+                    configAddr: "s_rw_12_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X07")
+                    configAddr: "s_rw_14_2_0_650"
+                }
+
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X10")
+                    configAddr: "s_rw_16_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X11")
+                    configAddr: "s_rw_18_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X12")
+                    configAddr: "s_rw_20_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X13")
+                    configAddr: "s_rw_22_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X14")
+                    configAddr: "s_rw_24_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X15")
+                    configAddr: "s_rw_26_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X16")
+                    configAddr: "s_rw_28_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X17")
+                    configAddr: "s_rw_30_2_0_650"
+                }
+
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X20")
+                    configAddr: "s_rw_0_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X21")
+                    configAddr: "s_rw_2_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X22")
+                    configAddr: "s_rw_4_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X23")
+                    configAddr: "s_rw_6_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X24")
+                    configAddr: "s_rw_8_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X25")
+                    configAddr: "s_rw_10_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X26")
+                    configAddr: "s_rw_12_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X27")
+                    configAddr: "s_rw_14_2_0_651"
+                }
+
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X30")
+                    configAddr: "s_rw_16_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X31")
+                    configAddr: "s_rw_18_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X32")
+                    configAddr: "s_rw_20_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X33")
+                    configAddr: "s_rw_22_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X34")
+                    configAddr: "s_rw_24_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X35")
+                    configAddr: "s_rw_26_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X36")
+                    configAddr: "s_rw_28_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("X37")
+                    configAddr: "s_rw_30_2_0_651"
+                }
+            }
+        }
+    }
+    ICSettingPageBase{
+        id:outputSimulatePage
+        width: parent.width
+        height: parent.height
+        onEditorFocusChanged: {
+            instance.editorFocusChanged(now);
+        }
+        ICIMMSettingConfigsScope{
+            Grid{
+                x:4
+                y:2
+                columns: 15
+                spacing: 6
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y00")
+                    configAddr: "s_rw_0_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y01")
+                    configAddr: "s_rw_2_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y02")
+                    configAddr: "s_rw_4_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y03")
+                    configAddr: "s_rw_6_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y04")
+                    configAddr: "s_rw_8_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y05")
+                    configAddr: "s_rw_10_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y06")
+                    configAddr: "s_rw_12_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y07")
+                    configAddr: "s_rw_14_2_0_650"
+                }
+
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y10")
+                    configAddr: "s_rw_16_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y11")
+                    configAddr: "s_rw_18_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y12")
+                    configAddr: "s_rw_20_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y13")
+                    configAddr: "s_rw_22_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y14")
+                    configAddr: "s_rw_24_2_0_650"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y15")
+                    configAddr: "s_rw_26_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y16")
+                    configAddr: "s_rw_28_2_0_650"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y17")
+                    configAddr: "s_rw_30_2_0_650"
+                }
+
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y20")
+                    configAddr: "s_rw_0_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y21")
+                    configAddr: "s_rw_2_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y22")
+                    configAddr: "s_rw_4_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y23")
+                    configAddr: "s_rw_6_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y24")
+                    configAddr: "s_rw_8_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y25")
+                    configAddr: "s_rw_10_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y26")
+                    configAddr: "s_rw_12_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y27")
+                    configAddr: "s_rw_14_2_0_651"
+                }
+
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y30")
+                    configAddr: "s_rw_16_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y31")
+                    configAddr: "s_rw_18_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y32")
+                    configAddr: "s_rw_20_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y33")
+                    configAddr: "s_rw_22_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y34")
+                    configAddr: "s_rw_24_2_0_651"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y35")
+                    configAddr: "s_rw_26_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y36")
+                    configAddr: "s_rw_28_2_0_651"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y37")
+                    configAddr: "s_rw_30_2_0_651"
+                }
+
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y40")
+                    configAddr: "s_rw_16_2_0_652"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y41")
+                    configAddr: "s_rw_18_2_0_652"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y42")
+                    configAddr: "s_rw_20_2_0_652"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y43")
+                    configAddr: "s_rw_22_2_0_652"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y44")
+                    configAddr: "s_rw_24_2_0_652"
+
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y45")
+                    configAddr: "s_rw_26_2_0_652"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y46")
+                    configAddr: "s_rw_28_2_0_652"
+                }
+                ICIMMText{width: 10}
+                ICIMMCheckBoxEdit{
+                    isTristate: true
+                    configName: qsTr("Y47")
+                    configAddr: "s_rw_30_2_0_652"
+                }
+            }
+        }
+    }
+
     Component.onCompleted: {
         addPage(ioDefinePage);
         addPage(aidOutputPage);
+        addPage(inputSimulatePage);
+        addPage(outputSimulatePage);
     }
 
 }

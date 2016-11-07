@@ -11,15 +11,21 @@ ICEditableItemBase {
     property int textPos: 0
     property alias font: text.font
     property alias textColor:text.color
+    property bool isTristate: false
+    property int checkState: 0
 
     signal clicked();
 
     function setChecked(isCheck){
-        this.isChecked = isCheck;
+        container.isChecked = isCheck;
+    }
+
+    function setCheckState(state){
+        container.checkState = state;
     }
 
     function getChecked(){
-        return this.isChecked;
+        return container.isChecked;
     }
 
     width: text.width + box.width + 4
@@ -38,10 +44,16 @@ ICEditableItemBase {
 //        focus: parent.activeFocus
         Image{
             id:checkedImage
-            source: "images/checked.png"
+            source: {
+                if(checkState == 2 || isChecked)
+                    return "images/checked.png";
+                else if(checkState == 1)
+                    return "images/partiallyChecked.png";
+                return "";
+            }
             width:parent.width + 6 * Style.wRatio
             height:parent.height + 6 * Style.hRatio
-            visible: isChecked
+            visible: checkState > 0
             y:-2
         }
     }
@@ -72,7 +84,9 @@ ICEditableItemBase {
         onClicked: {
             parent.focus = true;
             if(useCustomClickHandler || !isEditable) return;
-            setChecked(!isChecked);
+            var cS = isTristate ? 3 : 2;
+            checkState = (checkState + 1) % (cS)
+            setChecked(checkState === cS - 1);
             parent.clicked();
             editFinished();
         }
