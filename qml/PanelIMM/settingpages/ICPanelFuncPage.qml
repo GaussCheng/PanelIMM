@@ -2,6 +2,7 @@ import QtQuick 1.1
 import "../../ICCustomElement"
 import "../immcustomitems"
 import "../../styles/style.js" as Style
+import "../../utils/utils.js" as Utils
 ICIMMFunctionPageBase {
     id:panelSettingsPage
     property int rowSpacing: 12 * Style.wRatio
@@ -21,6 +22,8 @@ ICIMMFunctionPageBase {
         id:panelSettingsContainer
         width: parent.width
         height: parent.height
+        x:2
+        y:4
         visible: true
         ICIMMButton{
             id:touchCalibrate
@@ -324,10 +327,11 @@ ICIMMFunctionPageBase {
         id:updatePage
         width: parent.width
         height: parent.height
-        visible: false
+        x:2
+        y:4
     }
     Component.onCompleted: {
-        addPage(panelSettingsPage);
+        addPage(panelSettingsContainer);
         addPage(updatePage);
     }
 }

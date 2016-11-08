@@ -4,8 +4,7 @@ ICCheckBox{
     property string configAddr: ""
     property string configValue: ""
     onConfigValueChanged: {
-        var cS = isTristate ? 2 : 1;
-        isChecked = parseInt(configValue) === cS;
+        isChecked = parseInt(configValue) === 2;
         checkState = parseInt(configValue);
     }
     onCheckStateChanged: {

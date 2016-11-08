@@ -11,6 +11,10 @@ function getRandomNum(Min,Max)
     return(Min + Math.round(Rand * Range));
 }
 
+function nowDate(fmt){
+    return formatDate(new Date(), fmt);
+}
+
 function formatDate(date, fmt)
 { //author: meizz
     var o = {

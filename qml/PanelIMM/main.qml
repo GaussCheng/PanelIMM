@@ -203,8 +203,7 @@ Rectangle {
 
         }
         function onF3Triggered(){
-            console.log("onF3Triggered")
-
+            return "ICCraftsMonitorPage.qml"
         }
         function onF4Triggered(){
             console.log("onF4Triggered")

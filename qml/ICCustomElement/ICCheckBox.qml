@@ -17,15 +17,17 @@ ICEditableItemBase {
     signal clicked();
 
     function setChecked(isCheck){
+        checkState = isCheck ? 2 : 0;
         container.isChecked = isCheck;
     }
 
     function setCheckState(state){
         container.checkState = state;
+        isChecked = (checkState == 2);
     }
 
     function getChecked(){
-        return container.isChecked;
+        return checkState == 2;
     }
 
     width: text.width + box.width + 4
@@ -45,11 +47,14 @@ ICEditableItemBase {
         Image{
             id:checkedImage
             source: {
-                if(checkState == 2 || isChecked)
-                    return "images/checked.png";
-                else if(checkState == 1)
-                    return "images/partiallyChecked.png";
-                return "";
+                if(isTristate){
+                    if(checkState == 2)
+                        return "images/checked.png";
+                    else if(checkState == 1)
+                        return "images/partiallyChecked.png";
+                    return "";
+                }else
+                    return isChecked ? "images/checked.png" : "";
             }
             width:parent.width + 6 * Style.wRatio
             height:parent.height + 6 * Style.hRatio
@@ -84,9 +89,13 @@ ICEditableItemBase {
         onClicked: {
             parent.focus = true;
             if(useCustomClickHandler || !isEditable) return;
-            var cS = isTristate ? 3 : 2;
-            checkState = (checkState + 1) % (cS)
-            setChecked(checkState === cS - 1);
+            if(isTristate){
+                checkState = (checkState + 1) % 3;
+                isChecked = (checkState == 2);
+            }else{
+                isChecked = !isChecked;
+                checkState = isChecked ? 2 : 0;
+            }
             parent.clicked();
             editFinished();
         }

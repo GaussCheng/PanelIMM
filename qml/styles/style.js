@@ -64,7 +64,10 @@ var itemStyles = {
     "ICHorSplitLine":{
         "height":1,
         "color":"white",
-    }
+    },
+    "ICIMMTableViewHeaderItem":{
+        "border":{"width":1, "color":"black"}
+    },
 
 }
 

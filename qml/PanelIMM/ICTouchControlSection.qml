@@ -215,7 +215,7 @@ Rectangle {
                     text: qsTr("BC.COOL")
                     anchors.top:r2.bottom
 //                    anchors.topMargin: -4 * Style.hRatio
-                    anchors.horizontalCenter: r2.left
+                    anchors.left: r2.left
                 }
                 ICIMMLedTextLabel{
                     id:actNOZRETLed
@@ -735,7 +735,7 @@ Rectangle {
                 }
                 ICButton{
                     id:securityDoorCloseBtn
-                    text: qsTr("Close")
+                    text: qsTr("Close", "SE DOOR")
                     width: Style.touchControlSection.optionalKeyboard.btnSize
                     height: width
                     border.width: 0
