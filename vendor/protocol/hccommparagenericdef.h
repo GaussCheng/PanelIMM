@@ -1157,6 +1157,21 @@ extern "C" {
         ICAddr_Read_Status47, //<类型：预留；
         ICAddr_Read_Status48, //<类型：预留；
         ICAddr_Read_Status49, //<类型：预留；
+        ICAddr_Read_Status50, //<类型：预留；
+        ICAddr_Read_Status51, //<类型：预留；
+        ICAddr_Read_Status52, //<类型：预留；
+        ICAddr_Read_Status53, //<类型：预留；
+        ICAddr_Read_Status54, //<类型：预留；
+        ICAddr_Read_Status55, //<类型：预留；
+        ICAddr_Read_Status56, //<类型：预留；
+        ICAddr_Read_Status57, //<类型：预留；
+        ICAddr_Read_Status58, //<类型：预留；
+        ICAddr_Read_Status59, //<类型：预留；
+        ICAddr_Read_Status60, //<类型：预留；
+        ICAddr_Read_Status61, //<类型：预留；
+        ICAddr_Read_Status62, //<类型：预留；
+        ICAddr_Read_Status63, //<类型：预留；
+                
 
         ICAddr_Read_Section_End, //<
         ICAddr_ErrAddr, //<错误帧用的地址
@@ -3685,6 +3700,58 @@ typedef enum _Can_Communication_Addr_
         };
         uint16_t all[4];
     } RULER_ADV;
+    
+    typedef union {//<设定压力值(转矩)
+
+        struct {
+            uint32_t prset1 :16; //< 类型：状态；名字：电机ID1压力设定值；
+            uint32_t prset2 :16; //< 类型：状态；名字：电机ID2压力设定值；
+            uint32_t prset3 :16; //< 类型：状态；名字：电机ID3压力设定值；
+            uint32_t prset4 :16; //< 类型：状态；名字：电机ID4压力设定值；
+            uint32_t prset5 :16; //< 类型：状态；名字：电机ID5压力设定值；
+            uint32_t prset6 :16; //< 类型：状态；名字：电机ID6压力设定值；
+        };
+        uint32_t all[3];
+    } PRESS_SET;
+    
+    typedef union {//<当前压力值(转矩)
+
+        struct {
+            uint32_t pract1 :16; //< 类型：状态；名字：电机ID1压力当前值；
+            uint32_t pract2 :16; //< 类型：状态；名字：电机ID2压力当前值；
+            uint32_t pract3 :16; //< 类型：状态；名字：电机ID3压力当前值；
+            uint32_t pract4 :16; //< 类型：状态；名字：电机ID4压力当前值；
+            uint32_t pract5 :16; //< 类型：状态；名字：电机ID5压力当前值；
+            uint32_t pract6 :16; //< 类型：状态；名字：电机ID6压力当前值；
+        };
+        uint32_t all[3];
+    } PRESS_ACT;
+    
+    typedef union {//<设定速度值(频率)
+
+        struct {
+            uint32_t spset1 :16; //< 类型：状态；名字：电机ID1速度设定值；
+            uint32_t spset2 :16; //< 类型：状态；名字：电机ID2速度设定值；
+            uint32_t spset3 :16; //< 类型：状态；名字：电机ID3速度设定值；
+            uint32_t spset4 :16; //< 类型：状态；名字：电机ID4速度设定值；
+            uint32_t spset5 :16; //< 类型：状态；名字：电机ID5速度设定值；
+            uint32_t spset6 :16; //< 类型：状态；名字：电机ID6速度设定值；
+        };
+        uint32_t all[3];
+    } SPEED_SET;
+    
+    typedef union {//<当前速度值(频率)
+
+        struct {
+            uint32_t spact1 :16; //< 类型：状态；名字：电机ID1速度当前值；
+            uint32_t spact2 :16; //< 类型：状态；名字：电机ID2速度当前值；
+            uint32_t spact3 :16; //< 类型：状态；名字：电机ID3速度当前值；
+            uint32_t spact4 :16; //< 类型：状态；名字：电机ID4速度当前值；
+            uint32_t spact5 :16; //< 类型：状态；名字：电机ID5速度当前值；
+            uint32_t spact6 :16; //< 类型：状态；名字：电机ID6速度当前值；
+        };
+        uint32_t all[3];
+    } SPEED_ACT;
 
     typedef struct {
         uint32_t addr; //< 类型：状态；名字：CAN地址；
@@ -3735,16 +3802,17 @@ typedef enum _Can_Communication_Addr_
         /********3**************/
         RULER_POS pos; //< 位置
         RULER_ADV adv; //< AD值
-        /********6**************/
+        /********12**************/
         uint32_t alarm[8]; //< 类型：状态；名字：报警；
         /********8**************/
-        uint32_t press_set:16; //< 类型：状态；名字：设定压力；精度：1；单位：bar；
-        uint32_t press_act:16; //< 类型：状态；名字：当前压力；精度：1；单位：bar；
-        uint32_t speed_set:16; //< 类型：状态；名字：设定速度；精度：1；单位：%；
-        uint32_t speed_act:16; //< 类型：状态；名字：当前速度；精度：1；单位：%；
+        PRESS_SET press_set; //< 类型：状态；名字：设定压力；精度：1；单位：bar；
+        PRESS_ACT press_act; //< 类型：状态；名字：当前压力；精度：1；单位：bar；
+        SPEED_SET speed_set; //< 类型：状态；名字：设定速度；精度：1；单位：%；
+        SPEED_ACT speed_act; //< 类型：状态；名字：当前速度；精度：1；单位：%；
+       /********12**************/
         uint32_t backpress_set:16; //< 类型：状态；名字：设定背压；精度：1；单位：bar；
         uint32_t backpress_act:16; //< 类型：状态；名字：当前背压；精度：1；单位：bar；
-        /********3**************/
+        /********1**************/
         CAN_PARA can; //< 类型：状态；名字：；
         /********2**************/
         TEMP temp; //< 类型：状态；名字：；
@@ -3783,7 +3851,7 @@ typedef enum _Can_Communication_Addr_
     typedef union {
         READ_PARA0 para;
         uint32_t all_para[sizeof (READ_PARA0) / 4];
-        uint32_t all[STRUCE_SIZE(ICAddr_Read_Status0, ICAddr_Read_Status49)];
+        uint32_t all[STRUCE_SIZE(ICAddr_Read_Status0, ICAddr_Read_Status63)];
     } READ_PARA;
 
     /*******************************************************************************/

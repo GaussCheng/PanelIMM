@@ -55,30 +55,37 @@ Rectangle {
             ICIMMTableViewHeaderItem{
                 id:hLogTime
                 text:qsTr("LOG.TIME")
+                visible: monitorContainer.isZoomIn || isChecked
             }
             ICIMMTableViewHeaderItem{
                 id:hCycleTime
                 text:qsTr("CYC.TIME")
+                visible: monitorContainer.isZoomIn || isChecked
             }
             ICIMMTableViewHeaderItem{
                 id:hInjEnd
                 text: qsTr("INJ.END")
+                visible: monitorContainer.isZoomIn || isChecked
             }
             ICIMMTableViewHeaderItem{
                 id:hInjTime
                 text:qsTr("INJ.TIME")
+                visible: monitorContainer.isZoomIn || isChecked
             }
             ICIMMTableViewHeaderItem{
                 id:hHoldEnd
                 text:qsTr("HOLD.END")
+                visible: monitorContainer.isZoomIn || isChecked
             }
             ICIMMTableViewHeaderItem{
                 id:hChargeEnd
                 text:qsTr("CHARGE.END")
+                visible: monitorContainer.isZoomIn || isChecked
             }
             ICIMMTableViewHeaderItem{
                 id:hOMEnd
                 text:qsTr("OM.END")
+                visible: monitorContainer.isZoomIn || isChecked
             }
         }
         ICIMMButton{
@@ -109,44 +116,50 @@ Rectangle {
                     border.width: 1
                     border.color: "black"
                     width: hLogTime.width
+                    visible: hLogTime.visible
                 }
                 ICIMMLabel{
                     text:cycleTime
                     border.width: 1
                     border.color: "black"
                     width: hCycleTime.width
+                    visible: hCycleTime.visible
                 }
                 ICIMMLabel{
                     text: injEnd
                     border.width: 1
                     border.color: "black"
                     width:hInjEnd.width
+                    visible: hInjEnd.visible
                 }
                 ICIMMLabel{
                     text:injTime
                     border.width: 1
                     border.color: "black"
                     width: hInjTime.width
+                    visible: hInjTime.visible
                 }
                 ICIMMLabel{
                     text:holdEnd
                     border.width: 1
                     border.color: "black"
                     width: hHoldEnd.width
+                    visible: hHoldEnd.visible
                 }
                 ICIMMLabel{
                     text:chargeEnd
                     border.width: 1
                     border.color: "black"
                     width: hChargeEnd.width
+                    visible: hChargeEnd.visible
                 }
                 ICIMMLabel{
                     text:omEnd
                     border.width: 1
                     border.color: "black"
                     width: hOMEnd.width
+                    visible: hOMEnd.visible
                 }
-
             }
         }
         Component.onCompleted: {

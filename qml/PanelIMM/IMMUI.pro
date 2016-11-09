@@ -11,7 +11,8 @@ configs/* \
 }
 
 OTHER_FILES += \
-    immcustomitems/ICIMMTableViewHeaderItem.qml
+    immcustomitems/ICIMMTableViewHeaderItem.qml \
+    monitorpages/ICCurvesMonitorPage.qml
 
 
 

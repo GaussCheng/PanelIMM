@@ -9,7 +9,7 @@ fi
 vendorDir=$1
 if [ ! -e ${vendorDir}/protocol ]
 then
-	svn co http://192.168.10.24:8000/svn/platform/MotionX/branches/develop/Include/hmi/protocol ${vendorDir}/protocol
+	svn co http://192.168.10.24:8000/svn/PICuCos/branches/develop_new1/vendor/Protocol/ ${vendorDir}/protocol
 else
 	svn up ${vendorDir}/protocol
 fi 

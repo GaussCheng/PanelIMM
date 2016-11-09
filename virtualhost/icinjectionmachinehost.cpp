@@ -16,8 +16,10 @@
 
 #if defined UART_COMM
 const static int ReadLength = (ICAddr_Read_Section_End - ICAddr_Read_Status0) >> 1;
+const static int REFRESH_INTERVAL = 30;
 #elif defined TCP_COMM
-const static int ReadLength = (ICAddr_Read_Section_End - ICAddr_Read_Status) >> 1;
+const static int ReadLength = (ICAddr_Read_Section_End - ICAddr_Read_Status0) >> 1;
+const static int REFRESH_INTERVAL = 30;
 #endif
 
 ICAddr ICInjectionMachineHost::beginAddrs_;
@@ -285,7 +287,7 @@ void ICInjectionMachineHost::CommunicateImpl()
     }
     if(queue_.IsEmpty())
     {
-//#if defined UART_COMM
+#if defined UART_COMM
         ICInjectionMachineTransceiverData *readData
                 = new ICInjectionMachineTransceiverData(kHostID,
                                                         FunctionCode_ReadAddr,
@@ -305,6 +307,7 @@ void ICInjectionMachineHost::CommunicateImpl()
             length_ = readLeangth;
             restartFlag_  = false;
             statusValueMap_.SetLocalStatus(ICParametersCache::kIsReadAllStatus, false);
+            cycleFlagChanged(false);
         }
         else
         {
@@ -319,22 +322,25 @@ void ICInjectionMachineHost::CommunicateImpl()
                 length_ = tmpLength;
                 restartFlag_ = true;
                 statusValueMap_.SetLocalStatus(ICParametersCache::kIsReadAllStatus, true);
+                cycleFlagChanged(true);
             }
             else
             {
                 length_ = readLeangth;
             }
         }
-//#elif defined TCP_COMM
-//        ICInjectionMachineTransceiverData *readData
-//                = new ICInjectionMachineTransceiverData(kHostID,
-//                                                        FunctionCode_ReadAddr,
-//                                                        ICAddr_Read_Status,
-//                                                        ReadLength);
-//        AddCommunicationFrame(readData);
-//#endif
+#elif defined TCP_COMM
+        ICInjectionMachineTransceiverData *readData
+                = new ICInjectionMachineTransceiverData(kHostID,
+                                                        FunctionCode_ReadAddr,
+                                                        ICAddr_Read_Status,
+                                                        ReadLength);
+        AddCommunicationFrame(readData);
+#endif
     }
-    Transceiver()->Write(queue_.Head());
+    const ICInjectionMachineTransceiverData* toSend = static_cast<const ICInjectionMachineTransceiverData*>(queue_.Head());
+    Transceiver()->Write(toSend);
+    SetCommunicateInterval(toSend->IsQuery()?REFRESH_INTERVAL:(toSend->GetLength() + 5));
     //    qDebug()<<testTime.restart();
 #ifdef TEST_TIME_DEBUG
     /*TIME_TEST*/

@@ -19,7 +19,7 @@ ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger,
     mold_.reset(new ICIMMMold());
     machineConfigs_.reset(new ICMachineConfig());
     host_ = ICVirtualHostManager::GetVirtualHost<ICInjectionMachineHost>(1);
-    host_->SetCommunicateDebug(false);
+    host_->SetCommunicateDebug(true);
     ICAppSettings settings;
     QString uiMain = settings.UIMainName();
 
@@ -121,6 +121,8 @@ ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger,
             SIGNAL(timeout()),
             SLOT(TemperatureSampling()));
     tempTimer_.start(1000);
+
+    connect(host_.data(), SIGNAL(cycleFlagChanged(bool)), SLOT(OnCycleFlagChanged(bool)));
 
     host_->SetCommunicateInterval(25);
 }
@@ -249,9 +251,9 @@ QString ICPanelIMMController::newRecord(const QString &name, const QString &defa
 }
 
 static ICAddrWrapperList tempAddrs =
-        ICAddrWrapperList()<<&c_ro_0_16_1_1560<<&c_ro_16_16_1_1560<<&c_ro_0_16_1_1561
-                          <<&c_ro_16_16_1_1561<<&c_ro_0_16_1_1562<<&c_ro_16_16_1_1562
-                         <<&c_ro_0_16_1_1563<<&c_ro_16_16_1_1563;
+        ICAddrWrapperList()<<&c_ro_0_16_1_1570<<&c_ro_16_16_1_1570<<&c_ro_0_16_1_1571
+                          <<&c_ro_16_16_1_1571<<&c_ro_0_16_1_1572<<&c_ro_16_16_1_1572
+                         <<&c_ro_0_16_1_1573<<&c_ro_16_16_1_1573;
 
 void ICPanelIMMController::TemperatureSampling()
 {
@@ -592,3 +594,4 @@ void ICPanelIMMController::sendKeyCommand(int key)
 {
     ICInjectionMachineHost::AddActionCommunicationFrame(host_, key);
 }
+

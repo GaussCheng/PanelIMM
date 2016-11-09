@@ -75,6 +75,15 @@ void ICAxis::setXAxisTimeScaleEn(bool en)
     }
 }
 
+void ICAxis::setXAxisTimeRange(int sec)
+{
+    xScaleDraw_ = new ICTimeScaleDraw(startUpTime_.addSecs(-sec));
+    plot_->setAxisScaleDraw( QwtPlot::xBottom, xScaleDraw_);
+    plot_->setAxisLabelRotation( QwtPlot::xBottom, -30.0 );
+    plot_->setAxisLabelAlignment( QwtPlot::xBottom, Qt::AlignLeft | Qt::AlignBottom );
+    plot_->replot();
+}
+
 void ICAxis::setAxisFont(const QFont &f)
 {
     axisFont_ = f;

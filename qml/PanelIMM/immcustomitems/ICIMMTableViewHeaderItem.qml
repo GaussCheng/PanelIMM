@@ -5,6 +5,7 @@ import "../../ICCustomElement"
 Rectangle {
     property alias text: label.text
     property alias boxVisible: box.visible
+    property alias isChecked: box.isChecked
     border.width: Style.itemStyles.ICIMMTableViewHeaderItem.border.width
     border.color: Style.itemStyles.ICIMMTableViewHeaderItem.border.color
     height: container.height + 4

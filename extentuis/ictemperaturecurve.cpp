@@ -81,7 +81,9 @@ void ICTemperatureCurve::hideEvent(QHideEvent *e)
 void ICTemperatureCurve::setTimeRange(int range)
 {
     setXAxisInterval(range * 60);
-    setStartUpTime(startUpTime_.addSecs(-(range * 60)).toString("hh:mm:ss"));
+    setXAxisTimeRange(range * 60);
+    tAxisVal_ = range;
+//    setStartUpTime(startUpTime_.addSecs(-(range * 60)).toString("hh:mm:ss"));
     plot_->replot();
 }
 

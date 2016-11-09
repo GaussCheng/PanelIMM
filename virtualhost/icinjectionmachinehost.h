@@ -91,6 +91,7 @@ signals:
     void NeedToInit();
     void ReadyCommunicate();
     void CommunicateErrChecked();
+    void cycleFlagChanged(bool f);
 private slots:
     void ResetCommunicate();
 

@@ -164,6 +164,10 @@ Rectangle {
                 configName: qsTr("Time Range")
                 configValue: "20"
                 unit: qsTr("Min")
+                onEditFinished: {
+                    console.log(configValue);
+                    temperatureCurve.timeRange = configValue;
+                }
             }
         }
 

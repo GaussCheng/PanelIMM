@@ -24,6 +24,8 @@ public:
     Q_INVOKABLE QString alarms() const;
 
     Q_INVOKABLE void sendKeyCommand(int key);
+
+    Q_INVOKABLE bool statusRefreshed() const { return cycleFlag_;}
 signals:
 
 public slots:
@@ -31,6 +33,10 @@ public slots:
     void TemperatureSampling();
     void Seg2To7FuzzyPID();
     void Seg1FuzzyPID();
+    void OnCycleFlagChanged(bool f)
+    {
+        cycleFlag_ = f;
+    }
 
 private:
     void InitMold_();
@@ -61,6 +67,7 @@ private:
     double speedFactors_[7];
     double itermFactors_[7];
     QTimer tempTimer_;
+    bool cycleFlag_;
     mutable QBitArray alarms_;
     mutable QString alarmsBitStr_;
 

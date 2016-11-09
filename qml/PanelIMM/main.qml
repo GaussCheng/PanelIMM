@@ -8,6 +8,7 @@ import "../utils/Storage.js" as Storage
 import "../styles/style.js" as Style
 import "main.js" as PData
 import "configs/ActionDefine.js" as ActionDefine
+import "monitorpages/ICCraftsLog.js" as CraftsLog
 
 Rectangle {
     id:mainWindow
@@ -427,6 +428,10 @@ Rectangle {
             if(alams != alarmHistory.errs){
                 alarmHistory.errs = alams;
                 alarmBar.errID = alarmHistory.currentAlarms;
+            }
+            var newProductFlag = panelController.statusValue("c_ro_24_1_0_1537");
+            if(PData.oldProductFlag != newProductFlag && panelController.statusRefreshed()){
+//                CraftsLog.craftsLog.addLog(panelController.)
             }
         }
     }

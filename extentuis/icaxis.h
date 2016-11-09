@@ -49,6 +49,7 @@ public:
 
     bool xAxisTimeScaleEn() const { return xScaleDraw_ != NULL;}
     void setXAxisTimeScaleEn(bool en);
+    void setXAxisTimeRange(int sec);
 
     QString startUpTime() const { return startUpTime_.toString("hh:mm:ss");}
     void setStartUpTime(const QString& time);
