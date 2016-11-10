@@ -19,7 +19,7 @@ ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger,
     mold_.reset(new ICIMMMold());
     machineConfigs_.reset(new ICMachineConfig());
     host_ = ICVirtualHostManager::GetVirtualHost<ICInjectionMachineHost>(1);
-    host_->SetCommunicateDebug(true);
+    host_->SetCommunicateDebug(false);
     ICAppSettings settings;
     QString uiMain = settings.UIMainName();
 

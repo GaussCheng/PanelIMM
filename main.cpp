@@ -9,6 +9,7 @@
 #include "icpanelimmcontroller.h"
 #include "icaxis.h"
 #include "ictemperaturecurve.h"
+#include "icinjectcurve.h"
 
 ICLog iclog("RobotPanel.debuglog", 1024 * 1024);
 
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
 #endif
     qmlRegisterType<ICAxis>("Extentuis", 1, 0, "ICAxis");
     qmlRegisterType<ICTemperatureCurve>("Extentuis", 1, 0, "ICTemperatureCurve");
+    qmlRegisterType<ICInjectCurve>("Extentuis", 1, 0, "ICInjectCurve");
     QApplication app(argc, argv);
     app.setOrganizationName("SZHC");
     app.setApplicationName("IMMPanel");

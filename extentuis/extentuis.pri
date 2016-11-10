@@ -5,11 +5,13 @@ DEPENDPATH += $$PWD
 
 HEADERS += \
     extentuis/icaxis.h \
-    extentuis/ictemperaturecurve.h
+    extentuis/ictemperaturecurve.h \
+    extentuis/icinjectcurve.h
 
 SOURCES += \
     extentuis/icaxis.cpp \
-    extentuis/ictemperaturecurve.cpp
+    extentuis/ictemperaturecurve.cpp \
+    extentuis/icinjectcurve.cpp
 
 FORMS +=
 

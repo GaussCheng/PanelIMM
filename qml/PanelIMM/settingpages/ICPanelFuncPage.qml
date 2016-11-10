@@ -50,7 +50,7 @@ ICIMMFunctionPageBase {
             spacing: 16
             Row{
                 spacing: panelSettingsPage.rowSpacing
-                Text {
+                ICIMMText {
                     id: languageLabel
                     text: qsTr("Language")
                     anchors.verticalCenter: parent.verticalCenter
@@ -158,7 +158,7 @@ ICIMMFunctionPageBase {
 
             }
             Row{
-                Text {
+                ICIMMText {
                     id: screensaverLabel
                     text: qsTr("Screensaver Time")
                     anchors.verticalCenter: parent.verticalCenter

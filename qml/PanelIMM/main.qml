@@ -200,7 +200,7 @@ Rectangle {
             console.log("onF1Triggered")
         }
         function onF2Triggered(){
-            console.log("onF2Triggered")
+            return "ICCurvesMonitorPage.qml"
 
         }
         function onF3Triggered(){

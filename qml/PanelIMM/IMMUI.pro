@@ -12,7 +12,9 @@ configs/* \
 
 OTHER_FILES += \
     immcustomitems/ICIMMTableViewHeaderItem.qml \
-    monitorpages/ICCurvesMonitorPage.qml
+    monitorpages/ICCurvesMonitorPage.qml \
+    immcustomitems/ICIMMTemperatureCurves.qml \
+    immcustomitems/ICIMMInjectCurves.qml
 
 
 

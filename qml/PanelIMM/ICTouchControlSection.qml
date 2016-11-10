@@ -649,56 +649,52 @@ Rectangle {
         }
     }
 
-    ICButtonGroup{
+    Row{
         id:modeSwicherContainer
         anchors.left: immModeBG.left
         anchors.top: immModeBG.bottom
-        mustChecked: true
-        checkedIndex: 0
-        spacing: 0
-        ICCheckableButton{
+        spacing: 1
+        ICIMMButton{
             id:modeCloseBtn
             text: qsTr("Close")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
-            height: Style.touchControlSection.modeSwicherContainer.btnHeight
+            height: Style.touchControlSection.modeSwicherContainer.btnHeight + 1
             bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
-            isChecked: true
-
         }
-        ICCheckableButton{
+        ICIMMLabel{
             id:modePrepareBtn
             text: qsTr("Prepare")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
-            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
+            color: Style.touchControlSection.modeSwicherContainer.btnBG
         }
-        ICCheckableButton{
+        ICIMMLabel{
             id:modeManualBtn
             text: qsTr("Manual")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
-            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
+            color: Style.touchControlSection.modeSwicherContainer.btnBG
         }
-        ICCheckableButton{
+        ICIMMLabel{
             id:modeSemiAutoBtn
             text: qsTr("Semi A")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
-            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
+            color: Style.touchControlSection.modeSwicherContainer.btnBG
         }
-        ICCheckableButton{
+        ICIMMLabel{
             id:modeAuto
             text: qsTr("Auto")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
-            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
+            color: Style.touchControlSection.modeSwicherContainer.btnBG
         }
-        ICCheckableButton{
+        ICIMMLabel{
             id:modeAutoRun
             text: qsTr("Auto R")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
-            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
+            color: Style.touchControlSection.modeSwicherContainer.btnBG
         }
     }
 
