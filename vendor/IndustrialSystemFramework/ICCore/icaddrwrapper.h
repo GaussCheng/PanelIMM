@@ -51,7 +51,9 @@ public:
     static quint32 UpdateBaseAddrValue(const ICAddrWrapper *addr, uint value, uint baseValue)
     {
         int sp = addr->StartPos();
-        baseValue &= ~(((quint64(2) << (addr->Size() - 1)) - 1) << sp);
+        int mask = (quint64(2) << (addr->Size() - 1)) - 1;
+        value &= mask;
+        baseValue &= ~((mask) << sp);
         baseValue |= value << sp;
         return baseValue;
     }

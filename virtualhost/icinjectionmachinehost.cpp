@@ -146,10 +146,10 @@ bool ICInjectionMachineHost::IsOutputOnImpl(int index) const
 
 //static QTime tt;
 
-static ICAddrWrapperList alarmAddrs = ICAddrWrapperList()<<&c_ro_0_32_0_1547<<&c_ro_0_32_0_1548
-                                                           <<&c_ro_0_32_0_1549<<&c_ro_0_32_0_1550
-                                                             <<&c_ro_0_32_0_1551<<&c_ro_0_32_0_1552
-                                                               <<&c_ro_0_32_0_1553<<&c_ro_0_32_0_1554;
+static ICAddrWrapperList alarmAddrs = ICAddrWrapperList()<<&c_ro_0_32_0_1553<<&c_ro_0_32_0_1554
+                                                           <<&c_ro_0_32_0_1555<<&c_ro_0_32_0_1556
+                                                             <<&c_ro_0_32_0_1557<<&c_ro_0_32_0_1558
+                                                               <<&c_ro_0_32_0_1559<<&c_ro_0_32_0_1560;
 #define IMM_INTERNET  0
 
 void ICInjectionMachineHost::CommunicateImpl()

@@ -23,6 +23,7 @@
 #include "icmachineconfig.h"
 #include "icvirtualkeyboard.h"
 #include "icvirtualhost.h"
+#include "ictcptransceiver.h"
 
 class ICSplashScreen : public QSplashScreen
 {
@@ -142,6 +143,8 @@ public:
     {
         QKeyEvent * e = new QKeyEvent( QEvent::KeyPress, key, Qt::NoModifier, text);
         qApp->postEvent(qApp->focusWidget(), e);
+        QKeyEvent * er = new QKeyEvent( QEvent::KeyRelease, key, Qt::NoModifier, text);
+        qApp->postEvent(qApp->focusWidget(), er);
     }
 
     Q_INVOKABLE bool setCurrentTranslator(const QString& name);
@@ -335,6 +338,54 @@ public:
                 .arg(rg.min).arg(rg.max).arg(rg.decimal);
     }
 
+    Q_INVOKABLE void recal()
+    {
+        ::system("touch /home/szhc/recal && sync && reboot");
+    }
+
+    Q_INVOKABLE void setEth0Enable(bool en, int mode, const QString& localAddr, const QString& hostAddr, int hostPort)
+    {
+        if(en)
+        {
+#ifdef Q_WS_QWS
+            ::system(QString("ifconfig eth0 up && ifconfig eth0 %1").arg(localAddr).toAscii());
+#endif
+            if(eth0Transceiver_.isNull())
+            {
+                eth0Transceiver_.reset( new ICTcpTransceiver());
+            }
+            if(eth0DataMonitor_.isNull())
+            {
+                eth0DataMonitor_.reset( new TCPCommunicateMonitor());
+                //                eth0DataMonitor_->SetFilter(QRegExp("test\r\n"));
+                connect(eth0DataMonitor_.data(),
+                        SIGNAL(dataComeIn(QByteArray)),
+                        SIGNAL(eth0DataComeIn(QByteArray)));
+            }
+            eth0Transceiver_->SetHostAddr(QHostAddress(hostAddr), hostPort);
+            eth0Transceiver_->SetCommuncateMode(static_cast<ICTcpTransceiver::CommunicateMode>(mode));
+            eth0Transceiver_->RegisterCommMonitor(eth0DataMonitor_.data());
+            eth0Transceiver_->StartCommunicate();
+        }
+        else
+        {
+            eth0Transceiver_->StopCommunicate();
+#ifdef Q_WS_QWS
+            ::system("ifconfig eth0 down");
+#endif
+        }
+    }
+
+    Q_INVOKABLE void writeDataToETH0(const QByteArray& data)
+    {
+        eth0Transceiver_->WriteRawData(data);
+    }
+
+    Q_INVOKABLE void setETh0Filter(const QString& re)
+    {
+        eth0DataMonitor_->SetFilter(QRegExp(re));
+    }
+
     void InitMainView();
 
     QWidget* MainView()
@@ -394,6 +445,8 @@ private:
     static int checkTime;
     static int dummy;
 #endif
+    QScopedPointer<ICTcpTransceiver> eth0Transceiver_;
+    QScopedPointer<TCPCommunicateMonitor> eth0DataMonitor_;
 
 };
 

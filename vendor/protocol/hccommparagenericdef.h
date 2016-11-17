@@ -1154,23 +1154,22 @@ extern "C" {
         ICAddr_Read_Status44, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
         ICAddr_Read_Status45, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
         ICAddr_Read_Status46, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
-        ICAddr_Read_Status47, //<类型：预留；
-        ICAddr_Read_Status48, //<类型：预留；
-        ICAddr_Read_Status49, //<类型：预留；
-        ICAddr_Read_Status50, //<类型：预留；
-        ICAddr_Read_Status51, //<类型：预留；
-        ICAddr_Read_Status52, //<类型：预留；
-        ICAddr_Read_Status53, //<类型：预留；
-        ICAddr_Read_Status54, //<类型：预留；
-        ICAddr_Read_Status55, //<类型：预留；
-        ICAddr_Read_Status56, //<类型：预留；
-        ICAddr_Read_Status57, //<类型：预留；
-        ICAddr_Read_Status58, //<类型：预留；
-        ICAddr_Read_Status59, //<类型：预留；
-        ICAddr_Read_Status60, //<类型：预留；
-        ICAddr_Read_Status61, //<类型：预留；
+        ICAddr_Read_Status47, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status48, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status49, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status50, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status51, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status52, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status53, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status54, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status55, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status56, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status57, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status58, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status59, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status60, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
+        ICAddr_Read_Status61, //<类型：系统；名字：；结构：READ_PARA；地址：read_addr；
         ICAddr_Read_Status62, //<类型：预留；
-        ICAddr_Read_Status63, //<类型：预留；
                 
 
         ICAddr_Read_Section_End, //<
@@ -1535,6 +1534,10 @@ extern "C" {
         ALARM_PLASTIC_TEMPRATURE_LOW, //<名字：料温过低
         ALARM_SERVO_ERR, //<名字：伺服驱动器故障
         ALARM_VIOLATION_SAFE_ERR, //<名字：违反安全操作
+        ALARM_SERVO1_CON_ERR, //<名字：伺服驱动器1通讯故障
+        ALARM_SERVO2_CON_ERR, //<名字：伺服驱动器2通讯故障
+        ALARM_SERVO3_CON_ERR, //<名字：伺服驱动器3通讯故障
+        ALARM_SERVO4_CON_ERR, //<名字：伺服驱动器4通讯故障
 
         // 报警2等级，闪灯，发声，切马达
         ALARM_TIME_OUT = 160, //<名字：报警计时到
@@ -3676,7 +3679,7 @@ typedef enum _Can_Communication_Addr_
      ******************************************************************************/
     static const uint32_t read_addr[] = {
         ICAddr_Read_Status0,
-        ICAddr_Read_Status49 //<类型：模号；名字：；结构：RASD_PARA；地址：read_addr；
+        ICAddr_Read_Status61 //<类型：模号；名字：；结构：RASD_PARA；地址：read_addr；
     };
 
     typedef union {
@@ -3686,19 +3689,23 @@ typedef enum _Can_Communication_Addr_
             uint32_t pos2; //< 类型：状态；名字：螺杆电子尺实际位置；精度：2；单位：mm；
             uint32_t pos3; //< 类型：状态；名字：座台电子尺实际位置；精度：2；单位：mm；
             uint32_t pos4; //< 类型：状态；名字：顶针电子尺实际位置；精度：2；单位：mm；
+            uint32_t pos5; //< 类型：状态；名字：预留电子尺实际位置；精度：2；单位：mm；
+            uint32_t pos6; //< 类型：状态；名字：预留电子尺实际位置；精度：2；单位：mm；
         };
-        uint32_t all[4];
+        uint32_t all[6];
     } RULER_POS;
 
     typedef union {
 
         struct {
-            uint32_t adv1 : 16; //< 类型：状态；名字：模座电子尺AD值；
-            uint32_t adv2 : 16; //< 类型：状态；名字：螺杆电子尺AD值；
-            uint32_t adv3 : 16; //< 类型：状态；名字：座台电子尺AD值；
-            uint32_t adv4 : 16; //< 类型：状态；名字：顶针电子尺AD值；
+            uint32_t adv1; //< 类型：状态；名字：模座电子尺AD值；
+            uint32_t adv2; //< 类型：状态；名字：螺杆电子尺AD值；
+            uint32_t adv3; //< 类型：状态；名字：座台电子尺AD值；
+            uint32_t adv4; //< 类型：状态；名字：顶针电子尺AD值预留；
+            uint32_t adv5; //< 类型：状态；名字：预留电子尺AD值；
+            uint32_t adv6; //< 类型：状态；名字：预留电子尺AD值；
         };
-        uint16_t all[4];
+        uint32_t all[6];
     } RULER_ADV;
     
     typedef union {//<设定压力值(转矩)
@@ -3845,13 +3852,12 @@ typedef enum _Can_Communication_Addr_
         /********3**************/
         uint32_t test[2]; //< 类型：状态；名字：备用或调试用；
         /*******2***************/
-        uint32_t servo_pulser;//< 类型：状态；名字：射胶伺服脉冲数；精度：0；单位：个；
     } READ_PARA0;
 
     typedef union {
         READ_PARA0 para;
         uint32_t all_para[sizeof (READ_PARA0) / 4];
-        uint32_t all[STRUCE_SIZE(ICAddr_Read_Status0, ICAddr_Read_Status63)];
+        uint32_t all[STRUCE_SIZE(ICAddr_Read_Status0, ICAddr_Read_Status61)];
     } READ_PARA;
 
     /*******************************************************************************/

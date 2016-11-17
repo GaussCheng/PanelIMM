@@ -3,7 +3,7 @@ import "../../styles/style.js" as Style
 import "../../ICCustomElement"
 
 Image {
-    property bool isOn: false
+    property bool isOn
     property string onImg: ""
     property string offImg: ""
     property string bindStatus: ""

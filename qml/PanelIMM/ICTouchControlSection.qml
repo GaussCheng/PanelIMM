@@ -2,6 +2,8 @@ import QtQuick 1.1
 import "../styles/style.js" as Style
 import "../ICCustomElement"
 import "immcustomitems"
+import "ICTouchControlSection.js" as PData
+import "configs/MacroDefine.js" as MacroDefine
 
 Rectangle {
     id:instance
@@ -640,12 +642,21 @@ Rectangle {
             text: qsTr("Alarm\nClear")
             width: alarmHistory.width
             height: alarmHistory.height
+            onButtonClicked: {
+                panelController.posKeyEvent(Qt.Key_F6, "");
+            }
         }
         ICIMMButton{
             id:showAlarm
             text: qsTr("Show\nAlarm")
             width: alarmHistory.width
             height: alarmHistory.height
+            property bool isDebug: false
+            onButtonClicked: {
+                isDebug = !isDebug;
+                panelController.setCommunicateDebug(isDebug);
+                panelController.setEth0Enable(isDebug, 0, "192.168.10.201", "192.168.10.197", 9999);
+            }
         }
     }
 
@@ -654,19 +665,61 @@ Rectangle {
         anchors.left: immModeBG.left
         anchors.top: immModeBG.bottom
         spacing: 1
-        ICIMMButton{
+        state: "manual"
+        states: [
+            State {
+                name: "manual"
+                PropertyChanges { target: modeManualBtn;color:"lime";}
+            },
+            State {
+                name: "semiAuto"
+                PropertyChanges { target: modeSemiAutoBtn;color:"lime";}
+            },
+            State {
+                name: "auto"
+                PropertyChanges { target: modeAuto;color:"lime";}
+            },
+            State {
+                name: "autoRun"
+                PropertyChanges { target: modeAuto;color:"lime";}
+                PropertyChanges { target: modeAutoRun;color:"lime";}
+            }
+        ]
+
+        ICIMMLabel{
             id:modeCloseBtn
-            text: qsTr("Close")
+            text: qsTr("Motor off")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight + 1
-            bgColor: Style.touchControlSection.modeSwicherContainer.btnBG
+            color: "red"
+            states: [
+                State {
+                    name: "on"
+                    PropertyChanges {
+                        target: modeCloseBtn
+                        text:qsTr("Motor On")
+                        color:"lime"
+                    }
+                }
+            ]
         }
         ICIMMLabel{
             id:modePrepareBtn
-            text: qsTr("Prepare")
+            text: qsTr("Heat Off")
             width: Style.touchControlSection.modeSwicherContainer.btnWidth
             height: Style.touchControlSection.modeSwicherContainer.btnHeight
             color: Style.touchControlSection.modeSwicherContainer.btnBG
+            state: "off"
+            states: [
+                State {
+                    name: "on"
+                    PropertyChanges {
+                        target: modePrepareBtn
+                        text:qsTr("Heat On")
+                        color:"gold"
+                    }
+                }
+            ]
         }
         ICIMMLabel{
             id:modeManualBtn
@@ -804,6 +857,32 @@ Rectangle {
         for(var i = 0, len = c.length; i < len; ++i){
             if(c[i].hasOwnProperty("isChecked"))
                 funcMenuItemGroup.addButton(c[i]);
+        }
+    }
+    Timer{
+        id:refreshTimer
+        running: true
+        repeat: true
+        interval: 50
+        onTriggered: {
+            modeCloseBtn.state = panelController.statusValue("c_ro_25_1_0_1537") ? "on" : "" ;
+            modePrepareBtn.state = panelController.statusValue("c_ro_15_1_0_1537") ? "on" : "";
+            var mode = panelController.statusValue("c_ro_0_4_0_1537");
+            if(PData.oldMode !== mode){
+                PData.oldMode = mode;
+                if(mode == MacroDefine.RunningMode.kMode_Manual)
+                    modeSwicherContainer.state = "manual";
+                else if(mode == MacroDefine.RunningMode.kMode_SemiAuto)
+                    modeSwicherContainer.state = "semiAuto";
+                else if(mode == MacroDefine.RunningMode.kMode_Auto){
+                    if(panelController.statusValue("c_ro_12_1_0_1537"))
+                        modeSwicherContainer.state = "autoRun";
+                    else
+                        modeSwicherContainer.state = "auto";
+                }
+            }
+
+
         }
     }
 }

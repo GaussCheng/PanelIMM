@@ -288,7 +288,7 @@ ICIMMFunctionPageBase {
             panelController.setKeyTone(keyToneOn.isChecked);
 
 
-            var brightnessval = panelController.getCustomSettings("Brightness", 8);
+            var brightnessval = panelController.getCustomSettings("Brightness", 7);
             brightness.setValue(brightnessval);
             panelController.setBrightness(brightness.value());
 

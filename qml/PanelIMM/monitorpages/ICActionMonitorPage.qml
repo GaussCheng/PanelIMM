@@ -24,27 +24,29 @@ Item {
 
             ICIMMText{text: qsTr("DM.PRES")}
             ICIMMStatusWidget{
-//                id:c_ro_0_16_1_1579
-//                bindStatus: "c_ro_0_16_1_1579"
+                id:c_ro_0_16_0_1555
+                bindStatus: "c_ro_0_16_0_1555"
             }
             ICIMMText{text: qsTr("bar")}
             ICIMMText{text: "    "}
             ICIMMText{text: qsTr("EJE.PRES")}
             ICIMMStatusWidget{
-//                id:c_ro_0_32_2_1541
-//                bindStatus: "c_ro_0_32_2_1541"
+                id:c_ro_16_16_0_1555
+                bindStatus: "c_ro_16_16_0_1555"
             }
             ICIMMText{text: qsTr("bar")}
 
             ICIMMText{text: qsTr("DM.SPE")}
             ICIMMStatusWidget{
+                id:c_ro_0_16_0_1561
+                bindStatus: "c_ro_0_16_0_1561"
             }
             ICIMMText{text: qsTr("%")}
             ICIMMText{text: "    "}
             ICIMMText{text: qsTr("EJE.SPE")}
             ICIMMStatusWidget{
-//                id:c_ro_0_32_2_1544
-//                bindStatus: "c_ro_0_32_2_1544"
+                id:c_ro_16_16_0_1561
+                bindStatus: "c_ro_16_16_0_1561"
             }
             ICIMMText{text: qsTr("%")}
 
@@ -64,23 +66,29 @@ Item {
 
             ICIMMText{text: qsTr("INJ.PRES")}
             ICIMMStatusWidget{
+                id:c_ro_0_16_0_1556
+                bindStatus: "c_ro_0_16_0_1556"
             }
             ICIMMText{text: qsTr("bar")}
             ICIMMText{text: "    "}
             ICIMMText{text: qsTr("NOZ.PRES")}
             ICIMMStatusWidget{
-
+                id:c_ro_16_16_0_1556
+                bindStatus: "c_ro_16_16_0_1556"
             }
             ICIMMText{text: qsTr("bar")}
 
             ICIMMText{text: qsTr("INJ.SPE")}
             ICIMMStatusWidget{
-
+                id:c_ro_0_16_0_1562
+                bindStatus: "c_ro_0_16_0_1562"
             }
             ICIMMText{text: qsTr("%")}
             ICIMMText{text: "    "}
             ICIMMText{text: qsTr("NOZ.SPE")}
             ICIMMStatusWidget{
+                id:c_ro_16_16_0_1562
+                bindStatus: "c_ro_16_16_0_1562"
             }
             ICIMMText{text: qsTr("%")}
         }

@@ -2,7 +2,8 @@
 var status = [];
 function deepFindStatus(item){
     if(item.hasOwnProperty("bindStatus")){
-        status.push(item);
+        if(item.bindStatus !== "")
+            status.push(item);
         return;
     }
     var itemChildren = item.children;

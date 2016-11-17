@@ -95,9 +95,9 @@ ICEditableItemBase {
                     onClicked: {
                         if(view.currentIndex != index){
                             view.currentIndex = index;
+                            currentIndex = index;
                             editFinished();
                         }
-                        currentIndex = index;
                         container.z = innerZ;
                         itemContainer.visible = false
                     }

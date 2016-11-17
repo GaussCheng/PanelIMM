@@ -8,6 +8,30 @@ ICIMMFunctionPageBase {
         anchors.bottom: parent.bottom
         width: parent.width
         height: parent.height - 44 * Style.hRatio
+        ICStatusWidget{
+            id:heatSegStatus
+            bindStatus: "c_ro_16_8_0_1537"
+            visible: false
+            property bool isSeg0On: false
+            property bool isSeg1On: false
+            property bool isSeg2On: false
+            property bool isSeg3On: false
+            property bool isSeg4On: false
+            property bool isSeg5On: false
+            property bool isSeg6On: false
+            onTextChanged: {
+                var v = parseInt(text);
+                isSeg0On = v & 1;
+                isSeg1On = (v >> 1 ) & 1;
+                isSeg2On = (v >> 2 ) & 1;
+                isSeg3On = (v >> 3 ) & 1;
+                isSeg4On = (v >> 4 ) & 1;
+                isSeg5On = (v >> 5 ) & 1;
+                isSeg6On = (v >> 6 ) & 1;
+
+            }
+        }
+
         Image {
             id: machineDesk
             source: "../images/machine_desk.png"
@@ -115,54 +139,59 @@ ICIMMFunctionPageBase {
                     id:heatStatusSeg0
                     onImg: "../images/heat-seg0.png"
                     offImg: "../images/cool-seg0.png"
-                    isOn: true
-                    bindStatus: "c_ro_0_16_1_1560"
+                    isOn: heatSegStatus.isSeg0On
+                    bindStatus: "c_ro_0_16_1_1576"
                 }
                 ICIMMTwoStatusWidget{
                     id:heatStatusSeg1
                     onImg: "../images/heat-segn.png"
                     offImg: "../images/cool-segn.png"
-                    bindStatus: "c_ro_16_16_1_1560"
+                    isOn: heatSegStatus.isSeg1On
+                    bindStatus: "c_ro_16_16_1_1576"
 
                 }
                 ICIMMTwoStatusWidget{
                     id:heatStatusSeg2
                     onImg: heatStatusSeg1.onImg
                     offImg: heatStatusSeg1.offImg
-                    isOn: true
-                    bindStatus: "c_ro_0_16_1_1561"
+                    isOn: heatSegStatus.isSeg2On
+                    bindStatus: "c_ro_0_16_1_1577"
 
                 }
                 ICIMMTwoStatusWidget{
                     id:heatStatusSeg3
                     onImg: heatStatusSeg1.onImg
                     offImg: heatStatusSeg1.offImg
-                    bindStatus: "c_ro_16_16_1_1561"
+                    isOn: heatSegStatus.isSeg3On
+                    bindStatus: "c_ro_16_16_1_1577"
 
                 }
                 ICIMMTwoStatusWidget{
                     id:heatStatusSeg4
                     onImg: heatStatusSeg1.onImg
                     offImg: heatStatusSeg1.offImg
-                    bindStatus: "c_ro_0_16_1_1562"
+                    isOn: heatSegStatus.isSeg4On
+                    bindStatus: "c_ro_0_16_1_1578"
 
                 }
                 ICIMMTwoStatusWidget{
                     id:heatStatusSeg5
                     onImg: heatStatusSeg1.onImg
                     offImg: heatStatusSeg1.offImg
-                    bindStatus: "c_ro_16_16_1_1562"
+                    isOn: heatSegStatus.isSeg5On
+                    bindStatus: "c_ro_16_16_1_1578"
 
                 }
                 ICIMMTwoStatusWidget{
                     id:heatStatusSeg6
                     onImg: heatStatusSeg1.onImg
                     offImg: heatStatusSeg1.offImg
-                    bindStatus: "c_ro_0_16_1_1563"
+                    isOn: heatSegStatus.isSeg6On
+                    bindStatus: "c_ro_0_16_1_1579"
 
                 }
             }
-            Item{
+            ICSettingConfigsScope{
                 height: heatSeg0Setting.height
                 width: heatStatusContainer.width
                 ICIMMLineEdit{
@@ -172,6 +201,8 @@ ICIMMFunctionPageBase {
                     height: 16
                     border.color: "white"
                     x:heatStatusSeg0.x + 2
+                    configAddr: "m_rw_0_16_0_462"
+
                 }
                 ICIMMLineEdit{
                     id:heatSeg1Setting
@@ -180,6 +211,7 @@ ICIMMFunctionPageBase {
                     height: heatSeg0Setting.height
                     border.color: "white"
                     x:heatStatusSeg1.x + 2
+                    configAddr: "m_rw_16_16_0_462"
 
                 }
                 ICIMMLineEdit{
@@ -189,6 +221,7 @@ ICIMMFunctionPageBase {
                     height: heatSeg0Setting.height
                     border.color: heatSeg1Setting.border.color
                     x:heatStatusSeg2.x + 2
+                    configAddr: "m_rw_0_16_0_463"
 
                 }
                 ICIMMLineEdit{
@@ -198,6 +231,7 @@ ICIMMFunctionPageBase {
                     height: heatSeg0Setting.height
                     border.color: heatSeg1Setting.border.color
                     x:heatStatusSeg3.x + 2
+                    configAddr: "m_rw_16_16_0_463"
 
                 }
                 ICIMMLineEdit{
@@ -207,6 +241,7 @@ ICIMMFunctionPageBase {
                     height: heatSeg0Setting.height
                     border.color: heatSeg1Setting.border.color
                     x:heatStatusSeg4.x + 2
+                    configAddr: "m_rw_0_16_0_464"
 
                 }
                 ICIMMLineEdit{
@@ -216,6 +251,7 @@ ICIMMFunctionPageBase {
                     height: heatSeg0Setting.height
                     border.color: heatSeg1Setting.border.color
                     x:heatStatusSeg5.x + 2
+                    configAddr: "m_rw_16_16_0_464"
 
                 }
                 ICIMMLineEdit{
@@ -225,6 +261,7 @@ ICIMMFunctionPageBase {
                     height: heatSeg0Setting.height
                     border.color: heatSeg1Setting.border.color
                     x:heatStatusSeg6.x + 2
+                    configAddr: "m_rw_0_16_0_465"
 
                 }
             }

@@ -1,4 +1,5 @@
 #include "icparameterscache.h"
+#include <qmath.h>
 
 //QHash<uint, quint32> ICParametersCache::configsCache_;
 //QHash<uint, QVariant> ICParametersCache::localStatusCache_;

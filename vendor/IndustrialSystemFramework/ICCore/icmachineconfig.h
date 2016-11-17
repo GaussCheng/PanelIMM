@@ -39,6 +39,12 @@ public:
         return configCache_.ConfigValue(addr);
     }
 
+    quint32 BaseMachineConfig(ICAddrWrapperCPTR addr, quint32 updateV)
+    {
+        configCache_.UpdateConfigValue(addr, updateV);
+        return configCache_.OriginConfigValue(addr);
+    }
+
     QList<QPair<int, quint32> > SetMachineConfigs(const ICAddrWrapperValuePairList values);
 
     QList<QPair<int, quint32> > BareMachineConfigs() const;

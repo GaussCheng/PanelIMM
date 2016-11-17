@@ -17,7 +17,7 @@ Rectangle {
     height: Math.max(descr.height, shrink.height) + (container.border.width * 2)
     Row{
         id:errTextContainer
-        height: parent.height - parent.parent.border.width * 6
+        height: parent.height - parent.border.width * 6
         anchors.verticalCenter : parent.verticalCenter
         spacing: 4
 //        Text {

@@ -40,10 +40,28 @@ var ACTION_MOLDCLEAR = aHelper++; //< 模数归零
 var ACTION_CONFIRMATION_ALARM = aHelper++; //< 警报确认
 
 var keyToAction = (function(){
-    var ret = {};
-    for(var i = 0; i < aHelper; ++i){
-        ret[0x01000030 + i] = i;
-    }
+    var ret = {
+        0x01000030:ACTION_MANUAL,
+        0x01000031:ACTION_SEMI_AUTO,
+        0x01000032:ACTION_AUTO,
+        0x01000033:ACTION_MOTOR_RUN,
+        0x01000034:ACTION_HEAT,
+        0x01000035:ACTION_CONFIRMATION_ALARM,
+        0x01000036:ACTION_CHARGE,
+        0x01000037:ACTION_AUTO_RUN,
+        0x01000038:ACTION_MOLD_OPEN,
+        0x01000039:ACTION_MOLD_CLOSE,
+        0x0100003A:ACTION_NOZZLE_ADV,
+        0x0100003B:ACTION_NOZZLE_RET,
+        0x0100003C:ACTION_EJECT_RET,
+        0x0100003D:ACTION_EJECT_ADV,
+        0x0100003E:ACTION_INJECT_IN,
+        0x0100003F:ACTION_INJECT_BACK,
+        0x01000040:ACTION_INJECT_BACK,
+        0x01000041:ACTION_CHARGE,
+        0x01000042:ACTION_MANUAL,
+
+    };
     return ret;
 }());
 

@@ -10,7 +10,7 @@ import "main.js" as PData
 import "configs/ActionDefine.js" as ActionDefine
 import "monitorpages/ICCraftsLog.js" as CraftsLog
 
-Rectangle {
+FocusScope {
     id:mainWindow
     width: Style.mainWindow.rect.width
     height: Style.mainWindow.rect.height
@@ -394,6 +394,14 @@ Rectangle {
     }
 
     Component.onCompleted: {
+        panelController.setScreenSaverTime(panelController.getCustomSettings("ScreensaverTime", 5));
+        panelController.screenSave.connect(function(){
+            panelController.closeBacklight();
+            loginDialog.setTologout();
+        });
+        panelController.screenRestore.connect(function(){
+            panelController.setBrightness(panelController.getCustomSettings("Brightness", 8));
+        });
         PData.funcPageManager.init(normalMonitorPagesContainer, detailPagesContainer, mainWindow);
         PData.convenientMonitorManager.init(convenientMonitorPagesContainer);
         panelController.moldChanged.connect(moldName.onMoldChanged);
@@ -401,13 +409,11 @@ Rectangle {
         PData.convenientMonitorManager.showMonitor(detailMenuSection.onF9Triggered());
         PData.mainWindow = mainWindow;
         touchControlSection.init();
-
-
-
+        mainWindow.focus = true;
     }
     focus: true
     Keys.onPressed: {
-        console.log("pressed:",ActionDefine.getActionFromKey(event.key));
+        console.log("pressed:",ActionDefine.getActionFromKey(event.key), event.key.toString(16));
         panelController.sendKeyCommand(ActionDefine.getActionFromKey(event.key));
     }
     Keys.onReleased: {

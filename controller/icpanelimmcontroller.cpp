@@ -19,7 +19,7 @@ ICPanelIMMController::ICPanelIMMController(QSplashScreen* splash, ICLog* logger,
     mold_.reset(new ICIMMMold());
     machineConfigs_.reset(new ICMachineConfig());
     host_ = ICVirtualHostManager::GetVirtualHost<ICInjectionMachineHost>(1);
-    host_->SetCommunicateDebug(false);
+//    host_->SetCommunicateDebug(true);
     ICAppSettings settings;
     QString uiMain = settings.UIMainName();
 
@@ -251,9 +251,9 @@ QString ICPanelIMMController::newRecord(const QString &name, const QString &defa
 }
 
 static ICAddrWrapperList tempAddrs =
-        ICAddrWrapperList()<<&c_ro_0_16_1_1570<<&c_ro_16_16_1_1570<<&c_ro_0_16_1_1571
-                          <<&c_ro_16_16_1_1571<<&c_ro_0_16_1_1572<<&c_ro_16_16_1_1572
-                         <<&c_ro_0_16_1_1573<<&c_ro_16_16_1_1573;
+        ICAddrWrapperList()<<&c_ro_0_16_1_1576<<&c_ro_16_16_1_1576<<&c_ro_0_16_1_1577
+                          <<&c_ro_16_16_1_1577<<&c_ro_0_16_1_1578<<&c_ro_16_16_1_1578
+                         <<&c_ro_0_16_1_1579<<&c_ro_16_16_1_1579;
 
 void ICPanelIMMController::TemperatureSampling()
 {
@@ -405,7 +405,7 @@ void ICPanelIMMController::Seg2To7FuzzyPID()
             //            ICAddrWrapper::UpdateBaseAddrValue(pAddrs_.at(i), temp, &baseV);
             ICInjectionMachineHost::AddWriteConfigCommunicationFrame(host_,
                                                                      pAddrs_.at(i)->BaseAddr(),
-                                                                     machineConfigs_->MachineConfig(pAddrs_.at(i), temp));
+                                                                     machineConfigs_->BaseMachineConfig(pAddrs_.at(i), temp));
             fuzzyController_.SetFuzzyRules(&iRules_);
             //            temp = fuzzyController_.CalOutput(lastErr, dErr) * 1000 / piFactor;
             temp = qCeil(fuzzyController_.CalOutput(lastErr, dErr) * 3 * itermFactors_[i + 1]);
@@ -413,7 +413,7 @@ void ICPanelIMMController::Seg2To7FuzzyPID()
             //            ICAddrWrapper::UpdateBaseAddrValue(iAddrs_.at(i), temp, &baseV);
             ICInjectionMachineHost::AddWriteConfigCommunicationFrame(host_,
                                                                      iAddrs_.at(i)->BaseAddr(),
-                                                                     machineConfigs_->MachineConfig(iAddrs_.at(i),temp));
+                                                                     machineConfigs_->BaseMachineConfig(iAddrs_.at(i),temp));
             qDebug()<<"I"<<i + 1<<":"<<temp;
             fuzzyController_.SetFuzzyRules(&dRules_);
             temp = fuzzyController_.CalOutput(lastErr, dErr) * 50000;
@@ -421,7 +421,7 @@ void ICPanelIMMController::Seg2To7FuzzyPID()
             //            ICAddrWrapper::UpdateBaseAddrValue(dAddrs_.at(i), temp, &baseV);
             ICInjectionMachineHost::AddWriteConfigCommunicationFrame(host_,
                                                                      dAddrs_.at(i)->BaseAddr(),
-                                                                     machineConfigs_->MachineConfig(dAddrs_.at(i), temp));
+                                                                     machineConfigs_->BaseMachineConfig(dAddrs_.at(i), temp));
             qDebug()<<"D"<<i + 1<<":"<<temp;
 
         }
