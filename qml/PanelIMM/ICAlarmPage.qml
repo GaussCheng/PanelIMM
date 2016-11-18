@@ -22,9 +22,9 @@ Rectangle {
         var i, len;
         var als = [];
 
-        console.log("sec1", errs);
+//        console.log("sec1", errs);
         resolvedAlarms();
-        console.log("sec2");
+//        console.log("sec2");
 
         for(i = 0, len = es.length; i < len; ++i){
             if(es[i] == '1'){
@@ -33,7 +33,7 @@ Rectangle {
             }
         }
         currentAlarms = als;
-        console.log("sec3", errs);
+//        console.log("sec3", errs);
     }
 
     function appendAlarm(errNum){

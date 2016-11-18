@@ -27,7 +27,6 @@ public:
 
     Q_INVOKABLE bool statusRefreshed() const { return cycleFlag_;}
     Q_INVOKABLE void setCommunicateDebug(bool en) { host_->SetCommunicateDebug(en);}
-    Q_INVOKABLE bool isHostHeating() const { }
 signals:
 
 public slots:

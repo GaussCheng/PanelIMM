@@ -5,6 +5,7 @@
 //#include "qwt_plot_canvas.h"
 //#include "qwt_plot_layout.h"
 //#include "qwt_scale_widget.h"
+#include "qwt_legend.h"
 #include "qwt_curve_fitter.h"
 
 
@@ -33,6 +34,11 @@ ICTemperatureCurve::ICTemperatureCurve(QGraphicsItem *parent):
         curves_[i]->SetLineWidth(2);
         curves_[i]->setCurveFitter(new QwtWeedingCurveFitter());
     }
+    QwtLegend *legend = new QwtLegend;
+    legend->setDefaultItemMode( QwtLegendData::Checkable );//图例可被点击
+    legend->setMaxColumns(2);
+//    plot_->insertLegend( legend, QwtPlot::RightLegend );
+    connect(legend, SIGNAL(checked(QVariant,bool,int)), SLOT(onLegendToggled(QVariant,bool,int)));
 }
 
 void ICTemperatureCurve::timerEvent(QTimerEvent *e)
@@ -99,10 +105,32 @@ QString ICTemperatureCurve::curveVisible() const
 
 void ICTemperatureCurve::setCurveVisible(const QString &bitStatus)
 {
-    int c = qMin(segEns_.count(), bitStatus.size());
-    for(int i = 0; i < c; ++i)
+//    int c = qMin(currentTempSeg_, qMin(segEns_.count(), bitStatus.size()));
+    for(int i = 0; i < CURVES_COUNT; ++i)
     {
-        segEns_.setBit(i, bitStatus.at(i) == '1');
+        if(bitStatus.size() > i)
+            segEns_.setBit(i, bitStatus.at(i) == '1');
         curves_[i]->setVisible(segEns_.at(i));
     }
+}
+
+void ICTemperatureCurve::setSeg(int seg)
+{
+    currentTempSeg_ = seg;
+//    QwtLegend *l = qobject_cast<QwtLegend*>(plot_->legend());
+//    for(int i = 0; i < seg; ++i)
+//    {
+//        l->legendWidget(plot_->itemToInfo(curves_[i]))->show();
+//    }
+//    for(int i = seg; i < CURVES_COUNT - 1; ++i)
+//    {
+//        l->legendWidget(plot_->itemToInfo(curves_[i]))->hide();
+//    }
+    setCurveVisible(curveVisible());
+}
+
+
+void ICTemperatureCurve::onLegendToggled(const QVariant &itemInfo, bool on, int index)
+{
+    plot_->infoToItem(itemInfo)->setVisible(!on);
 }

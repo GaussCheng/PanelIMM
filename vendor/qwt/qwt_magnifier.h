@@ -42,25 +42,25 @@ public:
     void setMouseFactor( double );
     double mouseFactor() const;
 
-    void setMouseButton( int button, int buttonState = Qt::NoButton );
-    void getMouseButton( int &button, int &buttonState ) const;
+    void setMouseButton( Qt::MouseButton, Qt::KeyboardModifiers = Qt::NoModifier );
+    void getMouseButton( Qt::MouseButton &, Qt::KeyboardModifiers & ) const;
 
     // mouse wheel
     void setWheelFactor( double );
     double wheelFactor() const;
 
-    void setWheelButtonState( int buttonState );
-    int wheelButtonState() const;
+    void setWheelModifiers( Qt::KeyboardModifiers );
+    Qt::KeyboardModifiers wheelModifiers() const;
 
     // keyboard
     void setKeyFactor( double );
     double keyFactor() const;
 
-    void setZoomInKey( int key, int modifiers );
-    void getZoomInKey( int &key, int &modifiers ) const;
+    void setZoomInKey( int key, Qt::KeyboardModifiers = Qt::NoModifier );
+    void getZoomInKey( int &key, Qt::KeyboardModifiers & ) const;
 
-    void setZoomOutKey( int key, int modifiers );
-    void getZoomOutKey( int &key, int &modifiers ) const;
+    void setZoomOutKey( int key, Qt::KeyboardModifiers = Qt::NoModifier );
+    void getZoomOutKey( int &key, Qt::KeyboardModifiers & ) const;
 
     virtual bool eventFilter( QObject *, QEvent * );
 
@@ -70,14 +70,11 @@ protected:
        \param factor Scale factor
      */
     virtual void rescale( double factor ) = 0;
-#ifndef QT_NO_QWS_MOUSE
+
     virtual void widgetMousePressEvent( QMouseEvent * );
     virtual void widgetMouseReleaseEvent( QMouseEvent * );
     virtual void widgetMouseMoveEvent( QMouseEvent * );
-#ifndef QT_NO_WHEELEVENT
     virtual void widgetWheelEvent( QWheelEvent * );
-#endif
-#endif
     virtual void widgetKeyPressEvent( QKeyEvent * );
     virtual void widgetKeyReleaseEvent( QKeyEvent * );
 

@@ -6,6 +6,7 @@ import "../../utils/utils.js" as Utils
 Rectangle{
     id:temperatureCurveContainer
     property bool isZoomIn: false
+    property int temperatureSeg: 8
     function zoomIn(toParent){
         color = "gray";
         curvesSelContainer.visible = true;
@@ -13,7 +14,7 @@ Rectangle{
         temperatureCurveContainer.parent = toParent;
         width = toParent.width;
         height = width * 0.55;
-        temperatureCurve.width = width;
+        temperatureCurve.width = width - curvesSelContainer.width - 8;
         temperatureCurve.height = height * 0.8;
         temperatureCurve.y = axisConfigContainer.y + axisConfigContainer.height + 6;
         zoomInBtn.text = "-";
@@ -35,10 +36,12 @@ Rectangle{
 
     }
 
-    Row{
+    Column{
         id:curvesSelContainer
         visible: false
-        spacing: 6
+        spacing: 2
+        anchors.right: parent.right
+        anchors.rightMargin: 4
         function changeCurveVisible(){
             var status = "";
             status += seg0.isChecked ? "1" : "0";
@@ -120,8 +123,8 @@ Rectangle{
     }
     Row{
         id:axisConfigContainer
-        anchors.top: curvesSelContainer.bottom
-        anchors.topMargin: 6
+        anchors.top: curvesSelContainer.top
+        anchors.topMargin: 12
         visible: false
         spacing: 6
         function changeYAxisScale(){
@@ -161,7 +164,7 @@ Rectangle{
 
     ICTemperatureCurve {
         id: temperatureCurve
-        width: parent.width
+        width: parent.width - curvesSelContainer.width - 8
         height: parent.height
         color:parent.color
         titleFont.pixelSize: 10
@@ -171,10 +174,10 @@ Rectangle{
         canvasBackground:"#242424"
         majColor:"white"
         startUpTime: Utils.formatDate(new Date, "hh:mm:ss")
-
+        seg:temperatureSeg
         xAxisTimeScaleEn:true
         timeRange:20
-        curveVisible:"00100000"
+        curveVisible:"00000001"
         Component.onCompleted: {
             setYAxisScale(0, 600, 100);
         }

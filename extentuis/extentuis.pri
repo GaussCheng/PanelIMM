@@ -1,3 +1,4 @@
+include(../vendor/qwt/qwtconfig.pri)
 include(../vendor/qwt/qwt.pri)
 include(icplots/icplots.pri)
 INCLUDEPATH += $$PWD

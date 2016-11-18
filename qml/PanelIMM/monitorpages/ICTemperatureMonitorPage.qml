@@ -10,6 +10,8 @@ Rectangle {
     onVisibleChanged: {
         if(!visible)
             temperatureCurveContainer.zoomOut(instance);
+        else
+            temperatureCurveContainer.temperatureSeg = panelController.getConfigValue("s_rw_26_4_0_485");
     }
 
     ICIMMTemperatureCurves{

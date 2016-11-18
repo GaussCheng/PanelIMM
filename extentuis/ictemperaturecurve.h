@@ -11,6 +11,7 @@ class ICTemperatureCurve : public ICAxis
     Q_OBJECT
     Q_PROPERTY(int timeRange READ timeRange WRITE setTimeRange)
     Q_PROPERTY(QString curveVisible READ curveVisible WRITE setCurveVisible)
+    Q_PROPERTY(int  seg READ seg WRITE setSeg)
 
 public:
     ICTemperatureCurve(QGraphicsItem *parent = 0);
@@ -19,12 +20,17 @@ public:
     void setTimeRange(int range);
     QString curveVisible() const;
     void setCurveVisible(const QString& bitStatus);
+    int seg() const { return currentTempSeg_;}
+    void setSeg(int seg);
 
 
 protected:
     void showEvent(QShowEvent* e);
     void hideEvent(QHideEvent* e);
     void timerEvent(QTimerEvent *e);
+
+private slots:
+    void onLegendToggled(const QVariant &itemInfo, bool on, int index);
 
 private:
     QVector<QColor> curveColors_;
